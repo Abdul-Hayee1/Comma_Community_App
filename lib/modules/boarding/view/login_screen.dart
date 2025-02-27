@@ -1,8 +1,8 @@
-import 'package:comma_community_app/screens/components/my_button.dart';
-import 'package:comma_community_app/screens/components/my_textfield.dart';
-import 'package:comma_community_app/screens/components/socials_button.dart';
-import 'package:comma_community_app/screens/signup_screen.dart';
-import 'package:comma_community_app/screens/welcome_Screen.dart';
+import 'package:comma_community_app/widgets/my_button.dart';
+import 'package:comma_community_app/widgets/my_textfield.dart';
+import 'package:comma_community_app/widgets/socials_button.dart';
+import 'package:comma_community_app/modules/boarding/view/signup_screen.dart';
+import 'package:comma_community_app/modules/boarding/view/welcome_Screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {

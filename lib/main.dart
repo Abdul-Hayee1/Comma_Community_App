@@ -1,7 +1,5 @@
-import 'package:comma_community_app/screens/login_screen.dart';
+import 'package:comma_community_app/modules/boarding/view/login_screen.dart';
 import 'package:flutter/material.dart';
-
-// testing
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +12,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Hayee App 5',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
