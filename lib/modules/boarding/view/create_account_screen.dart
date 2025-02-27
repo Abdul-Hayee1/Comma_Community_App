@@ -3,8 +3,8 @@ import 'package:comma_community_app/widgets/my_textfield.dart';
 import 'package:comma_community_app/widgets/socials_button.dart';
 import 'package:flutter/material.dart';
 
-class SignupScreen extends StatelessWidget {
-  SignupScreen({super.key});
+class CreateAccountScreen extends StatelessWidget {
+  CreateAccountScreen({super.key});
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -58,7 +58,7 @@ class SignupScreen extends StatelessWidget {
                 MyButton(
                   hintText: 'Create Account',
                   onPressed: () {
-                    Navigator.pushNamed(context, "/home");
+                    Navigator.pushNamed(context, "/addPhoto");
                   },
                 ),
                 const SizedBox(height: 30),

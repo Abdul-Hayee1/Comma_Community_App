@@ -1,5 +1,6 @@
+import 'package:comma_community_app/modules/boarding/view/add_photo_screen.dart';
 import 'package:comma_community_app/modules/boarding/view/login_screen.dart';
-import 'package:comma_community_app/modules/boarding/view/signup_screen.dart';
+import 'package:comma_community_app/modules/boarding/view/create_account_screen.dart';
 import 'package:comma_community_app/modules/boarding/view/welcome_Screen.dart';
 import 'package:comma_community_app/modules/main/home/view/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +25,9 @@ class App extends StatelessWidget {
       routes: {
         "/": (context) => LoginScreen(),
         "/welcome": (context) => const WelcomeScreen(),
-        "/signUp": (context) => SignupScreen(),
+        "/signUp": (context) => CreateAccountScreen(),
         "/home": (context) => const HomeScreen(),
+        "/addPhoto": (context) => const AddPhotoScreen(),
       },
     );
   }

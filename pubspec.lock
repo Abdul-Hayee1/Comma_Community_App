@@ -89,6 +89,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
+  dashed_circle:
+    dependency: "direct main"
+    description:
+      name: dashed_circle
+      sha256: "26636eb6e90da37464caf02d595ba4ecd38509418b7f224906fe52e1be5c84f8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   fake_async:
     dependency: transitive
     description:
