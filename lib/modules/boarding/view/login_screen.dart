@@ -1,8 +1,6 @@
 import 'package:comma_community_app/widgets/my_button.dart';
 import 'package:comma_community_app/widgets/my_textfield.dart';
 import 'package:comma_community_app/widgets/socials_button.dart';
-import 'package:comma_community_app/modules/boarding/view/signup_screen.dart';
-import 'package:comma_community_app/modules/boarding/view/welcome_Screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -46,26 +44,18 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 15),
-
-                // username textfield
                 MyTextfield(
                   controller: _emailController,
                   hintText: 'Email',
                   obscureText: false,
                 ),
-
                 const SizedBox(height: 8),
-
-                // password textfield
                 MyTextfield(
                   controller: _passwordController,
                   hintText: 'Password',
                   obscureText: true,
                 ),
-
                 const SizedBox(height: 4),
-
-                // forgot password
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 18.0),
                   child: Row(
@@ -78,43 +68,24 @@ class LoginScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 const SizedBox(height: 50),
-
-                // Sign in button
                 MyButton(
                   hintText: 'Sign In',
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => WelcomeScreen(),
-                      ),
-                    );
+                    Navigator.pushNamed(context, "/welcome");
                   },
                 ),
-
                 const SizedBox(height: 30),
-
-                // not a mmeber? Register now
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SignupScreen(),
-                      ),
-                    );
+                    Navigator.pushNamed(context, "/signUp");
                   },
                   child: const Text(
                     'Not a Member? Create Account',
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ),
-
                 const SizedBox(height: 22),
-
-                // Divider Line
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 18.0),
                   child: Row(
@@ -128,9 +99,7 @@ class LoginScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 const SizedBox(height: 25),
-
                 const Row(
                   children: [
                     SizedBox(width: 18),
@@ -140,31 +109,22 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 12),
-
-                // google+ fb + linkedin + apple Sign in buttons
                 const SocialsButton(
                   hintText: 'Sign In with Google',
                   imagePath: 'assets/logos/google_logo.png',
                 ),
-
                 const SizedBox(height: 12),
-
                 const SocialsButton(
                   hintText: 'Sign In with Facebook',
                   imagePath: 'assets/logos/facebook.png',
                 ),
-
                 const SizedBox(height: 12),
-
                 const SocialsButton(
                   hintText: 'Sign In with LinkedIn',
                   imagePath: 'assets/logos/linkedin_logo.png',
                 ),
-
                 const SizedBox(height: 12),
-
                 const SocialsButton(
                   hintText: 'Sign In with Apple',
                   imagePath: 'assets/logos/apple_logo.png',

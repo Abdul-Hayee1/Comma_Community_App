@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// padding needs to be added on the sides of 18 yet..
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
@@ -14,27 +13,17 @@ class WelcomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: 100),
-
                 Text(
                   'Welcome',
                   style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
-
                 SizedBox(height: 15),
-
-                // User's First Name will be added here dynamically
-
                 SizedBox(height: 150),
-
-                // Buffering Lottie
                 Icon(
                   Icons.lock,
                   color: Colors.white,
                 ),
-
                 SizedBox(height: 250),
-
-                // Some Text
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 18.0),
                   child: Row(
@@ -63,22 +52,11 @@ class WelcomeScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-
-                //Expanded(
-                //child: Divider(),
-                //)
               ],
             ),
           ),
         ),
       ),
-      //bottomNavigationBar: Container(
-      //decoration: const BoxDecoration(
-      //border: Border(
-      //top: BorderSide(color: Colors.white, width: 1),
-      //),
-      //),
-      //),
     );
   }
 }

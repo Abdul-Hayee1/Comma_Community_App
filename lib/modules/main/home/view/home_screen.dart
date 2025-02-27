@@ -1,3 +1,4 @@
+import 'package:comma_community_app/widgets/drawer_item.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -51,10 +52,10 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            _buildDrawerItem(Icons.rss_feed, 'Feed'),
-            _buildDrawerItem(Icons.explore, 'Discovery'),
-            _buildDrawerItem(Icons.group, 'Members'),
-            _buildDrawerItem(Icons.event, 'Events'),
+            DrawerItem(icon: Icons.rss_feed, title: 'Feed'),
+            DrawerItem(icon: Icons.explore, title: 'Discovery'),
+            DrawerItem(icon: Icons.group, title: 'Members'),
+            DrawerItem(icon: Icons.event, title: 'Events'),
             const Divider(color: Colors.grey),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -66,27 +67,14 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            _buildDrawerItem(Icons.waving_hand, 'Welcome!', isBold: true),
+            DrawerItem(
+                icon: Icons.waving_hand, title: 'Welcome!', isBold: true),
             const Divider(color: Colors.grey),
-            _buildDrawerItem(Icons.info_outline, 'See Network Details'),
-            _buildDrawerItem(Icons.settings, 'Personal Settings'),
+            DrawerItem(icon: Icons.info_outline, title: 'See Network Details'),
+            DrawerItem(icon: Icons.settings, title: 'Personal Settings'),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildDrawerItem(IconData icon, String title, {bool isBold = false}) {
-    return ListTile(
-      leading: Icon(icon, color: Colors.white),
-      title: Text(
-        title,
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-        ),
-      ),
-      onTap: () {},
     );
   }
 }

@@ -22,7 +22,6 @@ class SocialsButton extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        //mainAxisSize: MainAxisSize.min, // Shrinks to fit content
         children: [
           Image.asset(
             imagePath,

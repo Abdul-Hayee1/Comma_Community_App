@@ -1,22 +1,32 @@
 import 'package:comma_community_app/modules/boarding/view/login_screen.dart';
+import 'package:comma_community_app/modules/boarding/view/signup_screen.dart';
+import 'package:comma_community_app/modules/boarding/view/welcome_Screen.dart';
+import 'package:comma_community_app/modules/main/home/view/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(
+      child: App(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: LoginScreen(),
+      initialRoute: "/",
+      routes: {
+        "/": (context) => LoginScreen(),
+        "/welcome": (context) => const WelcomeScreen(),
+        "/signUp": (context) => SignupScreen(),
+        "/home": (context) => const HomeScreen(),
+      },
     );
   }
 }

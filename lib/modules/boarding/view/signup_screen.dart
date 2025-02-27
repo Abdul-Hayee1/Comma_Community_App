@@ -1,8 +1,6 @@
 import 'package:comma_community_app/widgets/my_button.dart';
 import 'package:comma_community_app/widgets/my_textfield.dart';
 import 'package:comma_community_app/widgets/socials_button.dart';
-import 'package:comma_community_app/modules/main/home/view/home_screen.dart';
-import 'package:comma_community_app/modules/boarding/view/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -39,66 +37,41 @@ class SignupScreen extends StatelessWidget {
           ],
         ),
       ),
-
       backgroundColor: const Color.fromARGB(255, 20, 24, 33),
-
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
             child: Column(
               children: [
-                // Email Field
                 MyTextfield(
                   controller: _emailController,
                   hintText: 'Email',
                   obscureText: false,
                 ),
-
                 const SizedBox(height: 8),
-
-                // Password Field
                 MyTextfield(
                   controller: _passwordController,
                   hintText: 'Password',
                   obscureText: true,
                 ),
-
                 const SizedBox(height: 50),
-
-                // Create Account Button
                 MyButton(
                   hintText: 'Create Account',
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HomeScreen(),
-                      ),
-                    );
+                    Navigator.pushNamed(context, "/home");
                   },
                 ),
-
                 const SizedBox(height: 30),
-
-                // Already a Member? Sign in
                 InkWell(
                   onTap: () {
-                    Navigator.pop(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginScreen(),
-                      ),
-                    );
+                    Navigator.pop(context);
                   },
                   child: const Text(
                     'Already a Member? Sign in',
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                 ),
-
                 const SizedBox(height: 22),
-
-                // Divider Line
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 18.0),
                   child: Row(
@@ -112,9 +85,7 @@ class SignupScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 const SizedBox(height: 25),
-
                 const Row(
                   children: [
                     SizedBox(width: 18),
@@ -125,29 +96,21 @@ class SignupScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 12),
-
-                // google+ fb + linkedin + apple Sign up buttons
                 const SocialsButton(
                   hintText: 'Sign In with Google',
                   imagePath: 'assets/logos/google_logo.png',
                 ),
-
                 const SizedBox(height: 12),
-
                 const SocialsButton(
                   hintText: 'Sign In with Facebook',
                   imagePath: 'assets/logos/facebook.png',
                 ),
-
                 const SizedBox(height: 12),
-
                 const SocialsButton(
                   hintText: 'Sign In with LinkedIn',
                   imagePath: 'assets/logos/linkedin_logo.png',
                 ),
-
                 const SizedBox(height: 12),
-
                 const SocialsButton(
                   hintText: 'Sign In with Apple',
                   imagePath: 'assets/logos/apple_logo.png',
@@ -157,8 +120,6 @@ class SignupScreen extends StatelessWidget {
           ),
         ),
       ),
-
-      // Bottom Bar
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           border: Border(
