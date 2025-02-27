@@ -35,10 +35,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Comma",
+                          "COMMA",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 16,
                           ),
                         ),
                         Text(
@@ -87,7 +87,9 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                         width: 190,
                         height: 40,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, "/pendingApproval");
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.blue,
                             shape: RoundedRectangleBorder(

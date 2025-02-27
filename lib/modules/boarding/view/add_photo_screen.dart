@@ -35,10 +35,10 @@ class _AddPhotoState extends State<AddPhotoScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Comma',
+                        'COMMA',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
+                          fontSize: 16,
                         ),
                       ),
                       Text(
