@@ -17,17 +17,21 @@ class _AddPhotoState extends State<AddPhotoScreen> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20, top: 60),
+            const Padding(
+              padding: EdgeInsets.only(left: 20, top: 70),
               child: Row(
                 children: [
-                  Image.asset(
-                    "assets/logos/app_logo.jpg",
-                    width: 70,
-                    height: 100,
+                  CircleAvatar(
+                    backgroundColor: Colors.blue,
+                    radius: 24,
+                    child: Icon(
+                      Icons.copyright,
+                      color: Colors.white,
+                      size: 40,
+                    ),
                   ),
-                  const SizedBox(width: 12),
-                  const Column(
+                  SizedBox(width: 12),
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -50,7 +54,7 @@ class _AddPhotoState extends State<AddPhotoScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 100),
+            const SizedBox(height: 120),
             GestureDetector(
               onTap: () {},
               child: DashedCircle(
@@ -140,22 +144,21 @@ class _AddPhotoState extends State<AddPhotoScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  SizedBox(
-                    width: 90,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(7),
-                        ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/questions");
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(7),
                       ),
-                      child: const Text(
-                        'SKIP',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                        ),
+                    ),
+                    child: const Text(
+                      'SKIP',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
                       ),
                     ),
                   ),
