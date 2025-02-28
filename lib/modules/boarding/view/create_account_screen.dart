@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:comma_community_app/widgets/my_button.dart';
 import 'package:comma_community_app/widgets/my_textfield.dart';
 import 'package:comma_community_app/widgets/password_textfield.dart';
@@ -15,13 +17,15 @@ class CreateAccountScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          leading: CircleAvatar(
-            backgroundColor: Colors.blue,
-            radius: 18,
-            child: Icon(
-              Icons.copyright,
-              color: Colors.white,
-              size: 40,
+          leading: const Padding(
+            padding: EdgeInsets.only(left: 16.0),
+            child: CircleAvatar(
+              backgroundColor: Colors.blue,
+              child: Icon(
+                Icons.copyright,
+                color: Colors.white,
+                size: 32,
+              ),
             ),
           ),
           backgroundColor: const Color.fromARGB(255, 20, 24, 33),
@@ -83,7 +87,66 @@ class CreateAccountScreen extends StatelessWidget {
                 hintText: 'Password',
                 obscureText: true,
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 16),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: RichText(
+                  text: const TextSpan(
+                    text: 'By creating an account, I agree to ',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.white,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: 'Comma User Agreement Terms ',
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'and the ',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.white,
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'Terms of Use ',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.white,
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'and ',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.white,
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'Privacy Policy ',
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'of the service provider.',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
               MyButton(
                 hintText: 'Create Account',
                 bgcolor: const Color.fromARGB(255, 70, 78, 185),
@@ -113,11 +176,15 @@ class CreateAccountScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 25),
-              Padding(
-                padding: const EdgeInsets.only(left: 18),
+              const Padding(
+                padding: EdgeInsets.only(left: 18),
                 child: Text(
                   'Or Use',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               const SizedBox(height: 12),
@@ -141,22 +208,24 @@ class CreateAccountScreen extends StatelessWidget {
                 imagePath: 'assets/logos/apple_logo.png',
               ),
               const SizedBox(height: 15),
-              const Divider(
-                color: Colors.grey,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 3),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+              if (Platform.isIOS)
+                const Divider(
+                  color: Colors.grey,
                 ),
-              ),
+              if (Platform.isIOS)
+                Padding(
+                  padding: const EdgeInsets.only(left: 3),
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
             ],
           ),
         ),

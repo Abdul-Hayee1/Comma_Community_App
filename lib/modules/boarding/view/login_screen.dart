@@ -15,13 +15,15 @@ class LoginScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          leading: CircleAvatar(
-            backgroundColor: Colors.blue,
-            radius: 18,
-            child: Icon(
-              Icons.copyright,
-              color: Colors.white,
-              size: 40,
+          leading: const Padding(
+            padding: EdgeInsets.only(left: 16.0),
+            child: CircleAvatar(
+              backgroundColor: Colors.blue,
+              child: Icon(
+                Icons.copyright,
+                color: Colors.white,
+                size: 32,
+              ),
             ),
           ),
           backgroundColor: const Color.fromARGB(255, 20, 24, 33),
@@ -113,7 +115,11 @@ class LoginScreen extends StatelessWidget {
                     SizedBox(width: 18),
                     Text(
                       'Or Use',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),

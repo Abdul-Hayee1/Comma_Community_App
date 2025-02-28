@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class QuestionsScreen extends StatefulWidget {
@@ -65,19 +67,20 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               ),
               Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 3),
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                        size: 30,
+                  if (Platform.isIOS)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 3),
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
                     ),
-                  ),
                   const Spacer(),
                   Padding(
                     padding: const EdgeInsets.only(right: 16, bottom: 7),
@@ -129,6 +132,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             style: const TextStyle(
               color: Colors.white,
               fontSize: 18,
+              fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 7),
@@ -137,7 +141,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             maxLines: 3,
             maxLength: maxLength,
             decoration: InputDecoration(
-              hintText: "Enter your answer here",
+              hintText: "Enter your answer here...",
               hintStyle: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.normal,

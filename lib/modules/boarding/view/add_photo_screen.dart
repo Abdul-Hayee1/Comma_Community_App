@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dashed_circle/dashed_circle.dart';
 
@@ -42,7 +45,7 @@ class _AddPhotoState extends State<AddPhotoScreen> {
                         ),
                       ),
                       Text(
-                        'Add Photo',
+                        'Profile Photo',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -62,8 +65,8 @@ class _AddPhotoState extends State<AddPhotoScreen> {
                 dashes: 25,
                 gapSize: 3,
                 child: Container(
-                  width: 120,
-                  height: 120,
+                  width: 100,
+                  height: 100,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.transparent,
@@ -72,22 +75,33 @@ class _AddPhotoState extends State<AddPhotoScreen> {
                     child: Icon(
                       Icons.add,
                       color: Colors.white,
-                      size: 60,
+                      size: 50,
                     ),
                   ),
                 ),
               ),
             ),
             const SizedBox(height: 12),
-            const Text(
-              'Welcome, John!',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
+            RichText(
+              text: const TextSpan(
+                text: 'Welcome, ',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                ),
+                children: [
+                  TextSpan(
+                    text: 'John!',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
             ),
             const Text(
-              'Improve your profile by uploading a\n photo',
+              'Improve your profile by uploading a\n photo.',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,
@@ -102,8 +116,9 @@ class _AddPhotoState extends State<AddPhotoScreen> {
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF141821),
-                  shape: const RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.white, width: 1),
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(color: Colors.white, width: 1),
+                    borderRadius: BorderRadius.circular(7),
                   ),
                 ),
                 child: const Text(
@@ -144,6 +159,21 @@ class _AddPhotoState extends State<AddPhotoScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  if (Platform.isIOS)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 3),
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ),
+                  const Spacer(),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, "/questions");
