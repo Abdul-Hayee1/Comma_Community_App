@@ -17,12 +17,14 @@ class PendingApprovalScreen extends StatelessWidget {
               child: Row(
                 children: [
                   CircleAvatar(
-                    backgroundColor: Colors.blue,
-                    radius: 24,
-                    child: Icon(
-                      Icons.copyright,
-                      color: Colors.white,
-                      size: 40,
+                    radius: 30,
+                    backgroundColor: Color.fromARGB(255, 5, 35, 60),
+                    child: Image(
+                      image: AssetImage(
+                        'assets/logos/app_logo.png',
+                      ),
+                      width: 70,
+                      height: 70,
                     ),
                   ),
                   SizedBox(width: 12),

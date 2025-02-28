@@ -18,11 +18,14 @@ class LoginScreen extends StatelessWidget {
           leading: const Padding(
             padding: EdgeInsets.only(left: 16.0),
             child: CircleAvatar(
-              backgroundColor: Colors.blue,
-              child: Icon(
-                Icons.copyright,
-                color: Colors.white,
-                size: 32,
+              radius: 30,
+              backgroundColor: Color.fromARGB(255, 5, 35, 60),
+              child: Image(
+                image: AssetImage(
+                  'assets/logos/app_logo.png',
+                ),
+                width: 70,
+                height: 70,
               ),
             ),
           ),
@@ -131,7 +134,7 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(height: 12),
                 const SocialsButton(
                   hintText: 'Sign In with Facebook',
-                  imagePath: 'assets/logos/facebook.png',
+                  imagePath: 'assets/logos/facebook_logo.png',
                 ),
                 const SizedBox(height: 12),
                 const SocialsButton(

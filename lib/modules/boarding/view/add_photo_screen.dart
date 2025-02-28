@@ -25,12 +25,14 @@ class _AddPhotoState extends State<AddPhotoScreen> {
               child: Row(
                 children: [
                   CircleAvatar(
-                    backgroundColor: Colors.blue,
-                    radius: 24,
-                    child: Icon(
-                      Icons.copyright,
-                      color: Colors.white,
-                      size: 40,
+                    radius: 30,
+                    backgroundColor: Color.fromARGB(255, 5, 35, 60),
+                    child: Image(
+                      image: AssetImage(
+                        'assets/logos/app_logo.png',
+                      ),
+                      width: 70,
+                      height: 70,
                     ),
                   ),
                   SizedBox(width: 12),
@@ -179,7 +181,7 @@ class _AddPhotoState extends State<AddPhotoScreen> {
                       Navigator.pushNamed(context, "/questions");
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: const Color.fromARGB(255, 70, 78, 185),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(7),
                       ),

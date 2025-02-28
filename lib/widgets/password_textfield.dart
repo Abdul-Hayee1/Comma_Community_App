@@ -36,6 +36,7 @@ class _MyTextfieldState extends State<PasswordTextfield> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18.0),
       child: TextField(
+        style: const TextStyle(color: Colors.white),
         controller: widget.controller,
         obscureText: _obscureText,
         decoration: InputDecoration(

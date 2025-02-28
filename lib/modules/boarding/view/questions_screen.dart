@@ -24,12 +24,14 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                 child: Row(
                   children: [
                     CircleAvatar(
-                      backgroundColor: Colors.blue,
-                      radius: 24,
-                      child: Icon(
-                        Icons.copyright,
-                        color: Colors.white,
-                        size: 40,
+                      radius: 30,
+                      backgroundColor: Color.fromARGB(255, 5, 35, 60),
+                      child: Image(
+                        image: AssetImage(
+                          'assets/logos/app_logo.png',
+                        ),
+                        width: 70,
+                        height: 70,
                       ),
                     ),
                     SizedBox(width: 12),
@@ -94,7 +96,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                             Navigator.pushNamed(context, "/pendingApproval");
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
+                            backgroundColor:
+                                const Color.fromARGB(255, 70, 78, 185),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(7),
                             ),
@@ -152,11 +155,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                   color: Colors.white,
                 ),
               ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(7),
-                borderSide: const BorderSide(
-                  color: Colors.white,
-                  width: 2,
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Color.fromARGB(255, 59, 76, 170),
+                  width: 2.0,
                 ),
               ),
               filled: true,
