@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 class CreateAccountScreen extends StatelessWidget {
   CreateAccountScreen({super.key});
 
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -60,7 +62,7 @@ class CreateAccountScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: MyTextfield(
-                      controller: _emailController,
+                      controller: _firstNameController,
                       hintText: 'First Name',
                       leftPadding: 18,
                       rightPadding: 3,
@@ -69,7 +71,7 @@ class CreateAccountScreen extends StatelessWidget {
                   const SizedBox(width: 1),
                   Expanded(
                     child: MyTextfield(
-                      controller: _emailController,
+                      controller: _lastNameController,
                       hintText: 'Last Name',
                       leftPadding: 3,
                       rightPadding: 18,
@@ -154,7 +156,10 @@ class CreateAccountScreen extends StatelessWidget {
                 hintText: 'Create Account',
                 bgcolor: const Color.fromARGB(255, 70, 78, 185),
                 onPressed: () {
-                  Navigator.pushNamed(context, "/addPhoto");
+                  FocusScope.of(context).unfocus();
+                  Future.delayed(const Duration(milliseconds: 500), () {
+                    Navigator.pushNamed(context, "/addPhoto");
+                  });
                 },
                 isOutlined: false,
               ),

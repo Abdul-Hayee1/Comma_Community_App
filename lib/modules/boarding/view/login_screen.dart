@@ -84,7 +84,10 @@ class LoginScreen extends StatelessWidget {
                   hintText: 'Sign In',
                   bgcolor: const Color.fromARGB(255, 70, 78, 185),
                   onPressed: () {
-                    Navigator.pushNamed(context, "/welcome");
+                    FocusScope.of(context).unfocus();
+                    Future.delayed(const Duration(milliseconds: 500), () {
+                      Navigator.pushNamed(context, "/welcome");
+                    });
                   },
                   isOutlined: false,
                 ),

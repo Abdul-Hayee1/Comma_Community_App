@@ -93,7 +93,11 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                         height: 40,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, "/pendingApproval");
+                            FocusScope.of(context).unfocus();
+                            Future.delayed(const Duration(milliseconds: 500),
+                                () {
+                              Navigator.pushNamed(context, "/pendingApproval");
+                            });
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
