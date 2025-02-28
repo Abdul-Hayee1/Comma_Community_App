@@ -30,7 +30,7 @@ class StatusScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "COMMA",
+                        "INVITI",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 14,
