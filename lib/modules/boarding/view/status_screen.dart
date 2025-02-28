@@ -1,8 +1,8 @@
 import 'package:comma_community_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 
-class PendingApprovalScreen extends StatelessWidget {
-  const PendingApprovalScreen({super.key});
+class StatusScreen extends StatelessWidget {
+  const StatusScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +13,12 @@ class PendingApprovalScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(
-              padding: EdgeInsets.only(top: 30, left: 16, right: 16),
+              padding: EdgeInsets.only(top: 50, left: 16, right: 16),
               child: Row(
                 children: [
                   CircleAvatar(
                     backgroundColor: Colors.blue,
-                    radius: 24,
+                    radius: 22,
                     child: Icon(
                       Icons.copyright,
                       color: Colors.white,
@@ -33,14 +33,14 @@ class PendingApprovalScreen extends StatelessWidget {
                         "COMMA",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: 14,
                         ),
                       ),
                       Text(
-                        "Pending Approval",
+                        "Welcome, Abdul !",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 20,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -49,45 +49,46 @@ class PendingApprovalScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 25),
             Padding(
-              padding: EdgeInsets.only(left: 16, right: 16),
-              child: Text(
-                'Your Request to join has been sent!',
-                style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(height: 15),
-            Padding(
-              padding: EdgeInsets.only(left: 16, right: 16),
-              child: Text(
-                'We will review your request to join soon. You will receive an email from Inviti if you\'ve been approved, and you can check your approval here at any time.',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                ),
+              padding: const EdgeInsets.only(left: 16),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        'Edit Account',
+                        style: TextStyle(fontSize: 14, color: Colors.grey[400]),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 5),
+                  Row(
+                    children: [
+                      Text(
+                        'Edit Answers',
+                        style: TextStyle(fontSize: 14, color: Colors.grey[400]),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 5),
+                  Row(
+                    children: [
+                      Text(
+                        'Approval Pending',
+                        style: TextStyle(fontSize: 14, color: Colors.grey[400]),
+                      ),
+                    ],
+                  )
+                ],
               ),
             ),
             const Spacer(),
-            const SizedBox(height: 240),
             MyButton(
-              hintText: 'See Status',
-              onPressed: () {
-                Navigator.pushNamed(context, "/status");
-              },
-              bgcolor: const Color.fromARGB(255, 70, 78, 185),
-              isOutlined: false,
-            ),
-            const SizedBox(height: 10),
-            MyButton(
-              hintText: 'Sign Out',
-              onPressed: () {},
-              bgcolor: const Color.fromARGB(255, 20, 24, 33),
-              isOutlined: true,
-            ),
+                hintText: 'Sign Out',
+                onPressed: () {},
+                bgcolor: Colors.black,
+                isOutlined: true),
             const SizedBox(height: 18),
             Center(
               child: RichText(

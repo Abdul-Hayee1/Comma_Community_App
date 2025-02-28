@@ -5,10 +5,14 @@ class MyButton extends StatelessWidget {
     super.key,
     required this.hintText,
     required this.onPressed,
+    required this.bgcolor,
+    required this.isOutlined,
   });
 
   final String hintText;
   final VoidCallback onPressed;
+  final Color bgcolor;
+  final bool isOutlined;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +22,9 @@ class MyButton extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         margin: const EdgeInsets.symmetric(horizontal: 18.0),
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 70, 78, 185),
+          color: isOutlined ? Colors.transparent : bgcolor,
           borderRadius: BorderRadius.circular(4),
+          border: isOutlined ? Border.all(color: Colors.grey) : null,
         ),
         child: Center(
           child: Text(

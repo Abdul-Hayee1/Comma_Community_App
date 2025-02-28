@@ -11,35 +11,39 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: const Icon(
-          Icons.lock,
-          size: 30,
-          color: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: CircleAvatar(
+            backgroundColor: Colors.blue,
+            radius: 18,
+            child: Icon(
+              Icons.copyright,
+              color: Colors.white,
+              size: 40,
+            ),
+          ),
+          backgroundColor: const Color.fromARGB(255, 20, 24, 33),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'INVITI',
+                style: TextStyle(fontSize: 12, color: Colors.grey[300]),
+              ),
+              const Text(
+                'Sign In',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              )
+            ],
+          ),
         ),
         backgroundColor: const Color.fromARGB(255, 20, 24, 33),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'INVITI',
-              style: TextStyle(fontSize: 12, color: Colors.grey[300]),
-            ),
-            const Text(
-              'Sign In',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            )
-          ],
-        ),
-      ),
-      backgroundColor: const Color.fromARGB(255, 20, 24, 33),
-      body: SafeArea(
-        child: SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Center(
             child: Column(
               children: [
@@ -71,9 +75,11 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(height: 50),
                 MyButton(
                   hintText: 'Sign In',
+                  bgcolor: const Color.fromARGB(255, 70, 78, 185),
                   onPressed: () {
                     Navigator.pushNamed(context, "/welcome");
                   },
+                  isOutlined: false,
                 ),
                 const SizedBox(height: 30),
                 InkWell(

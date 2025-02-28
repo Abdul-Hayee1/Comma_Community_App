@@ -3,6 +3,7 @@ import 'package:comma_community_app/modules/boarding/view/login_screen.dart';
 import 'package:comma_community_app/modules/boarding/view/create_account_screen.dart';
 import 'package:comma_community_app/modules/boarding/view/pending_approval_screen.dart';
 import 'package:comma_community_app/modules/boarding/view/questions_screen.dart';
+import 'package:comma_community_app/modules/boarding/view/status_screen.dart';
 import 'package:comma_community_app/modules/boarding/view/welcome_Screen.dart';
 import 'package:comma_community_app/modules/main/home/view/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ class App extends StatelessWidget {
         "/addPhoto": (context) => const AddPhotoScreen(),
         "/questions": (context) => const QuestionsScreen(),
         '/pendingApproval': (context) => const PendingApprovalScreen(),
+        '/status': (context) => const StatusScreen(),
       },
     );
   }
