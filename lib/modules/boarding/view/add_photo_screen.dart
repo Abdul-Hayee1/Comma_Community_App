@@ -35,7 +35,7 @@ class _AddPhotoState extends State<AddPhotoScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'COMMA',
+                        'INVITI',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,

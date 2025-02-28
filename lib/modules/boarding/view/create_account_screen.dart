@@ -1,5 +1,6 @@
 import 'package:comma_community_app/widgets/my_button.dart';
 import 'package:comma_community_app/widgets/my_textfield.dart';
+import 'package:comma_community_app/widgets/password_textfield.dart';
 import 'package:comma_community_app/widgets/socials_button.dart';
 import 'package:flutter/material.dart';
 
@@ -48,13 +49,36 @@ class CreateAccountScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10),
-              MyTextfield(
-                controller: _emailController,
-                hintText: 'Email',
-                obscureText: false,
+              Row(
+                children: [
+                  Expanded(
+                    child: MyTextfield(
+                      controller: _emailController,
+                      hintText: 'First Name',
+                      leftPadding: 18,
+                      rightPadding: 3,
+                    ),
+                  ),
+                  const SizedBox(width: 1),
+                  Expanded(
+                    child: MyTextfield(
+                      controller: _emailController,
+                      hintText: 'Last Name',
+                      leftPadding: 3,
+                      rightPadding: 18,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 8),
               MyTextfield(
+                controller: _emailController,
+                hintText: 'Email',
+                leftPadding: 18,
+                rightPadding: 18,
+              ),
+              const SizedBox(height: 8),
+              PasswordTextfield(
                 controller: _passwordController,
                 hintText: 'Password',
                 obscureText: true,

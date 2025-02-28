@@ -56,6 +56,7 @@ class StatusScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
+                      Icon(Icons.line_style_rounded, color: Colors.blue),
                       Text(
                         'Edit Account',
                         style: TextStyle(fontSize: 14, color: Colors.grey[400]),

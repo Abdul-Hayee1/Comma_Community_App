@@ -1,5 +1,6 @@
 import 'package:comma_community_app/widgets/my_button.dart';
 import 'package:comma_community_app/widgets/my_textfield.dart';
+import 'package:comma_community_app/widgets/password_textfield.dart';
 import 'package:comma_community_app/widgets/socials_button.dart';
 import 'package:flutter/material.dart';
 
@@ -51,10 +52,11 @@ class LoginScreen extends StatelessWidget {
                 MyTextfield(
                   controller: _emailController,
                   hintText: 'Email',
-                  obscureText: false,
+                  leftPadding: 18,
+                  rightPadding: 18,
                 ),
                 const SizedBox(height: 8),
-                MyTextfield(
+                PasswordTextfield(
                   controller: _passwordController,
                   hintText: 'Password',
                   obscureText: true,

@@ -1,25 +1,25 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
-
 import 'package:flutter/material.dart';
 
 class MyTextfield extends StatelessWidget {
   final controller;
   final String hintText;
-  final bool obscureText;
+  final double leftPadding;
+  final double rightPadding;
 
-  const MyTextfield(
-      {super.key,
-      this.controller,
-      required this.hintText,
-      required this.obscureText});
+  const MyTextfield({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    required this.leftPadding,
+    required this.rightPadding,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 18.0),
+      padding: EdgeInsets.only(left: leftPadding, right: rightPadding),
       child: TextField(
         controller: controller,
-        obscureText: obscureText,
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(

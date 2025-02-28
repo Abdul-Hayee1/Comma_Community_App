@@ -35,7 +35,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "COMMA",
+                          "INVITI",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -59,7 +59,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                   "You must be one of the following to join Comma: Medical Doctor (Physician), Dentist, Dental Therapist, Dental Hygienist, Nurse, Midwife, Pharmacist, Paramedic, Physician Associate, Physician Assistant, Anaesthetic Assistant or an Allied Health Professional with a Clinical Background (e.g. Physiotherapist, Radiographer). Please provide your PROFESSION"),
               buildTextField(
                   "Please provide your PROFESSIONAL REGISTRATION NUMBER or MEDICAL IDENTIFICATION NUMBER"),
-              buildTextField("Where did you hear about Comma?"),
+              buildTextField("Where did you hear about Inviti?"),
               const Divider(
                 color: Colors.grey,
               ),
