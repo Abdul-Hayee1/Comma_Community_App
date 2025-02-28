@@ -1,4 +1,5 @@
 import 'package:comma_community_app/widgets/my_button.dart';
+import 'package:flutter_dash/flutter_dash.dart';
 import 'package:flutter/material.dart';
 
 class StatusScreen extends StatelessWidget {
@@ -56,38 +57,70 @@ class StatusScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.line_style_rounded, color: Colors.blue),
+                      Container(
+                        width: 4,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      ),
+                      const SizedBox(width: 20),
                       Text(
                         'Edit Account',
                         style: TextStyle(fontSize: 14, color: Colors.grey[400]),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 7),
                   Row(
                     children: [
+                      Container(
+                        width: 4,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      ),
+                      const SizedBox(width: 20),
                       Text(
                         'Edit Answers',
                         style: TextStyle(fontSize: 14, color: Colors.grey[400]),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 7),
                   Row(
                     children: [
+                      Container(
+                        width: 4,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [Colors.blue, Colors.white],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      ),
+                      const SizedBox(width: 20),
                       Text(
                         'Approval Pending',
                         style: TextStyle(fontSize: 14, color: Colors.grey[400]),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
             const Spacer(),
             MyButton(
                 hintText: 'Sign Out',
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, "/");
+                },
                 bgcolor: Colors.black,
                 isOutlined: true),
             const SizedBox(height: 18),

@@ -16,6 +16,7 @@ dependencies:
   flutter_riverpod: ^2.5.1
   dashed_circle: ^0.0.2
   flutter_native_splash: ^2.3.0
+  flutter_dash: ^1.0.0
 
 dev_dependencies:
   flutter_test:
