@@ -1,4 +1,4 @@
-import 'package:comma_community_app/modules/main/home/view/chat_screen.dart';
+import 'package:comma_community_app/modules/main/chat/view/chat_screen.dart';
 import 'package:comma_community_app/modules/main/home/view/custom_appbars.dart';
 import 'package:comma_community_app/modules/main/home/view/feed_screen.dart';
 import 'package:comma_community_app/modules/main/home/view/main_profile_screen.dart';
