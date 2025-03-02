@@ -1,6 +1,30 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 
-PreferredSizeWidget buildAppBar(int index, dynamic align) {
+String _selectedSortOption = "Last Activity";
+List<String> _selectedFilters = [];
+
+List<String> _filterOptions = [
+  "Everything",
+  "Your Activity",
+  "From Your Hosts",
+  "Near You",
+  "Unanswered",
+  "Quick Posts",
+  "Questions & Polls",
+  "Events",
+];
+
+List<String> _sortOptions = [
+  "Last Activity",
+  "Popular Now",
+  "Newest",
+  "Oldest",
+  "Distance",
+];
+
+PreferredSizeWidget buildAppBar(int index, BuildContext context) {
   switch (index) {
     case 0:
       return AppBar(
@@ -9,7 +33,17 @@ PreferredSizeWidget buildAppBar(int index, dynamic align) {
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.filter_list))],
+        actions: [
+          IconButton(
+            onPressed: () {
+              _showFilterAndSortModal(context);
+            },
+            icon: const Icon(
+              Icons.filter_list,
+              color: Colors.white,
+            ),
+          )
+        ],
         bottom: _buildDivider(),
         backgroundColor: const Color.fromARGB(255, 10, 39, 63),
         iconTheme: const IconThemeData(color: Colors.white),
@@ -73,7 +107,151 @@ PreferredSizeWidget buildAppBar(int index, dynamic align) {
 
 PreferredSizeWidget _buildDivider() {
   return PreferredSize(
-    preferredSize: Size.fromHeight(1),
+    preferredSize: const Size.fromHeight(1),
     child: Divider(height: 1, color: Colors.grey.shade800),
+  );
+}
+
+void _showFilterAndSortModal(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    backgroundColor: const Color(0xFF0A273F),
+    isScrollControlled: true,
+    builder: (context) {
+      return StatefulBuilder(
+        builder: (context, setState) {
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 16, top: 32),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          onPressed: () => Navigator.pop(context),
+                          icon: const Icon(Icons.close, color: Colors.white),
+                        ),
+                        const Text(
+                          "Filter and Sort",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            print("Selected Filters: $_selectedFilters");
+                            print("Selected Sort: $_selectedSortOption");
+                          },
+                          child: const Text(
+                            "DONE",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    const Text(
+                      "By default we show your Personal Feed\n based on things you follow.",
+                      style: TextStyle(color: Colors.white70),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 16),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 18),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Filter by...",
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Column(
+                      children: _filterOptions.map((option) {
+                        return _buildFilterOption(option, setState);
+                      }).toList(),
+                    ),
+                    const SizedBox(height: 16),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 18),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Sort by...",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Column(
+                      children: _sortOptions.map((option) {
+                        return _buildSortOption(option, setState);
+                      }).toList(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    },
+  );
+}
+
+Widget _buildFilterOption(String title, Function setState) {
+  bool isSelected = _selectedFilters.contains(title);
+  return ListTile(
+    leading: Icon(
+      isSelected ? Icons.check_box : Icons.check_box_outline_blank,
+      color: Colors.white,
+    ),
+    title: Text(
+      title,
+      style: const TextStyle(
+        color: Colors.white,
+      ),
+    ),
+    onTap: () {
+      setState(() {
+        isSelected
+            ? _selectedFilters.remove(title)
+            : _selectedFilters.add(title);
+      });
+    },
+  );
+}
+
+Widget _buildSortOption(String title, Function setState) {
+  return ListTile(
+    leading: Icon(
+      _selectedSortOption == title
+          ? Icons.radio_button_checked
+          : Icons.radio_button_unchecked,
+      color: Colors.white,
+    ),
+    title: Text(
+      title,
+      style: const TextStyle(
+        color: Colors.white,
+      ),
+    ),
+    onTap: () {
+      setState(() {
+        _selectedSortOption = title;
+      });
+    },
   );
 }
