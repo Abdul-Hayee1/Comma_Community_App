@@ -1,6 +1,6 @@
 import 'package:comma_community_app/modules/main/chat/view/chat_screen.dart';
-import 'package:comma_community_app/modules/main/home/view/custom_appbars.dart';
-import 'package:comma_community_app/modules/main/home/view/feed_screen.dart';
+import 'package:comma_community_app/core/utils/custom_appbars.dart';
+import 'package:comma_community_app/modules/main/feed/view/feed_screen.dart';
 import 'package:comma_community_app/modules/main/home/view/main_profile_screen.dart';
 import 'package:comma_community_app/modules/main/home/view/notifications_screen.dart';
 import 'package:comma_community_app/modules/main/home/view/search_screen.dart';
@@ -80,7 +80,7 @@ class HomeScreen extends ConsumerWidget {
             ChatScreen(),
             const SearchScreen(),
             const NotificationsScreen(),
-            const MainProfileScreen(),
+            const ProfileScreen(),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
