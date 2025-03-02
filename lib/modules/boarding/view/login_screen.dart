@@ -72,9 +72,15 @@ class LoginScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: Colors.grey[300], fontSize: 12),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, "/forgotPassword");
+                        },
+                        child: Text(
+                          'Forgot Password?',
+                          style:
+                              TextStyle(color: Colors.grey[300], fontSize: 12),
+                        ),
                       ),
                     ],
                   ),
@@ -86,7 +92,7 @@ class LoginScreen extends StatelessWidget {
                   onPressed: () {
                     FocusScope.of(context).unfocus();
                     Future.delayed(const Duration(milliseconds: 500), () {
-                      Navigator.pushNamed(context, "/welcome");
+                      Navigator.pushNamed(context, "/home");
                     });
                   },
                   isOutlined: false,

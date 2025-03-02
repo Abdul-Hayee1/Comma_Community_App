@@ -6,27 +6,27 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 20, 24, 33),
+      backgroundColor: const Color.fromARGB(255, 20, 24, 33),
       body: SafeArea(
         child: Center(
           child: Column(
             children: [
-              SizedBox(height: 100),
-              Text(
+              const SizedBox(height: 100),
+              const Text(
                 'Welcome',
                 style: TextStyle(fontSize: 20, color: Colors.white),
               ),
-              SizedBox(height: 15),
-              SizedBox(height: 150),
-              Icon(
+              const SizedBox(height: 15),
+              const SizedBox(height: 150),
+              const Icon(
                 Icons.lock,
                 color: Colors.white,
               ),
-              SizedBox(height: 250),
+              const SizedBox(height: 250),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 18.0),
+                padding: const EdgeInsets.symmetric(horizontal: 18.0),
                 child: RichText(
-                  text: TextSpan(
+                  text: const TextSpan(
                     children: [
                       TextSpan(
                         text: "We're loading your personalized ",
@@ -47,7 +47,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Text(
+              const Text(
                 'activity feed',
                 style: TextStyle(
                   fontSize: 18,
