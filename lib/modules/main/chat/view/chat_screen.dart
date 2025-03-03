@@ -1,10 +1,11 @@
 import 'package:comma_community_app/widgets/my_button.dart';
+import 'package:comma_community_app/modules/main/chat/view/conversation_screen.dart';
 import 'package:flutter/material.dart';
 
 final List<Map<String, String>> users = [
   {
-    'firstName': 'Abdul',
-    'lastName': 'Hayee',
+    'firstName': 'Firas',
+    'lastName': 'Asher',
     'image': 'https://randomuser.me/api/portraits/men/1.jpg'
   },
   {
@@ -220,7 +221,7 @@ class _ChatContact_ListModalState extends State<_ChatContact_ListModal> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      showConversationBottomModal(context);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueAccent,

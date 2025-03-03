@@ -33,8 +33,15 @@ class HomeScreen extends ConsumerWidget {
                 child: Row(
                   children: [
                     CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: Icon(Icons.circle, color: Colors.blue, size: 30),
+                      radius: 28,
+                      backgroundColor: Color.fromARGB(255, 5, 35, 60),
+                      child: Image(
+                        image: AssetImage(
+                          'assets/logos/app_logo.png',
+                        ),
+                        width: 70,
+                        height: 70,
+                      ),
                     ),
                     SizedBox(width: 10),
                     Text(
@@ -52,7 +59,10 @@ class HomeScreen extends ConsumerWidget {
               DrawerItem(icon: Icons.explore, title: 'Discovery'),
               DrawerItem(icon: Icons.group, title: 'Members'),
               DrawerItem(icon: Icons.event, title: 'Events'),
-              const Divider(color: Colors.grey),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 14.0),
+                child: Divider(color: Colors.grey[600]),
+              ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Row(
@@ -66,7 +76,10 @@ class HomeScreen extends ConsumerWidget {
               ),
               DrawerItem(
                   icon: Icons.waving_hand, title: 'Welcome!', isBold: true),
-              const Divider(color: Colors.grey),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 14.0),
+                child: Divider(color: Colors.grey[600]),
+              ),
               DrawerItem(
                   icon: Icons.info_outline, title: 'See Network Details'),
               DrawerItem(icon: Icons.settings, title: 'Personal Settings'),

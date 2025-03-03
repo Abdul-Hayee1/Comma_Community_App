@@ -5,13 +5,19 @@ class NotificationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0),
+    return SingleChildScrollView(
+      child: Container(
+        width: double.infinity,
+        margin: const EdgeInsets.only(top: 20, left: 14, right: 14),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.4),
+          borderRadius: BorderRadius.circular(7),
+        ),
         child: //if(no notifications)
-            Column(
+            const Column(
           children: [
-            SizedBox(height: 50),
+            SizedBox(height: 10),
             Center(
               child: Column(
                 children: [
