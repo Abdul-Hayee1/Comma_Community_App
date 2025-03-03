@@ -1,12 +1,12 @@
-import 'package:comma_community_app/modules/boarding/view/add_photo_screen.dart';
-import 'package:comma_community_app/modules/boarding/view/forgot_password_screen.dart';
-import 'package:comma_community_app/modules/boarding/view/login_screen.dart';
-import 'package:comma_community_app/modules/boarding/view/create_account_screen.dart';
-import 'package:comma_community_app/modules/boarding/view/pending_approval_screen.dart';
-import 'package:comma_community_app/modules/boarding/view/questions_screen.dart';
-import 'package:comma_community_app/modules/boarding/view/status_screen.dart';
-import 'package:comma_community_app/modules/boarding/view/welcome_screen.dart';
-import 'package:comma_community_app/modules/main/home/view/home_screen.dart';
+import 'package:comma_community_app/modules/boarding/account_details/view/add_photo_screen.dart';
+import 'package:comma_community_app/modules/boarding/account_details/view/pending_approval_screen.dart';
+import 'package:comma_community_app/modules/boarding/account_details/view/questions_screen.dart';
+import 'package:comma_community_app/modules/boarding/account_details/view/status_screen.dart';
+import 'package:comma_community_app/modules/boarding/account_details/view/welcome_Screen.dart';
+import 'package:comma_community_app/modules/boarding/auth/view/create_account_screen.dart';
+import 'package:comma_community_app/modules/boarding/auth/view/forgot_password_screen.dart';
+import 'package:comma_community_app/modules/boarding/auth/view/login_screen.dart';
+import 'package:comma_community_app/modules/main/view/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

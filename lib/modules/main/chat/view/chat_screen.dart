@@ -1,71 +1,71 @@
 import 'package:comma_community_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 
+final List<Map<String, String>> users = [
+  {
+    'firstName': 'Abdul',
+    'lastName': 'Hayee',
+    'image': 'https://randomuser.me/api/portraits/men/1.jpg'
+  },
+  {
+    'firstName': 'Shadi',
+    'lastName': 'Fallahr',
+    'image': 'https://randomuser.me/api/portraits/women/2.jpg'
+  },
+  {
+    'firstName': 'Miriam',
+    'lastName': 'Adebibe',
+    'image': 'https://randomuser.me/api/portraits/women/3.jpg'
+  },
+  {
+    'firstName': 'Katarzyna',
+    'lastName': 'Stabiak',
+    'image': 'https://randomuser.me/api/portraits/women/4.jpg'
+  },
+  {
+    'firstName': 'Kara',
+    'lastName': 'Lekuse',
+    'image': 'https://randomuser.me/api/portraits/women/5.jpg'
+  },
+  {
+    'firstName': 'Jules',
+    'lastName': 'Beaven',
+    'image': 'https://randomuser.me/api/portraits/men/6.jpg'
+  },
+  {
+    'firstName': 'Lucas',
+    'lastName': 'Bennett',
+    'image': 'https://randomuser.me/api/portraits/men/7.jpg'
+  },
+  {
+    'firstName': 'Emma',
+    'lastName': 'Johansson',
+    'image': 'https://randomuser.me/api/portraits/women/8.jpg'
+  },
+  {
+    'firstName': 'Ethan',
+    'lastName': 'Roberts',
+    'image': 'https://randomuser.me/api/portraits/men/9.jpg'
+  },
+  {
+    'firstName': 'Sophia',
+    'lastName': 'Carter',
+    'image': 'https://randomuser.me/api/portraits/women/10.jpg'
+  },
+  {
+    'firstName': 'Daniel',
+    'lastName': 'Smith',
+    'image': 'https://randomuser.me/api/portraits/men/11.jpg'
+  },
+  {
+    'firstName': 'Olivia',
+    'lastName': 'Martin',
+    'image': 'https://randomuser.me/api/portraits/women/12.jpg'
+  },
+];
+
 class ChatScreen extends StatelessWidget {
   ChatScreen({super.key});
-
-  final List<Map<String, String>> users = [
-    {
-      'firstName': 'Abdul',
-      'lastName': 'Hayee',
-      'image': 'https://randomuser.me/api/portraits/men/1.jpg'
-    },
-    {
-      'firstName': 'Shadi',
-      'lastName': 'Fallahr',
-      'image': 'https://randomuser.me/api/portraits/women/2.jpg'
-    },
-    {
-      'firstName': 'Miriam',
-      'lastName': 'Adebibe',
-      'image': 'https://randomuser.me/api/portraits/women/3.jpg'
-    },
-    {
-      'firstName': 'Katarzyna',
-      'lastName': 'Stabiak',
-      'image': 'https://randomuser.me/api/portraits/women/4.jpg'
-    },
-    {
-      'firstName': 'Kara',
-      'lastName': 'Lekuse',
-      'image': 'https://randomuser.me/api/portraits/women/5.jpg'
-    },
-    {
-      'firstName': 'Jules',
-      'lastName': 'Beaven',
-      'image': 'https://randomuser.me/api/portraits/men/6.jpg'
-    },
-    {
-      'firstName': 'Lucas',
-      'lastName': 'Bennett',
-      'image': 'https://randomuser.me/api/portraits/men/7.jpg'
-    },
-    {
-      'firstName': 'Emma',
-      'lastName': 'Johansson',
-      'image': 'https://randomuser.me/api/portraits/women/8.jpg'
-    },
-    {
-      'firstName': 'Ethan',
-      'lastName': 'Roberts',
-      'image': 'https://randomuser.me/api/portraits/men/9.jpg'
-    },
-    {
-      'firstName': 'Sophia',
-      'lastName': 'Carter',
-      'image': 'https://randomuser.me/api/portraits/women/10.jpg'
-    },
-    {
-      'firstName': 'Daniel',
-      'lastName': 'Smith',
-      'image': 'https://randomuser.me/api/portraits/men/11.jpg'
-    },
-    {
-      'firstName': 'Olivia',
-      'lastName': 'Martin',
-      'image': 'https://randomuser.me/api/portraits/women/12.jpg'
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -154,10 +154,166 @@ class ChatScreen extends StatelessWidget {
             const SizedBox(height: 15),
             MyButton(
                 hintText: 'Add a Chat',
-                onPressed: () {},
+                onPressed: () {
+                  _showAddNewChatModal(context);
+                },
                 bgcolor: Colors.blue,
                 isOutlined: false)
           ],
+        ),
+      ),
+    );
+  }
+}
+
+void _showAddNewChatModal(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: const Color.fromARGB(255, 36, 38, 63),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(20),
+      ),
+    ),
+    builder: (context) {
+      return const _ChatContact_ListModal();
+    },
+  );
+}
+
+class _ChatContact_ListModal extends StatefulWidget {
+  const _ChatContact_ListModal();
+
+  @override
+  _ChatContact_ListModalState createState() => _ChatContact_ListModalState();
+}
+
+class _ChatContact_ListModalState extends State<_ChatContact_ListModal> {
+  List<bool> selectedContacts = List.generate(users.length, (index) => false);
+  TextEditingController searchController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return FractionallySizedBox(
+      heightFactor: 0.93,
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 5.0, left: 10, right: 10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: const Icon(Icons.close, color: Colors.white)),
+                  const Text(
+                    "Start a Chat",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueAccent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      minimumSize: const Size(40, 30),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 6),
+                    ),
+                    child: Text(
+                      "Next",
+                      style: TextStyle(
+                          color: Colors.grey[400],
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              TextField(
+                controller: searchController,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.grey[800],
+                  hintText: "Search",
+                  hintStyle: const TextStyle(color: Colors.white70),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
+                  ),
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                ),
+                style: const TextStyle(color: Colors.white, fontSize: 16),
+              ),
+              const SizedBox(height: 10),
+              Expanded(
+                child: Theme(
+                  data: Theme.of(context).copyWith(
+                    checkboxTheme: const CheckboxThemeData(
+                      side: BorderSide(color: Colors.grey, width: 2),
+                    ),
+                  ),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: users.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  backgroundImage:
+                                      NetworkImage(users[index]['image']!),
+                                  radius: 16,
+                                ),
+                                const SizedBox(width: 10),
+                                Text(
+                                  "${users[index]['firstName']} ${users[index]['lastName']}",
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                            Checkbox(
+                              value: selectedContacts[index],
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  selectedContacts[index] = value!;
+                                });
+                              },
+                              checkColor: Colors.blueAccent,
+                              activeColor: Colors.transparent,
+                              side: BorderSide(
+                                color: selectedContacts[index]
+                                    ? Colors.blueAccent
+                                    : Colors.grey,
+                                width: 2,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

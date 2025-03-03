@@ -1,9 +1,9 @@
 import 'package:comma_community_app/modules/main/chat/view/chat_screen.dart';
 import 'package:comma_community_app/core/utils/custom_appbars.dart';
 import 'package:comma_community_app/modules/main/feed/view/feed_screen.dart';
-import 'package:comma_community_app/modules/main/home/view/main_profile_screen.dart';
-import 'package:comma_community_app/modules/main/home/view/notifications_screen.dart';
-import 'package:comma_community_app/modules/main/home/view/search_screen.dart';
+import 'package:comma_community_app/modules/main/notifications/view/notifications_screen.dart';
+import 'package:comma_community_app/modules/main/profile/view/profile_screen.dart';
+import 'package:comma_community_app/modules/main/search/view/search_screen.dart';
 import 'package:comma_community_app/widgets/drawer_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -76,7 +76,7 @@ class HomeScreen extends ConsumerWidget {
         body: IndexedStack(
           index: selectedIndex,
           children: [
-            FeedScreen(),
+            const FeedScreen(),
             ChatScreen(),
             const SearchScreen(),
             const NotificationsScreen(),

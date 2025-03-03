@@ -52,7 +52,7 @@ class PendingApprovalScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(left: 16, right: 16),
               child: Text(
                 'Your Request to join has been sent!',
@@ -63,7 +63,7 @@ class PendingApprovalScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 15),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(left: 16, right: 16),
               child: Text(
                 'We will review your request to join soon. You will receive an email from Inviti if you\'ve been approved, and you can check your approval here at any time.',

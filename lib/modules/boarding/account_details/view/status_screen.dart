@@ -56,40 +56,48 @@ class StatusScreen extends StatelessWidget {
               padding: const EdgeInsets.only(left: 16),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 4,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(4),
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, "/signUp"),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 4,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 20),
-                      Text(
-                        'Edit Account',
-                        style: TextStyle(fontSize: 14, color: Colors.grey[400]),
-                      ),
-                    ],
+                        const SizedBox(width: 20),
+                        Text(
+                          'Edit Account',
+                          style:
+                              TextStyle(fontSize: 14, color: Colors.grey[400]),
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 7),
-                  Row(
-                    children: [
-                      Container(
-                        width: 4,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(4),
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, "/questions"),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 4,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 20),
-                      Text(
-                        'Edit Answers',
-                        style: TextStyle(fontSize: 14, color: Colors.grey[400]),
-                      ),
-                    ],
+                        const SizedBox(width: 20),
+                        Text(
+                          'Edit Answers',
+                          style:
+                              TextStyle(fontSize: 14, color: Colors.grey[400]),
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 7),
                   Row(

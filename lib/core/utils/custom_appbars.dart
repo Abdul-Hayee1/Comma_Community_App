@@ -1,6 +1,5 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
+import 'package:comma_community_app/modules/main/notifications/notifications_settings_modalsheet.dart';
 
 String _selectedSortOption = "Last Activity";
 List<String> _selectedFilters = [];
@@ -78,7 +77,11 @@ PreferredSizeWidget buildAppBar(int index, BuildContext context) {
         ),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
+          IconButton(
+              onPressed: () {
+                showNotificationsSettingsModal(context);
+              },
+              icon: const Icon(Icons.settings)),
         ],
         bottom: _buildDivider(),
         backgroundColor: const Color.fromARGB(255, 10, 39, 63),
