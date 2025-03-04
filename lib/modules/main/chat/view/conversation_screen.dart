@@ -52,7 +52,7 @@ class _ConversationModalSheetState extends State<_ConversationModalSheet> {
             const CircleAvatar(
               radius: 40,
               backgroundColor: Colors.grey,
-              backgroundImage: const NetworkImage(
+              backgroundImage: NetworkImage(
                 'https://i.pravatar.cc/150?img=10',
               ),
             ),
@@ -66,7 +66,7 @@ class _ConversationModalSheetState extends State<_ConversationModalSheet> {
               ),
             ),
             const SizedBox(height: 40),
-            Icon(Icons.message, color: Colors.white),
+            const Icon(Icons.message, color: Colors.white),
             const SizedBox(height: 10),
             RichText(
               text: const TextSpan(
@@ -108,8 +108,8 @@ class _ConversationModalSheetState extends State<_ConversationModalSheet> {
                   top: 2, left: 10, right: 10, bottom: 10),
               child: Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8),
+                  const Padding(
+                    padding: EdgeInsets.only(right: 8),
                     child: Icon(
                       Icons.add,
                       color: Colors.white,

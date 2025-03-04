@@ -60,7 +60,7 @@ class HomeScreen extends ConsumerWidget {
               DrawerItem(icon: Icons.group, title: 'Members'),
               DrawerItem(icon: Icons.event, title: 'Events'),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 14.0),
+                padding: const EdgeInsets.symmetric(horizontal: 14.0),
                 child: Divider(color: Colors.grey[600]),
               ),
               const Padding(
@@ -77,7 +77,7 @@ class HomeScreen extends ConsumerWidget {
               DrawerItem(
                   icon: Icons.waving_hand, title: 'Welcome!', isBold: true),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 14.0),
+                padding: const EdgeInsets.symmetric(horizontal: 14.0),
                 child: Divider(color: Colors.grey[600]),
               ),
               DrawerItem(

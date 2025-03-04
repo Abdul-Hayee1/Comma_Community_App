@@ -94,9 +94,7 @@ class FeedScreen extends StatelessWidget {
 
     return SingleChildScrollView(
       child: Column(
-        children: [
-          ...latestPosts.map((post) => PostWidget(post: post)).toList()
-        ],
+        children: [...latestPosts.map((post) => PostWidget(post: post))],
       ),
     );
   }

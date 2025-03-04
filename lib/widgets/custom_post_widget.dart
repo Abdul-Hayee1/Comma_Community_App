@@ -73,7 +73,7 @@ class PostWidget extends StatelessWidget {
                 children: [
                   GestureDetector(
                       onTap: () {},
-                      child: Icon(Icons.more_vert, color: Colors.white)),
+                      child: const Icon(Icons.more_vert, color: Colors.white)),
                   const Spacer(),
                   Row(
                     children: [
