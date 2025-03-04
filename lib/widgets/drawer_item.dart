@@ -5,18 +5,21 @@ import 'package:flutter/material.dart';
 class DrawerItem extends StatelessWidget {
   DrawerItem({
     super.key,
-    required this.icon,
+    this.icon,
     required this.title,
     this.isBold = false,
+    this.onTap,
   });
-  IconData icon;
+
+  IconData? icon;
   String title;
   bool isBold;
+  VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(icon, color: Colors.white),
+      leading: icon != null ? Icon(icon, color: Colors.white) : null,
       title: Text(
         title,
         style: TextStyle(
@@ -24,7 +27,7 @@ class DrawerItem extends StatelessWidget {
           fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
         ),
       ),
-      onTap: () {},
+      onTap: onTap,
     );
   }
 }

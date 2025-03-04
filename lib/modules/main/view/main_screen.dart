@@ -1,3 +1,4 @@
+import 'package:comma_community_app/bottomModals/personal_settings_modal.dart';
 import 'package:comma_community_app/modules/main/chat/view/chat_screen.dart';
 import 'package:comma_community_app/core/utils/custom_appbars.dart';
 import 'package:comma_community_app/modules/main/feed/view/feed_screen.dart';
@@ -80,20 +81,24 @@ class HomeScreen extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 14.0),
                 child: Divider(color: Colors.grey[600]),
               ),
+              DrawerItem(title: 'See Network Details'),
               DrawerItem(
-                  icon: Icons.info_outline, title: 'See Network Details'),
-              DrawerItem(icon: Icons.settings, title: 'Personal Settings'),
+                title: 'Personal Settings',
+                onTap: () {
+                  showPersonalSettingsModal(context);
+                },
+              ),
             ],
           ),
         ),
         body: IndexedStack(
           index: selectedIndex,
-          children: [
-            const FeedScreen(),
+          children: const [
+            FeedScreen(),
             ChatScreen(),
-            const SearchScreen(),
-            const NotificationsScreen(),
-            const ProfileScreen(),
+            SearchScreen(),
+            NotificationsScreen(),
+            ProfileScreen(),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(

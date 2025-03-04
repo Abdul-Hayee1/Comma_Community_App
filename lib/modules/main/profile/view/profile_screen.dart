@@ -1,3 +1,4 @@
+import 'package:comma_community_app/bottomModals/account_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
@@ -100,11 +101,13 @@ class ProfileScreen extends StatelessWidget {
           const SizedBox(height: 8),
           _dailyStreakRow(),
           const SizedBox(height: 7),
-          _settingsItem('Personal Settings'),
+          _settingsItem('Personal Settings', () {
+            showAccountModalSheet(context);
+          }),
           const SizedBox(height: 4),
-          _settingsItem('Bookmarks'),
+          _settingsItem('Bookmarks', () {}),
           const SizedBox(height: 4),
-          _settingsItem('Help Center'),
+          _settingsItem('Help Center', () {}),
           const SizedBox(height: 16),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
@@ -243,26 +246,29 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _settingsItem(String title) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[900],
-        borderRadius: BorderRadius.circular(7),
-      ),
-      child: ListTile(
-        title: Text(
-          title,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 16,
+  Widget _settingsItem(String title, VoidCallback? ontap) {
+    return GestureDetector(
+      onTap: ontap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey[900],
+          borderRadius: BorderRadius.circular(7),
+        ),
+        child: ListTile(
+          title: Text(
+            title,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+            ),
           ),
+          trailing: const Icon(
+            Icons.arrow_forward_ios,
+            color: Colors.white,
+            size: 16,
+          ),
+          onTap: () {},
         ),
-        trailing: const Icon(
-          Icons.arrow_forward_ios,
-          color: Colors.white,
-          size: 16,
-        ),
-        onTap: () {},
       ),
     );
   }
