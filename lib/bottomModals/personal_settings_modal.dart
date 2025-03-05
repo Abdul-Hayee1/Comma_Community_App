@@ -72,6 +72,47 @@ class _PersonalSettingsModal extends StatelessWidget {
             ontap: () {},
           ),
           Divider(thickness: 0.5, color: Colors.grey[700]),
+          const Spacer(),
+          const CircleAvatar(
+            radius: 40,
+            backgroundColor: Color.fromARGB(255, 12, 57, 94),
+            child: Image(
+              image: AssetImage(
+                'assets/logos/app_logo.png',
+              ),
+              width: 80,
+              height: 80,
+            ),
+          ),
+          const SizedBox(height: 20),
+          const Text(
+            'Inviti',
+            style: TextStyle(
+                fontSize: 18.0,
+                color: Colors.white,
+                fontWeight: FontWeight.bold),
+          ),
+          const Text(
+            'The Harley Academy Community for',
+            style: TextStyle(fontSize: 16.0, color: Colors.white),
+          ),
+          //const SizedBox(height: 2),
+          const Text(
+            'Aesthetic Education',
+            style: TextStyle(fontSize: 16.0, color: Colors.white),
+          ),
+          const SizedBox(height: 30),
+          GestureDetector(
+            onTap: () {},
+            child: const Text(
+              'Sign Out',
+              style: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          const SizedBox(height: 30.0),
         ],
       ),
     );
