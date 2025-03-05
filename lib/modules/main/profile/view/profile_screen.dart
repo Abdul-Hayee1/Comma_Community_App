@@ -247,28 +247,25 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _settingsItem(String title, VoidCallback? ontap) {
-    return GestureDetector(
-      onTap: ontap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.grey[900],
-          borderRadius: BorderRadius.circular(7),
-        ),
-        child: ListTile(
-          title: Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-            ),
-          ),
-          trailing: const Icon(
-            Icons.arrow_forward_ios,
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[900],
+        borderRadius: BorderRadius.circular(7),
+      ),
+      child: ListTile(
+        title: Text(
+          title,
+          style: const TextStyle(
             color: Colors.white,
-            size: 16,
+            fontSize: 16,
           ),
-          onTap: () {},
         ),
+        trailing: const Icon(
+          Icons.arrow_forward_ios,
+          color: Colors.white,
+          size: 16,
+        ),
+        onTap: ontap,
       ),
     );
   }

@@ -91,14 +91,19 @@ class HomeScreen extends ConsumerWidget {
             ],
           ),
         ),
-        body: IndexedStack(
-          index: selectedIndex,
-          children: const [
-            FeedScreen(),
-            ChatScreen(),
-            SearchScreen(),
-            NotificationsScreen(),
-            ProfileScreen(),
+        body: Stack(
+          children: [
+            IndexedStack(
+              index: selectedIndex,
+              children: const [
+                FeedScreen(),
+                ChatScreen(),
+                SearchScreen(),
+                NotificationsScreen(),
+                ProfileScreen(),
+              ],
+            ),
+            const ViewListProgress()
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -129,6 +134,82 @@ class HomeScreen extends ConsumerWidget {
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: 'Profile',
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ViewListProgress extends StatelessWidget {
+  const ViewListProgress({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: 0,
+      left: 0,
+      right: 0,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 35, 40, 50),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: const SizedBox(
+                      height: 10,
+                      child: LinearProgressIndicator(
+                        value: 0.0,
+                        backgroundColor: Colors.white,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                      ),
+                    ),
+                  ),
+                  const Text(
+                    '20%',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 7),
+            const Text(
+              '0%',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(width: 12),
+            SizedBox(
+              height: 30,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+                child: const Text(
+                  'View List',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             ),
           ],
         ),
