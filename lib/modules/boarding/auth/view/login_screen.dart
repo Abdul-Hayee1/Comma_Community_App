@@ -3,6 +3,7 @@ import 'package:comma_community_app/widgets/my_textfield.dart';
 import 'package:comma_community_app/widgets/password_textfield.dart';
 import 'package:comma_community_app/widgets/socials_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -53,7 +54,7 @@ class LoginScreen extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
-                const SizedBox(height: 15),
+                SizedBox(height: 15),
                 MyTextfield(
                   controller: _emailController,
                   hintText: 'Email',
@@ -85,7 +86,7 @@ class LoginScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 50),
+                SizedBox(height: 50.h),
                 MyButton(
                   hintText: 'Sign In',
                   bgcolor: const Color.fromARGB(255, 70, 78, 185),
@@ -97,7 +98,7 @@ class LoginScreen extends StatelessWidget {
                   },
                   isOutlined: false,
                 ),
-                const SizedBox(height: 30),
+                SizedBox(height: 30.h),
                 InkWell(
                   onTap: () {
                     Navigator.pushNamed(context, "/signUp");
@@ -107,7 +108,7 @@ class LoginScreen extends StatelessWidget {
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ),
-                const SizedBox(height: 22),
+                SizedBox(height: 22.h),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 18.0),
                   child: Row(
@@ -121,7 +122,7 @@ class LoginScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 25),
+                SizedBox(height: 25.h),
                 const Row(
                   children: [
                     SizedBox(width: 18),
@@ -135,22 +136,22 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 const SocialsButton(
                   hintText: 'Sign In with Google',
                   imagePath: 'assets/logos/google_logo.png',
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 const SocialsButton(
                   hintText: 'Sign In with Facebook',
                   imagePath: 'assets/logos/facebook_logo.png',
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 const SocialsButton(
                   hintText: 'Sign In with LinkedIn',
                   imagePath: 'assets/logos/linkedin_logo.png',
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 const SocialsButton(
                   hintText: 'Sign In with Apple',
                   imagePath: 'assets/logos/apple_logo.png',

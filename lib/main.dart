@@ -7,9 +7,9 @@ import 'package:comma_community_app/modules/boarding/auth/view/create_account_sc
 import 'package:comma_community_app/modules/boarding/auth/view/forgot_password_screen.dart';
 import 'package:comma_community_app/modules/boarding/auth/view/login_screen.dart';
 import 'package:comma_community_app/modules/main/view/main_screen.dart';
-import 'package:comma_community_app/screen_dimension_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
   runApp(
@@ -24,29 +24,27 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final size = MediaQuery.of(context).size;
-    final screenDimensions =
-        ScreenDimensions(width: size.width, height: size.height);
-
-    return ProviderScope(
-      overrides: [
-        screenDimensionsProvider.overrideWithValue(screenDimensions),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: '/',
-        routes: {
-          '/': (context) => LoginScreen(),
-          '/welcome': (context) => const WelcomeScreen(),
-          '/signUp': (context) => CreateAccountScreen(),
-          '/home': (context) => const HomeScreen(),
-          '/addPhoto': (context) => const AddPhotoScreen(),
-          '/questions': (context) => const QuestionsScreen(),
-          '/pendingApproval': (context) => const PendingApprovalScreen(),
-          '/status': (context) => const StatusScreen(),
-          '/forgotPassword': (context) => ForgotPasswordScreen(),
-        },
-      ),
+    return ScreenUtilInit(
+      designSize: const Size(360, 800),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          initialRoute: '/',
+          routes: {
+            '/': (context) => LoginScreen(),
+            '/welcome': (context) => const WelcomeScreen(),
+            '/signUp': (context) => CreateAccountScreen(),
+            '/home': (context) => const HomeScreen(),
+            '/addPhoto': (context) => const AddPhotoScreen(),
+            '/questions': (context) => const QuestionsScreen(),
+            '/pendingApproval': (context) => const PendingApprovalScreen(),
+            '/status': (context) => const StatusScreen(),
+            '/forgotPassword': (context) => ForgotPasswordScreen(),
+          },
+        );
+      },
     );
   }
 }
