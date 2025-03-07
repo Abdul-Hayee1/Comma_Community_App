@@ -1,4 +1,5 @@
 import 'package:comma_community_app/bottomModals/account_modal.dart';
+import 'package:comma_community_app/bottomModals/user_profile_modal.dart';
 import 'package:flutter/material.dart';
 
 void showPersonalSettingsModal(BuildContext context) {
@@ -54,7 +55,9 @@ class _PersonalSettingsModal extends StatelessWidget {
           Divider(thickness: 0.5, color: Colors.grey[700]),
           _SettingsOption(
             hintText: 'Edit Profile',
-            ontap: () {},
+            ontap: () {
+              showEditProfileModalSheet(context);
+            },
           ),
           Divider(thickness: 0.5, color: Colors.grey[700]),
           _SettingsOption(

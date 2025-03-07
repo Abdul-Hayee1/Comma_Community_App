@@ -1,4 +1,5 @@
 import 'package:comma_community_app/bottomModals/account_modal.dart';
+import 'package:comma_community_app/bottomModals/user_profile_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
@@ -13,59 +14,64 @@ class ProfileScreen extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
-            child: Row(
-              children: [
-                const CircleAvatar(
-                  radius: 40,
-                  backgroundImage: NetworkImage(
-                    "https://randomuser.me/api/portraits/men/1.jpg",
+            child: GestureDetector(
+              onTap: () {
+                showEditProfileModalSheet(context);
+              },
+              child: Row(
+                children: [
+                  const CircleAvatar(
+                    radius: 40,
+                    backgroundImage: NetworkImage(
+                      "https://randomuser.me/api/portraits/men/1.jpg",
+                    ),
                   ),
-                ),
-                const SizedBox(width: 16),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const Text(
-                          'Firas Asher',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const Text(
+                            'Firas Asher',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 7),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey[800],
-                            shape: BoxShape.circle,
+                          const SizedBox(width: 7),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey[800],
+                              shape: BoxShape.circle,
+                            ),
+                            padding: const EdgeInsets.all(4),
+                            child: const Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                              size: 20,
+                            ),
                           ),
-                          padding: const EdgeInsets.all(4),
-                          child: const Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                            size: 20,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const Text(
-                      'View Profile',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-                const Spacer(),
-                const Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.white,
-                  size: 16,
-                ),
-              ],
+                      const Text(
+                        'View Profile',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.white,
+                    size: 16,
+                  ),
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 16),
