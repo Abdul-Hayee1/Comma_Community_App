@@ -1,4 +1,4 @@
-import 'package:comma_community_app/bottomModals/personal_settings_modal.dart';
+import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:comma_community_app/modules/main/chat/view/chat_screen.dart';
 import 'package:comma_community_app/core/utils/custom_appbars.dart';
 import 'package:comma_community_app/modules/main/feed/view/feed_screen.dart';

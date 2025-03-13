@@ -1,3 +1,4 @@
+import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:comma_community_app/widgets/my_button.dart';
 import 'package:comma_community_app/modules/main/chat/view/conversation_screen.dart';
 import 'package:flutter/material.dart';
@@ -156,7 +157,7 @@ class ChatScreen extends StatelessWidget {
             MyButton(
                 hintText: 'Add a Chat',
                 onPressed: () {
-                  _showAddNewChatModal(context);
+                  showAddNewChatModal(context);
                 },
                 bgcolor: Colors.blue,
                 isOutlined: false)
@@ -167,30 +168,14 @@ class ChatScreen extends StatelessWidget {
   }
 }
 
-void _showAddNewChatModal(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    backgroundColor: const Color.fromARGB(255, 36, 38, 63),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        top: Radius.circular(20),
-      ),
-    ),
-    builder: (context) {
-      return const _ChatContact_ListModal();
-    },
-  );
-}
-
-class _ChatContact_ListModal extends StatefulWidget {
-  const _ChatContact_ListModal();
+class ChatContact_ListModal extends StatefulWidget {
+  const ChatContact_ListModal({super.key});
 
   @override
-  _ChatContact_ListModalState createState() => _ChatContact_ListModalState();
+  ChatContact_ListModalState createState() => ChatContact_ListModalState();
 }
 
-class _ChatContact_ListModalState extends State<_ChatContact_ListModal> {
+class ChatContact_ListModalState extends State<ChatContact_ListModal> {
   List<bool> selectedContacts = List.generate(users.length, (index) => false);
   TextEditingController searchController = TextEditingController();
 

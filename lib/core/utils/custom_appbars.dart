@@ -1,5 +1,5 @@
+import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:flutter/material.dart';
-import 'package:comma_community_app/modules/main/notifications/notifications_settings_modalsheet.dart';
 
 String _selectedSortOption = "Last Activity";
 List<String> _selectedFilters = [];

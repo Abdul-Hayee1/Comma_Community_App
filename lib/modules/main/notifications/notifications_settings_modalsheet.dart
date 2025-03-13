@@ -1,28 +1,12 @@
 import 'package:flutter/material.dart';
 
-void showNotificationsSettingsModal(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    backgroundColor: const Color.fromARGB(255, 36, 38, 63),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        top: Radius.circular(20),
-      ),
-    ),
-    builder: (context) {
-      return const _NotificationsSettings();
-    },
-  );
-}
-
-class _NotificationsSettings extends StatefulWidget {
-  const _NotificationsSettings();
+class NotificationsSettings extends StatefulWidget {
+  const NotificationsSettings({super.key});
   @override
-  _NotificationsSettingsState createState() => _NotificationsSettingsState();
+  NotificationsSettingsState createState() => NotificationsSettingsState();
 }
 
-class _NotificationsSettingsState extends State<_NotificationsSettings> {
+class NotificationsSettingsState extends State<NotificationsSettings> {
   bool _emailUpdatesEnabled = true;
   String _emailFrequency = 'dailyDigest';
   bool _mobilePushEnabled = true;

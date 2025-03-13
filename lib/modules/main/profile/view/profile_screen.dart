@@ -1,5 +1,5 @@
-import 'package:comma_community_app/bottomModals/account_modal.dart';
-import 'package:comma_community_app/bottomModals/user_profile_modal.dart';
+import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
+import 'package:comma_community_app/modules/main/user_profile_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 

@@ -2,28 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void showEditProfileModalSheet(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    backgroundColor: const Color.fromARGB(255, 36, 38, 63),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        top: Radius.circular(20),
-      ),
-    ),
-    builder: (context) {
-      return _UserProfileModal();
-    },
-  );
-}
+class UserProfileModal extends ConsumerStatefulWidget {
+  const UserProfileModal({super.key});
 
-class _UserProfileModal extends ConsumerStatefulWidget {
   @override
-  _UserProfileModalState createState() => _UserProfileModalState();
+  UserProfileModalState createState() => UserProfileModalState();
 }
 
-class _UserProfileModalState extends ConsumerState<_UserProfileModal> {
+class UserProfileModalState extends ConsumerState<UserProfileModal> {
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController miniBioController = TextEditingController();

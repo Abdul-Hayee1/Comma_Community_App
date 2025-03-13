@@ -1,24 +1,9 @@
-import 'package:comma_community_app/bottomModals/account_modal.dart';
-import 'package:comma_community_app/bottomModals/user_profile_modal.dart';
+import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:flutter/material.dart';
 
-void showPersonalSettingsModal(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    backgroundColor: const Color.fromARGB(255, 36, 38, 63),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        top: Radius.circular(20),
-      ),
-    ),
-    builder: (context) {
-      return _PersonalSettingsModal();
-    },
-  );
-}
+class PersonalSettingsModal extends StatelessWidget {
+  const PersonalSettingsModal({super.key});
 
-class _PersonalSettingsModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(

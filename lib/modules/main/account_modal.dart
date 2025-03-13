@@ -1,22 +1,8 @@
 import 'package:flutter/material.dart';
 
-void showAccountModalSheet(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    backgroundColor: const Color.fromARGB(255, 36, 38, 63),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        top: Radius.circular(20),
-      ),
-    ),
-    builder: (context) {
-      return _AccountSettingsModal();
-    },
-  );
-}
+class AccountSettingsModal extends StatelessWidget {
+  const AccountSettingsModal({super.key});
 
-class _AccountSettingsModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
