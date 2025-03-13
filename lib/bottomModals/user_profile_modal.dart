@@ -1,6 +1,6 @@
-import 'package:comma_community_app/screen_dimension_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void showEditProfileModalSheet(BuildContext context) {
   showModalBottomSheet(
@@ -35,10 +35,10 @@ class _UserProfileModalState extends ConsumerState<_UserProfileModal> {
 
     miniBioController.addListener(() {
       setState(() {});
+    });
 
-      aboutMeController.addListener(() {
-        setState(() {});
-      });
+    aboutMeController.addListener(() {
+      setState(() {});
     });
   }
 
@@ -51,8 +51,6 @@ class _UserProfileModalState extends ConsumerState<_UserProfileModal> {
 
   @override
   Widget build(BuildContext context) {
-    final screenDimensions = ref.watch(screenDimensionsProvider);
-
     return FractionallySizedBox(
       heightFactor: 0.93,
       child: Column(
@@ -100,10 +98,10 @@ class _UserProfileModalState extends ConsumerState<_UserProfileModal> {
               child: Column(
                 children: [
                   SizedBox(
-                    width: screenDimensions.width,
-                    height: screenDimensions.height * 0.2,
+                    width: double.infinity.w,
+                    height: 200.h,
                     child: Image(
-                      width: screenDimensions.width,
+                      width: double.infinity.w,
                       image: const NetworkImage(
                           "https://randomuser.me/api/portraits/men/1.jpg"),
                     ),
@@ -126,7 +124,7 @@ class _UserProfileModalState extends ConsumerState<_UserProfileModal> {
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(width: screenDimensions.width * 0.3),
+                            SizedBox(width: 100.w),
                             const Text(
                               'Last Name',
                               style: TextStyle(
@@ -165,7 +163,7 @@ class _UserProfileModalState extends ConsumerState<_UserProfileModal> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: screenDimensions.width * 0.04),
+                            SizedBox(width: 20.w),
                             Expanded(
                               child: TextField(
                                 style: const TextStyle(color: Colors.white),
