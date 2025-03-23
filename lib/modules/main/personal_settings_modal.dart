@@ -1,3 +1,4 @@
+import 'package:comma_community_app/modules/boarding/auth/view/login_screen.dart';
 import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:flutter/material.dart';
 
@@ -57,7 +58,9 @@ class PersonalSettingsModal extends StatelessWidget {
           Divider(thickness: 0.5, color: Colors.grey[700]),
           _SettingsOption(
             hintText: 'Feedback and Info',
-            ontap: () {},
+            ontap: () {
+              showFeedbackandInfoModal(context);
+            },
           ),
           Divider(thickness: 0.5, color: Colors.grey[700]),
           const Spacer(),
@@ -91,7 +94,13 @@ class PersonalSettingsModal extends StatelessWidget {
           ),
           const SizedBox(height: 30),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+                (route) => false,
+              );
+            },
             child: const Text(
               'Sign Out',
               style: TextStyle(

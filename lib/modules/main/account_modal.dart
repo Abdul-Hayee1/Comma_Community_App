@@ -1,4 +1,6 @@
+import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AccountSettingsModal extends StatelessWidget {
   const AccountSettingsModal({super.key});
@@ -33,6 +35,7 @@ class AccountSettingsModal extends StatelessWidget {
                 const SizedBox(width: 10),
               ],
             ),
+            SizedBox(height: 40.h),
             Container(
               width: double.infinity,
               height: 45,
@@ -54,6 +57,35 @@ class AccountSettingsModal extends StatelessWidget {
             ),
             Divider(thickness: 0.5, color: Colors.grey[700]),
             const Spacer(),
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(vertical: 10.h),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(4),
+                border: Border.all(width: 1.5, color: Colors.white70),
+              ),
+              child: GestureDetector(
+                onTap: () {
+                  showDeactivateAccountModal(context);
+                },
+                child: const Text('Deactivate Account',
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center),
+              ),
+            ),
+            SizedBox(height: 28.h),
+            const Text(
+              'Permanently Delete Account',
+              style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 22.h),
           ],
         ),
       ),

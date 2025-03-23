@@ -81,7 +81,7 @@ class SearchScreen extends StatelessWidget {
               margin: const EdgeInsets.symmetric(horizontal: 12),
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 30),
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.4),
+                color: Colors.grey[900],
                 borderRadius: BorderRadius.circular(7),
               ),
               child: const Column(

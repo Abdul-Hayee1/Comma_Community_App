@@ -1,3 +1,7 @@
+import 'package:comma_community_app/modules/main/Discovery/discovery_screen.dart';
+import 'package:comma_community_app/modules/main/events/events_screen.dart';
+import 'package:comma_community_app/modules/main/members/members_screen.dart';
+import 'package:comma_community_app/modules/main/welcome/welcome_screen.dart';
 import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:comma_community_app/modules/main/chat/view/chat_screen.dart';
 import 'package:comma_community_app/core/utils/custom_appbars.dart';
@@ -10,6 +14,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final selectedIndexProvider = StateProvider<int>((ref) => 0);
+final firstScreenProvider = StateProvider<Widget>((ref) => const FeedScreen());
+final drawerItemSelectedProvider = StateProvider<bool>((ref) => false);
+final drawerIndexProvider = StateProvider<int>((ref) => 0);
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -17,11 +24,16 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedIndex = ref.watch(selectedIndexProvider);
+    final firstScreen = ref.watch(firstScreenProvider);
+    bool drawerItemSelected = ref.watch(drawerItemSelectedProvider);
+    int drawerIndex = ref.watch(drawerIndexProvider);
 
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 20, 24, 33),
-        appBar: buildAppBar(selectedIndex, context),
+        appBar: drawerItemSelected
+            ? buildAppBar(drawerIndex, context)
+            : buildAppBar(selectedIndex, context),
         drawer: Drawer(
           backgroundColor: const Color.fromARGB(255, 20, 24, 33),
           child: ListView(
@@ -56,10 +68,54 @@ class HomeScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              DrawerItem(icon: Icons.rss_feed, title: 'Feed'),
-              DrawerItem(icon: Icons.explore, title: 'Discovery'),
-              DrawerItem(icon: Icons.group, title: 'Members'),
-              DrawerItem(icon: Icons.event, title: 'Events'),
+              DrawerItem(
+                icon: Icons.rss_feed,
+                title: 'Feed',
+                onTap: () {
+                  ref.read(drawerIndexProvider.notifier).state = 0;
+                  ref.read(drawerItemSelectedProvider.notifier).state = true;
+                  ref.read(selectedIndexProvider.notifier).state = 0;
+                  ref.read(firstScreenProvider.notifier).state =
+                      const FeedScreen();
+                  Navigator.pop(context);
+                },
+              ),
+              DrawerItem(
+                icon: Icons.explore,
+                title: 'Discovery',
+                onTap: () {
+                  ref.read(drawerIndexProvider.notifier).state = 5;
+                  ref.read(drawerItemSelectedProvider.notifier).state = true;
+                  ref.read(selectedIndexProvider.notifier).state = 0;
+                  ref.read(firstScreenProvider.notifier).state =
+                      const DiscoveryScreen();
+                  Navigator.pop(context);
+                },
+              ),
+              DrawerItem(
+                icon: Icons.group,
+                title: 'Members',
+                onTap: () {
+                  ref.read(drawerIndexProvider.notifier).state = 6;
+                  ref.read(drawerItemSelectedProvider.notifier).state = true;
+                  ref.read(selectedIndexProvider.notifier).state = 0;
+                  ref.read(firstScreenProvider.notifier).state =
+                      const MembersScreen();
+                  Navigator.pop(context);
+                },
+              ),
+              DrawerItem(
+                icon: Icons.event,
+                title: 'Events',
+                onTap: () {
+                  ref.read(drawerIndexProvider.notifier).state = 7;
+                  ref.read(drawerItemSelectedProvider.notifier).state = true;
+                  ref.read(selectedIndexProvider.notifier).state = 0;
+                  ref.read(firstScreenProvider.notifier).state =
+                      const EventsScreen();
+                  Navigator.pop(context);
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 14.0),
                 child: Divider(color: Colors.grey[600]),
@@ -76,7 +132,18 @@ class HomeScreen extends ConsumerWidget {
                 ),
               ),
               DrawerItem(
-                  icon: Icons.waving_hand, title: 'Welcome!', isBold: true),
+                icon: Icons.waving_hand,
+                title: 'Welcome!',
+                isBold: true,
+                onTap: () {
+                  ref.read(drawerIndexProvider.notifier).state = 8;
+                  ref.read(drawerItemSelectedProvider.notifier).state = true;
+                  ref.read(selectedIndexProvider.notifier).state = 0;
+                  ref.read(firstScreenProvider.notifier).state =
+                      const WelcomeScreen();
+                  Navigator.pop(context);
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 14.0),
                 child: Divider(color: Colors.grey[600]),
@@ -95,12 +162,12 @@ class HomeScreen extends ConsumerWidget {
           children: [
             IndexedStack(
               index: selectedIndex,
-              children: const [
-                FeedScreen(),
-                ChatScreen(),
-                SearchScreen(),
-                NotificationsScreen(),
-                ProfileScreen(),
+              children: [
+                firstScreen,
+                const ChatScreen(),
+                const SearchScreen(),
+                const NotificationsScreen(),
+                const ProfileScreen(),
               ],
             ),
             const ViewListProgress()
@@ -108,15 +175,33 @@ class HomeScreen extends ConsumerWidget {
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: selectedIndex,
-          onTap: (index) =>
-              ref.read(selectedIndexProvider.notifier).state = index,
+          onTap: (index) {
+            ref.read(selectedIndexProvider.notifier).state = index;
+            if (index != 0) {
+              ref.read(drawerItemSelectedProvider.notifier).state = false;
+            } else {
+              ref.read(drawerItemSelectedProvider.notifier).state = true;
+            }
+          },
           type: BottomNavigationBarType.fixed,
           backgroundColor: const Color.fromARGB(255, 35, 40, 50),
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.grey[500],
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.explore),
+              icon: CircleAvatar(
+                radius: 18,
+                backgroundColor: Color.fromARGB(255, 5, 35, 60),
+                child: Image(
+                  image: AssetImage(
+                    'assets/logos/app_logo.png',
+                  ),
+                  width: 70,
+                  height: 70,
+                ),
+              ),
               label: 'Feed',
             ),
             BottomNavigationBarItem(
@@ -132,7 +217,12 @@ class HomeScreen extends ConsumerWidget {
               label: 'Notifications',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
+              icon: CircleAvatar(
+                radius: 18,
+                backgroundImage: NetworkImage(
+                  "https://randomuser.me/api/portraits/men/1.jpg",
+                ),
+              ),
               label: 'Profile',
             ),
           ],

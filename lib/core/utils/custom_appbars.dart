@@ -98,6 +98,53 @@ PreferredSizeWidget buildAppBar(int index, BuildContext context) {
         backgroundColor: const Color.fromARGB(255, 10, 39, 63),
         iconTheme: const IconThemeData(color: Colors.white),
       );
+    case 5:
+      return AppBar(
+        title: const Text(
+          "Discovery",
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        bottom: _buildDivider(),
+        backgroundColor: const Color.fromARGB(255, 10, 39, 63),
+        iconTheme: const IconThemeData(color: Colors.white),
+      );
+    case 6:
+      return AppBar(
+        title: const Text(
+          "Members",
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        bottom: _buildDivider(),
+        backgroundColor: const Color.fromARGB(255, 10, 39, 63),
+        iconTheme: const IconThemeData(color: Colors.white),
+      );
+    case 7:
+      return AppBar(
+        title: const Text(
+          "Events",
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.event)),
+        ],
+        bottom: _buildDivider(),
+        backgroundColor: const Color.fromARGB(255, 10, 39, 63),
+        iconTheme: const IconThemeData(color: Colors.white),
+      );
+    case 8:
+      return AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.more_vert),
+          ),
+        ],
+        backgroundColor: const Color.fromARGB(255, 10, 39, 63),
+        iconTheme: const IconThemeData(color: Colors.white),
+      );
     default:
       return AppBar(
         title: const Text("Default"),
