@@ -148,7 +148,15 @@ class HomeScreen extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 14.0),
                 child: Divider(color: Colors.grey[600]),
               ),
-              DrawerItem(title: 'See Network Details'),
+              DrawerItem(
+                title: 'See Network Details',
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    "/network",
+                  );
+                },
+              ),
               DrawerItem(
                 title: 'Personal Settings',
                 onTap: () {

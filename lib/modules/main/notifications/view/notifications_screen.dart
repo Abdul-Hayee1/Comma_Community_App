@@ -8,9 +8,7 @@ class NotificationsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
-        child: // if (no notifcations)
-            //{
-            Container(
+        child: Container(
           width: double.infinity,
           margin: EdgeInsets.only(top: 20.h, left: 16.w, right: 16.w),
           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
@@ -31,16 +29,6 @@ class NotificationsScreen extends StatelessWidget {
             ),
           ),
         ),
-        //}
-        //else
-        //
-        //{
-        //Column(
-        // children: [
-
-        // ],
-        // ),
-        //}
       ),
     );
   }

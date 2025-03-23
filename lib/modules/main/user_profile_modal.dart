@@ -1,3 +1,4 @@
+import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -83,17 +84,19 @@ class UserProfileModalState extends ConsumerState<UserProfileModal> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(
-                    width: double.infinity.w,
-                    height: 200.h,
-                    child: Image(
+                  InkWell(
+                    onTap: () {
+                      showSelectProfileModelSheet(context);
+                    },
+                    child: SizedBox(
                       width: double.infinity.w,
-                      image: const NetworkImage(
-                          "https://randomuser.me/api/portraits/men/1.jpg"),
+                      height: 200.h,
+                      child: Image(
+                        width: double.infinity.w,
+                        image: const NetworkImage(
+                            "https://randomuser.me/api/portraits/men/1.jpg"),
+                      ),
                     ),
-                  ),
-                  const CircleAvatar(
-                    radius: 24,
                   ),
                   const SizedBox(height: 10),
                   Padding(

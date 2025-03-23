@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:flutter/material.dart';
 
@@ -52,8 +54,21 @@ PreferredSizeWidget buildAppBar(int index, BuildContext context) {
         title: const Text("Chat", style: TextStyle(color: Colors.white)),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
+          IconButton(
+              onPressed: () {
+                showAddNewChatModal(context);
+              },
+              icon: const Icon(Icons.add)),
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "/searchChat");
+              },
+              icon: const Icon(Icons.search)),
+          IconButton(
+              onPressed: () {
+                showSearchOptionsModal(context);
+              },
+              icon: const Icon(Icons.settings)),
         ],
         backgroundColor: const Color.fromARGB(255, 10, 39, 63),
         iconTheme: const IconThemeData(color: Colors.white),
@@ -128,7 +143,11 @@ PreferredSizeWidget buildAppBar(int index, BuildContext context) {
         ),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.event)),
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "/calendar");
+              },
+              icon: const Icon(Icons.event)),
         ],
         bottom: _buildDivider(),
         backgroundColor: const Color.fromARGB(255, 10, 39, 63),

@@ -53,7 +53,9 @@ class PersonalSettingsModal extends StatelessWidget {
           Divider(thickness: 0.5, color: Colors.grey[700]),
           _SettingsOption(
             hintText: 'Appearance',
-            ontap: () {},
+            ontap: () {
+              Navigator.pushNamed(context, "/appearance");
+            },
           ),
           Divider(thickness: 0.5, color: Colors.grey[700]),
           _SettingsOption(

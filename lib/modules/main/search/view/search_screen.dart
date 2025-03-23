@@ -1,3 +1,4 @@
+import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -46,30 +47,35 @@ class SearchScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                margin: const EdgeInsets.only(left: 12),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 44, 51, 61),
-                  borderRadius: BorderRadius.circular(7),
-                ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "All Spaces",
-                      style: TextStyle(
+            InkWell(
+              onTap: () {
+                showSearchFiltersModelSheet(context);
+              },
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  margin: const EdgeInsets.only(left: 12),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 44, 51, 61),
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "All Spaces",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_drop_down,
                         color: Colors.white,
                       ),
-                    ),
-                    Icon(
-                      Icons.arrow_drop_down,
-                      color: Colors.white,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

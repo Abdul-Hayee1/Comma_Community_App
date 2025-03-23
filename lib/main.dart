@@ -6,6 +6,11 @@ import 'package:comma_community_app/modules/boarding/account_details/view/signIn
 import 'package:comma_community_app/modules/boarding/auth/view/create_account_screen.dart';
 import 'package:comma_community_app/modules/boarding/auth/view/forgot_password_screen.dart';
 import 'package:comma_community_app/modules/boarding/auth/view/login_screen.dart';
+import 'package:comma_community_app/modules/main/appearance/appearance.dart';
+import 'package:comma_community_app/modules/main/bookmarks/bookmarks.dart';
+import 'package:comma_community_app/modules/main/chat/view/search_chat.dart';
+import 'package:comma_community_app/modules/main/events/events_calendar.dart';
+import 'package:comma_community_app/modules/main/networkDetails/network_details.dart';
 import 'package:comma_community_app/modules/main/view/main_screen.dart';
 import 'package:comma_community_app/modules/main/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +49,11 @@ class App extends ConsumerWidget {
             '/status': (context) => const StatusScreen(),
             '/forgotPassword': (context) => ForgotPasswordScreen(),
             '/welcome': (context) => const WelcomeScreen(),
+            '/network': (context) => const NetworkPage(),
+            '/bookmarks': (context) => const BookmarksScreen(),
+            "/appearance": (context) => const AppearanceScreen(),
+            "/searchChat": (context) => const SearchChat(),
+            "/calendar": (context) => const CalendarScreen(),
           },
         );
       },

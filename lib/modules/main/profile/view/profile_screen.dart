@@ -110,7 +110,9 @@ class ProfileScreen extends StatelessWidget {
             showAccountModalSheet(context);
           }),
           const SizedBox(height: 4),
-          _settingsItem('Bookmarks', () {}),
+          _settingsItem('Bookmarks', () {
+            Navigator.pushNamed(context, "/bookmarks");
+          }),
           const SizedBox(height: 4),
           _settingsItem('Help Center', () {}),
           const SizedBox(height: 16),
