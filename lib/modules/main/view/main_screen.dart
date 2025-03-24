@@ -17,6 +17,7 @@ final selectedIndexProvider = StateProvider<int>((ref) => 0);
 final firstScreenProvider = StateProvider<Widget>((ref) => const FeedScreen());
 final drawerItemSelectedProvider = StateProvider<bool>((ref) => false);
 final drawerIndexProvider = StateProvider<int>((ref) => 0);
+final welcomeVisibleProvider = StateProvider<bool>((ref) => true);
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -120,30 +121,42 @@ class HomeScreen extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 14.0),
                 child: Divider(color: Colors.grey[600]),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  children: [
-                    Icon(Icons.arrow_drop_down, color: Colors.white),
-                    SizedBox(width: 8),
-                    Text('START HERE ⬇️',
-                        style: TextStyle(color: Colors.white)),
-                  ],
+              GestureDetector(
+                onTap: () {
+                  ref.read(welcomeVisibleProvider.notifier).state =
+                      !ref.read(welcomeVisibleProvider.notifier).state;
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Row(
+                    children: [
+                      Icon(
+                        ref.watch(welcomeVisibleProvider)
+                            ? Icons.expand_more
+                            : Icons.chevron_right,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(width: 8),
+                      const Text('START HERE ⬇️',
+                          style: TextStyle(color: Colors.white)),
+                    ],
+                  ),
                 ),
               ),
-              DrawerItem(
-                icon: Icons.waving_hand,
-                title: 'Welcome!',
-                isBold: true,
-                onTap: () {
-                  ref.read(drawerIndexProvider.notifier).state = 8;
-                  ref.read(drawerItemSelectedProvider.notifier).state = true;
-                  ref.read(selectedIndexProvider.notifier).state = 0;
-                  ref.read(firstScreenProvider.notifier).state =
-                      const WelcomeScreen();
-                  Navigator.pop(context);
-                },
-              ),
+              if (ref.watch(welcomeVisibleProvider))
+                DrawerItem(
+                  icon: Icons.waving_hand,
+                  title: 'Welcome!',
+                  isBold: true,
+                  onTap: () {
+                    ref.read(drawerIndexProvider.notifier).state = 8;
+                    ref.read(drawerItemSelectedProvider.notifier).state = true;
+                    ref.read(selectedIndexProvider.notifier).state = 0;
+                    ref.read(firstScreenProvider.notifier).state =
+                        const WelcomeScreen();
+                    Navigator.pop(context);
+                  },
+                ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 14.0),
                 child: Divider(color: Colors.grey[600]),

@@ -42,6 +42,22 @@ void showPersonalSettingsModal(BuildContext context) {
   );
 }
 
+void showViewProfileModalSheet(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: const Color.fromARGB(255, 36, 38, 63),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(20),
+      ),
+    ),
+    builder: (context) {
+      return const UserProfileModal();
+    },
+  );
+}
+
 void showEditProfileModalSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
