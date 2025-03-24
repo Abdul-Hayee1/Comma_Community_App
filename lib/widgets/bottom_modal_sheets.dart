@@ -6,6 +6,7 @@ import 'package:comma_community_app/modules/main/settings/feedback_info.dart';
 import 'package:comma_community_app/modules/main/notifications/notifications_settings_modalsheet.dart';
 import 'package:comma_community_app/modules/main/settings/personal_settings_modal.dart';
 import 'package:comma_community_app/modules/main/settings/user_profile_modal.dart';
+import 'package:comma_community_app/modules/main/settings/view_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:comma_community_app/modules/main/settings/account_modal.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -53,7 +54,7 @@ void showViewProfileModalSheet(BuildContext context) {
       ),
     ),
     builder: (context) {
-      return const UserProfileModal();
+      return const ViewUserProfileModal();
     },
   );
 }

@@ -15,7 +15,7 @@ class ProfileScreen extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
             child: GestureDetector(
               onTap: () {
-                showEditProfileModalSheet(context);
+                showViewProfileModalSheet(context);
               },
               child: Row(
                 children: [
