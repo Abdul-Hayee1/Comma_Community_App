@@ -8,6 +8,7 @@ import 'package:comma_community_app/modules/main/personal_settings_modal.dart';
 import 'package:comma_community_app/modules/main/user_profile_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:comma_community_app/modules/main/account_modal.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void showAccountModalSheet(BuildContext context) {
   showModalBottomSheet(
@@ -124,52 +125,60 @@ void showFeedbackandInfoModal(BuildContext context) {
 void showSearchOptionsModal(BuildContext context) {
   showModalBottomSheet(
     context: context,
-    backgroundColor: const Color.fromARGB(255, 20, 24, 33),
+    backgroundColor: Colors.transparent,
     builder: (context) {
-      return SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Hide Muted Conversations",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 18),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Show Private Messages Only",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 18),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: const Row(
+      return Container(
+        margin: EdgeInsets.symmetric(horizontal: 10.w),
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 20, 24, 33),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "CANCEL",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
+                      "Hide Muted Conversations",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                   ],
                 ),
-              ),
-            ],
+                const SizedBox(height: 18),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Show Private Messages Only",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 18),
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "CANCEL",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       );
