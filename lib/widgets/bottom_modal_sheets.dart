@@ -1,13 +1,13 @@
 // ignore_for_file: avoid_print
 
 import 'package:comma_community_app/modules/main/chat/view/chat_screen.dart';
-import 'package:comma_community_app/modules/main/deactivate_acc_modal.dart';
-import 'package:comma_community_app/modules/main/feedback_info.dart';
+import 'package:comma_community_app/modules/main/settings/deactivate_acc_modal.dart';
+import 'package:comma_community_app/modules/main/settings/feedback_info.dart';
 import 'package:comma_community_app/modules/main/notifications/notifications_settings_modalsheet.dart';
-import 'package:comma_community_app/modules/main/personal_settings_modal.dart';
-import 'package:comma_community_app/modules/main/user_profile_modal.dart';
+import 'package:comma_community_app/modules/main/settings/personal_settings_modal.dart';
+import 'package:comma_community_app/modules/main/settings/user_profile_modal.dart';
 import 'package:flutter/material.dart';
-import 'package:comma_community_app/modules/main/account_modal.dart';
+import 'package:comma_community_app/modules/main/settings/account_modal.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void showAccountModalSheet(BuildContext context) {
@@ -380,6 +380,24 @@ void showEventsFilterModelSheet(BuildContext context) {
             ],
           ),
         ),
+      );
+    },
+  );
+}
+
+void showWelcomeScreenModalSheet(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: const Color.fromARGB(255, 36, 38, 63),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(20),
+      ),
+    ),
+    builder: (context) {
+      return const FractionallySizedBox(
+        heightFactor: 0.4,
       );
     },
   );
