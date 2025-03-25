@@ -2,6 +2,7 @@
 
 import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 String _selectedSortOption = "Last Activity";
 List<String> _selectedFilters = [];
@@ -29,9 +30,12 @@ PreferredSizeWidget buildAppBar(int index, BuildContext context) {
   switch (index) {
     case 0:
       return AppBar(
-        title: const Text(
+        title: Text(
           "Feed",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 16.sp),
         ),
         centerTitle: true,
         actions: [
@@ -51,7 +55,11 @@ PreferredSizeWidget buildAppBar(int index, BuildContext context) {
       );
     case 1:
       return AppBar(
-        title: const Text("Chat", style: TextStyle(color: Colors.white)),
+        title: Text("Chat",
+            style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16.sp)),
         centerTitle: true,
         actions: [
           IconButton(
@@ -75,7 +83,11 @@ PreferredSizeWidget buildAppBar(int index, BuildContext context) {
       );
     case 2:
       return AppBar(
-        title: const Text("Search", style: TextStyle(color: Colors.white)),
+        title: Text("Search",
+            style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16.sp)),
         centerTitle: true,
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
@@ -86,9 +98,12 @@ PreferredSizeWidget buildAppBar(int index, BuildContext context) {
       );
     case 3:
       return AppBar(
-        title: const Text(
+        title: Text(
           "Notifications",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 16.sp),
         ),
         centerTitle: true,
         actions: [
@@ -104,9 +119,12 @@ PreferredSizeWidget buildAppBar(int index, BuildContext context) {
       );
     case 4:
       return AppBar(
-        title: const Text(
+        title: Text(
           "Your Profile",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 16.sp),
         ),
         centerTitle: true,
         bottom: _buildDivider(),
@@ -115,9 +133,12 @@ PreferredSizeWidget buildAppBar(int index, BuildContext context) {
       );
     case 5:
       return AppBar(
-        title: const Text(
+        title: Text(
           "Discovery",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 16.sp),
         ),
         centerTitle: true,
         bottom: _buildDivider(),
@@ -126,9 +147,12 @@ PreferredSizeWidget buildAppBar(int index, BuildContext context) {
       );
     case 6:
       return AppBar(
-        title: const Text(
+        title: Text(
           "Members",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 16.sp),
         ),
         centerTitle: true,
         bottom: _buildDivider(),
@@ -137,9 +161,12 @@ PreferredSizeWidget buildAppBar(int index, BuildContext context) {
       );
     case 7:
       return AppBar(
-        title: const Text(
+        title: Text(
           "Events",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 16.sp),
         ),
         centerTitle: true,
         actions: [
@@ -155,9 +182,25 @@ PreferredSizeWidget buildAppBar(int index, BuildContext context) {
       );
     case 8:
       return AppBar(
+        title: Text(
+          "START HERE ⬇️",
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+        bottom: _buildDivider(),
+        backgroundColor: const Color.fromARGB(255, 10, 39, 63),
+        iconTheme: const IconThemeData(color: Colors.white),
+      );
+    case 9:
+      return AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showWelcomeScreenModalSheet(context);
+            },
             icon: const Icon(Icons.more_vert),
           ),
         ],

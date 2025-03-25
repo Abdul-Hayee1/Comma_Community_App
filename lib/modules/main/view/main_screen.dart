@@ -1,7 +1,8 @@
 import 'package:comma_community_app/modules/main/Discovery/discovery_screen.dart';
 import 'package:comma_community_app/modules/main/events/events_screen.dart';
 import 'package:comma_community_app/modules/main/members/members_screen.dart';
-import 'package:comma_community_app/modules/main/welcome/welcome_screen.dart';
+import 'package:comma_community_app/modules/main/startHere/start_here.dart';
+import 'package:comma_community_app/modules/main/startHere/welcome_screen.dart';
 import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:comma_community_app/modules/main/chat/view/chat_screen.dart';
 import 'package:comma_community_app/core/utils/custom_appbars.dart';
@@ -123,33 +124,45 @@ class HomeScreen extends ConsumerWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  ref.read(welcomeVisibleProvider.notifier).state =
-                      !ref.read(welcomeVisibleProvider.notifier).state;
+                  ref.read(drawerIndexProvider.notifier).state = 8;
+                  ref.read(drawerItemSelectedProvider.notifier).state = true;
+                  ref.read(selectedIndexProvider.notifier).state = 0;
+                  ref.read(firstScreenProvider.notifier).state =
+                      const StartHereScreen();
+                  Navigator.pop(context);
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Row(
                     children: [
-                      Icon(
-                        ref.watch(welcomeVisibleProvider)
-                            ? Icons.expand_more
-                            : Icons.chevron_right,
-                        color: Colors.white,
+                      GestureDetector(
+                        onTap: () {
+                          ref.read(welcomeVisibleProvider.notifier).state =
+                              !ref.read(welcomeVisibleProvider.notifier).state;
+                        },
+                        child: Icon(
+                          ref.watch(welcomeVisibleProvider)
+                              ? Icons.expand_more
+                              : Icons.chevron_right,
+                          color: Colors.white,
+                        ),
                       ),
                       const SizedBox(width: 8),
-                      const Text('START HERE ⬇️',
-                          style: TextStyle(color: Colors.white)),
+                      const Text(
+                        'START HERE ⬇️',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ],
                   ),
                 ),
               ),
               if (ref.watch(welcomeVisibleProvider))
                 DrawerItem(
-                  icon: Icons.waving_hand,
+                  icon: Icons.home,
                   title: 'Welcome!',
                   isBold: true,
                   onTap: () {
-                    ref.read(drawerIndexProvider.notifier).state = 8;
+                    ref.read(drawerIndexProvider.notifier).state = 9;
                     ref.read(drawerItemSelectedProvider.notifier).state = true;
                     ref.read(selectedIndexProvider.notifier).state = 0;
                     ref.read(firstScreenProvider.notifier).state =

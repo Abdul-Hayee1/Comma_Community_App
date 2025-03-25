@@ -5,8 +5,8 @@ import 'package:comma_community_app/modules/main/settings/deactivate_acc_modal.d
 import 'package:comma_community_app/modules/main/settings/feedback_info.dart';
 import 'package:comma_community_app/modules/main/notifications/notifications_settings_modalsheet.dart';
 import 'package:comma_community_app/modules/main/settings/personal_settings_modal.dart';
-import 'package:comma_community_app/modules/main/settings/user_profile_modal.dart';
-import 'package:comma_community_app/modules/main/settings/view_profile.dart';
+import 'package:comma_community_app/modules/main/profile/user_profile_modal.dart';
+import 'package:comma_community_app/modules/main/profile/view/view_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:comma_community_app/modules/main/settings/account_modal.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -402,24 +402,6 @@ void showEventsFilterModelSheet(BuildContext context) {
   );
 }
 
-void showWelcomeScreenModalSheet(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    backgroundColor: const Color.fromARGB(255, 36, 38, 63),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        top: Radius.circular(20),
-      ),
-    ),
-    builder: (context) {
-      return const FractionallySizedBox(
-        heightFactor: 0.4,
-      );
-    },
-  );
-}
-
 void showMembersFilterModelSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
@@ -501,6 +483,79 @@ void showMembersFilterModelSheet(BuildContext context) {
                 ),
               ),
             ],
+          ),
+        ),
+      );
+    },
+  );
+}
+
+void showWelcomeScreenModalSheet(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    backgroundColor: Colors.transparent,
+    builder: (context) {
+      return Container(
+        margin: EdgeInsets.symmetric(horizontal: 10.w),
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 20, 24, 33),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "See Details",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 18),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Invite",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                  ],
+                ),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Personal Settings",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 18),
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "CANCEL",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       );

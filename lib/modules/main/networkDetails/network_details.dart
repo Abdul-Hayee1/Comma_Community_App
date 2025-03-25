@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 final List<Map<String, String>> users = [
   {
@@ -112,27 +113,35 @@ class NetworkPage extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+              child: const Text(
+                'Inviti',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            SizedBox(height: 16.h),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+              child: const Text(
+                'The Harley Academy Community for Aesthetic Education',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Divider(color: Colors.white70),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 14.0.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Comma',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const Text(
-                    'The Harley Academy Community for Aesthetic Education',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
                   Container(
                     height: 100,
                     width: double.infinity,
@@ -140,7 +149,7 @@ class NetworkPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: Colors.white70,
-                        width: 2.0,
+                        width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(6),
                     ),
@@ -167,7 +176,7 @@ class NetworkPage extends StatelessWidget {
                       },
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 10.h),
                   Container(
                     height: 135,
                     width: double.infinity,
@@ -175,7 +184,7 @@ class NetworkPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: Colors.white70,
-                        width: 2.0,
+                        width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(6),
                     ),
@@ -227,7 +236,7 @@ class NetworkPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 10.h),
                   Container(
                     height: 100,
                     width: double.infinity,
@@ -235,7 +244,7 @@ class NetworkPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: Colors.white70,
-                        width: 2.0,
+                        width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(6),
                     ),
@@ -275,7 +284,7 @@ class NetworkPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 30.h),
                   const Text(
                     'Welcome Checklist',
                     style: TextStyle(
@@ -284,32 +293,56 @@ class NetworkPage extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Image.asset(
-                        "assets/logos/app_logo.png",
-                        width: 30,
-                        height: 30,
+                  SizedBox(height: 8.h),
+                  Card(
+                    margin:
+                        EdgeInsets.only(right: 160.w, top: 10.h, bottom: 10.h),
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    color: Colors.grey[900],
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 14.w, vertical: 14.h),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const CircleAvatar(
+                                radius: 20,
+                                backgroundColor: Color.fromARGB(255, 5, 35, 60),
+                                child: Image(
+                                  image: AssetImage(
+                                    'assets/logos/app_logo.png',
+                                  ),
+                                  width: 70,
+                                  height: 70,
+                                ),
+                              ),
+                              SizedBox(width: 6.w),
+                              const Text(
+                                'Inviti',
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.white),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 30.h),
+                          const Text(
+                            'Fill out your Profile',
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 50.h),
+                        ],
                       ),
-                      const SizedBox(width: 4),
-                      const Text(
-                        'Comma',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 18),
-                  const Text(
-                    'Fill Out Your Profile',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  SizedBox(height: 50.h),
                 ],
               ),
             )

@@ -1,7 +1,6 @@
-import 'package:comma_community_app/modules/main/welcome/access_inviti_tab.dart';
-import 'package:comma_community_app/modules/main/welcome/page_tab.dart';
+import 'package:comma_community_app/modules/main/startHere/access_inviti_tab.dart';
+import 'package:comma_community_app/modules/main/startHere/page_tab.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});

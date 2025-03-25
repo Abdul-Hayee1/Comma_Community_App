@@ -12,7 +12,7 @@ import 'package:comma_community_app/modules/main/chat/view/search_chat.dart';
 import 'package:comma_community_app/modules/main/events/events_calendar.dart';
 import 'package:comma_community_app/modules/main/networkDetails/network_details.dart';
 import 'package:comma_community_app/modules/main/view/main_screen.dart';
-import 'package:comma_community_app/modules/main/welcome/welcome_screen.dart';
+import 'package:comma_community_app/modules/main/startHere/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
