@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class UserProfileModal extends ConsumerStatefulWidget {
-  const UserProfileModal({super.key});
+class EditProfileModal extends ConsumerStatefulWidget {
+  const EditProfileModal({super.key});
 
   @override
-  UserProfileModalState createState() => UserProfileModalState();
+  EditProfileModalState createState() => EditProfileModalState();
 }
 
-class UserProfileModalState extends ConsumerState<UserProfileModal> {
+class EditProfileModalState extends ConsumerState<EditProfileModal> {
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController miniBioController = TextEditingController();
@@ -84,21 +84,38 @@ class UserProfileModalState extends ConsumerState<UserProfileModal> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  InkWell(
-                    onTap: () {
-                      showSelectProfileModelSheet(context);
-                    },
-                    child: SizedBox(
-                      width: double.infinity.w,
-                      height: 200.h,
-                      child: Image(
-                        width: double.infinity.w,
-                        image: const NetworkImage(
-                            "https://randomuser.me/api/portraits/men/1.jpg"),
+                  Container(
+                    height: 150.h,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/logos/cover.jpg'),
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  Transform.translate(
+                    offset: const Offset(0, -50),
+                    child: GestureDetector(
+                      onTap: () {
+                        showSelectProfileModelSheet(context);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 3,
+                          ),
+                        ),
+                        child: const CircleAvatar(
+                          radius: 90,
+                          backgroundImage: NetworkImage(
+                            'https://randomuser.me/api/portraits/men/1.jpg',
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Column(

@@ -233,6 +233,44 @@ class ViewUserProfileModal extends ConsumerWidget {
                       ),
                       SizedBox(height: 10.h),
                       Container(
+                          padding: const EdgeInsets.all(14),
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                children: [
+                                  Text(
+                                    'Followers',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Text(
+                                    'Following',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                            ],
+                          )),
+                      SizedBox(height: 10.h),
+                      Container(
                         padding: const EdgeInsets.all(14),
                         width: double.infinity,
                         decoration: BoxDecoration(
@@ -262,7 +300,7 @@ class ViewUserProfileModal extends ConsumerWidget {
                                 ),
                                 onPressed: () {
                                   ref.read(drawerIndexProvider.notifier).state =
-                                      8;
+                                      9;
                                   ref
                                       .read(drawerItemSelectedProvider.notifier)
                                       .state = true;

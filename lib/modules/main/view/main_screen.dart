@@ -204,7 +204,7 @@ class HomeScreen extends ConsumerWidget {
                 const ProfileScreen(),
               ],
             ),
-            const ViewListProgress()
+            // const ViewListProgress()
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(

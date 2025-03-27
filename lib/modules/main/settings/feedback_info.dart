@@ -16,9 +16,14 @@ class FeedbackandInfoModal extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ),
                 ),
                 const Text(
                   'Feedback and Info',

@@ -1,5 +1,7 @@
+import 'package:comma_community_app/modules/main/feed/view/post_modal_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 
 class Post {
   final String author;
@@ -21,11 +23,16 @@ class Post {
   });
 }
 
-class PostWidget extends StatelessWidget {
+class PostWidget extends StatefulWidget {
   final Post post;
 
   const PostWidget({super.key, required this.post});
 
+  @override
+  State<PostWidget> createState() => _PostWidgetState();
+}
+
+class _PostWidgetState extends State<PostWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -42,29 +49,30 @@ class PostWidget extends StatelessWidget {
                   CircleAvatar(
                     backgroundColor: Colors.grey,
                     radius: 20,
-                    backgroundImage: post.profileImage != null
-                        ? NetworkImage(post.profileImage!)
+                    backgroundImage: widget.post.profileImage != null
+                        ? NetworkImage(widget.post.profileImage!)
                         : null,
                   ),
                   const SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(post.author,
+                      Text(widget.post.author,
                           style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.white)),
-                      Text(post.role,
+                      Text(widget.post.role,
                           style: const TextStyle(color: Colors.grey)),
                     ],
                   ),
                 ],
               ),
               const SizedBox(height: 10),
-              Text(post.content, style: const TextStyle(color: Colors.white)),
+              Text(widget.post.content,
+                  style: const TextStyle(color: Colors.white)),
               const SizedBox(height: 10),
               Text(
-                "Posted ${post.postedTime}",
+                "Posted ${widget.post.postedTime}",
                 style: const TextStyle(color: Colors.grey, fontSize: 12),
               ),
               const SizedBox(height: 30),
@@ -80,10 +88,12 @@ class PostWidget extends StatelessWidget {
                       IconButton(
                         icon: const Icon(LucideIcons.messageCircle,
                             color: Colors.white),
-                        onPressed: () {},
+                        onPressed: () {
+                          showCommentSectionModal(context);
+                        },
                       ),
                       Text(
-                        post.comments.toString(),
+                        widget.post.comments.toString(),
                         style: const TextStyle(color: Colors.white),
                       ),
                     ],
@@ -96,7 +106,7 @@ class PostWidget extends StatelessWidget {
                         onPressed: () {},
                       ),
                       Text(
-                        post.likes.toString(),
+                        widget.post.likes.toString(),
                         style: const TextStyle(color: Colors.white),
                       ),
                     ],
