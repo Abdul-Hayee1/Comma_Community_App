@@ -90,7 +90,7 @@ class FeedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Post> latestPosts = posts.take(4).toList();
+    List<Post> latestPosts = posts.take(6).toList();
 
     return SingleChildScrollView(
       child: Column(

@@ -142,33 +142,39 @@ class PageTab extends StatelessWidget {
               ),
             ),
             Container(
-              height: 0.05.sh,
+              height: 0.055.sh,
+              width: double.infinity,
+              alignment: Alignment.topCenter,
               padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
               decoration: const BoxDecoration(
                 color: Colors.transparent,
                 border: Border(top: BorderSide(color: Colors.grey, width: 0.5)),
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.add, color: Colors.white, size: 32),
+                    icon: const Icon(Icons.add, color: Colors.white, size: 30),
+                    padding: EdgeInsets.zero,
                     onPressed: () {},
                   ),
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.grey[800],
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(6),
                       ),
                       child: TextField(
+                        textAlignVertical: TextAlignVertical.center,
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
                           hintText: "Write a comment...",
                           hintStyle: TextStyle(
                               color: Colors.grey[400], fontSize: 16.sp),
                           border: InputBorder.none,
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 8,
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: 9.h,
                             horizontal: 8,
                           ),
                         ),

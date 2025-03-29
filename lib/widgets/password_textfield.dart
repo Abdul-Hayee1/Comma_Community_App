@@ -4,12 +4,14 @@ class PasswordTextfield extends StatefulWidget {
   final TextEditingController? controller;
   final String hintText;
   final bool obscureText;
+  final Color? borderColor;
 
   const PasswordTextfield({
     super.key,
     this.controller,
     required this.hintText,
     this.obscureText = false,
+    this.borderColor,
   });
 
   @override
@@ -40,15 +42,16 @@ class _MyTextfieldState extends State<PasswordTextfield> {
         controller: widget.controller,
         obscureText: _obscureText,
         decoration: InputDecoration(
-          enabledBorder: const OutlineInputBorder(
+          enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.grey,
+              color: widget.borderColor ?? Colors.grey,
               width: 2.0,
             ),
           ),
-          focusedBorder: const OutlineInputBorder(
+          focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Color.fromARGB(255, 59, 76, 170),
+              color:
+                  widget.borderColor ?? const Color.fromARGB(255, 59, 76, 170),
               width: 2.0,
             ),
           ),

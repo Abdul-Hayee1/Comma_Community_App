@@ -1,3 +1,4 @@
+import 'package:comma_community_app/firebase_options.dart';
 import 'package:comma_community_app/modules/boarding/account_details/view/add_photo_screen.dart';
 import 'package:comma_community_app/modules/boarding/account_details/view/pending_approval_screen.dart';
 import 'package:comma_community_app/modules/boarding/account_details/view/questions_screen.dart';
@@ -13,11 +14,16 @@ import 'package:comma_community_app/modules/main/events/events_calendar.dart';
 import 'package:comma_community_app/modules/main/networkDetails/network_details.dart';
 import 'package:comma_community_app/modules/main/view/main_screen.dart';
 import 'package:comma_community_app/modules/main/startHere/welcome_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     const ProviderScope(
       child: App(),

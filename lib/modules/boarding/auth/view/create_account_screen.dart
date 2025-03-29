@@ -1,21 +1,67 @@
 import 'dart:io';
-
+import 'package:comma_community_app/modules/boarding/auth/view/auth_provider.dart';
 import 'package:comma_community_app/widgets/my_button.dart';
 import 'package:comma_community_app/widgets/my_textfield.dart';
 import 'package:comma_community_app/widgets/password_textfield.dart';
 import 'package:comma_community_app/widgets/socials_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CreateAccountScreen extends StatelessWidget {
-  CreateAccountScreen({super.key});
+class CreateAccountScreen extends ConsumerStatefulWidget {
+  const CreateAccountScreen({super.key});
 
+  @override
+  ConsumerState<CreateAccountScreen> createState() =>
+      _CreateAccountScreenState();
+}
+
+class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _createAccount() async {
+    try {
+      await ref
+          .read(authNotifierProvider.notifier)
+          .createUserWithEmailAndPassword(
+            email: _emailController.text,
+            password: _passwordController.text,
+          );
+
+      final authState = ref.read(authNotifierProvider);
+      FocusScope.of(context).unfocus();
+      if (authState.value != null && ScaffoldMessenger.of(context).mounted) {
+        Future.delayed(const Duration(milliseconds: 500), () {
+          if (ScaffoldMessenger.of(context).mounted) {
+            Navigator.pushNamed(context, "/addPhoto");
+          }
+        });
+      }
+    } catch (_) {
+      // Errors are handled through the UI
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(authNotifierProvider);
+    final errorDetails = ref.watch(authErrorDetailsProvider);
+
+    final emailError = errorDetails?['email'];
+    final passwordError = errorDetails?['password'];
+    final generalError = errorDetails?['general'];
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -25,9 +71,7 @@ class CreateAccountScreen extends StatelessWidget {
               radius: 30,
               backgroundColor: Color.fromARGB(255, 5, 35, 60),
               child: Image(
-                image: AssetImage(
-                  'assets/logos/app_logo.png',
-                ),
+                image: AssetImage('assets/logos/app_logo.png'),
                 width: 70,
                 height: 70,
               ),
@@ -71,26 +115,59 @@ class CreateAccountScreen extends StatelessWidget {
                   const SizedBox(width: 1),
                   Expanded(
                     child: MyTextfield(
-                      controller: _lastNameController,
-                      hintText: 'Last Name',
-                      leftPadding: 3,
-                      rightPadding: 18,
-                    ),
+                        controller: _lastNameController,
+                        hintText: 'Last Name',
+                        leftPadding: 3,
+                        rightPadding: 18),
                   ),
                 ],
               ),
               const SizedBox(height: 8),
-              MyTextfield(
-                controller: _emailController,
-                hintText: 'Email',
-                leftPadding: 18,
-                rightPadding: 18,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MyTextfield(
+                    controller: _emailController,
+                    hintText: 'Email',
+                    leftPadding: 18,
+                    rightPadding: 18,
+                    borderColor: emailError != null ? Colors.amber : null,
+                  ),
+                  if (emailError != null)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 18, top: 4),
+                      child: Text(
+                        emailError,
+                        style: const TextStyle(
+                          color: Colors.amber,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                ],
               ),
               const SizedBox(height: 8),
-              PasswordTextfield(
-                controller: _passwordController,
-                hintText: 'Password',
-                obscureText: true,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  PasswordTextfield(
+                    controller: _passwordController,
+                    hintText: 'Password',
+                    obscureText: true,
+                    borderColor: passwordError != null ? Colors.amber : null,
+                  ),
+                  if (passwordError != null)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 18, top: 4),
+                      child: Text(
+                        passwordError,
+                        style: const TextStyle(
+                          color: Colors.amber,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                ],
               ),
               const SizedBox(height: 16),
               Padding(
@@ -152,23 +229,43 @@ class CreateAccountScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              MyButton(
-                hintText: 'Create Account',
-                bgcolor: const Color.fromARGB(255, 70, 78, 185),
-                onPressed: () {
-                  FocusScope.of(context).unfocus();
-                  Future.delayed(const Duration(milliseconds: 500), () {
-                    Navigator.pushNamed(context, "/addPhoto");
-                  });
-                },
-                isOutlined: false,
+              authState.when(
+                loading: () => const Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  ),
+                ),
+                error: (error, stack) => MyButton(
+                  hintText: 'Create Account',
+                  bgcolor:
+                      const Color.fromARGB(255, 70, 78, 185).withOpacity(0.5),
+                  onPressed: _createAccount,
+                  isOutlined: false,
+                  isEnabled: false,
+                ),
+                data: (user) => MyButton(
+                  hintText: 'Create Account',
+                  bgcolor: const Color.fromARGB(255, 70, 78, 185),
+                  onPressed: _createAccount,
+                  isOutlined: false,
+                ),
               ),
+              if (generalError != null)
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Text(
+                    generalError,
+                    style: const TextStyle(
+                      color: Colors.amber,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
               const SizedBox(height: 30),
               Center(
                 child: InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+                  onTap: () => Navigator.pop(context),
                   child: const Text(
                     'Already a Member? Sign in',
                     style: TextStyle(color: Colors.white, fontSize: 18),
@@ -216,10 +313,7 @@ class CreateAccountScreen extends StatelessWidget {
                 imagePath: 'assets/logos/apple_logo.png',
               ),
               const SizedBox(height: 15),
-              if (Platform.isIOS)
-                const Divider(
-                  color: Colors.grey,
-                ),
+              if (Platform.isIOS) const Divider(color: Colors.grey),
               if (Platform.isIOS)
                 Padding(
                   padding: const EdgeInsets.only(left: 3),
@@ -229,9 +323,7 @@ class CreateAccountScreen extends StatelessWidget {
                       color: Colors.white,
                       size: 30,
                     ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                    onPressed: () => Navigator.pop(context),
                   ),
                 ),
             ],

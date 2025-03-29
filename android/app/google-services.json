@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "210179324809",
+    "project_id": "inviti-community-app",
+    "storage_bucket": "inviti-community-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:210179324809:android:7383905c4dcea7e2633f58",
+        "android_client_info": {
+          "package_name": "com.example.comma_community_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8KP5JZPN7bSFgUcfzeXFHJdqKP6cKczQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

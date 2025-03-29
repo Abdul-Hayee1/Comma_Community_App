@@ -8,6 +8,7 @@ import 'package:comma_community_app/modules/main/notifications/notifications_set
 import 'package:comma_community_app/modules/main/settings/personal_settings_modal.dart';
 import 'package:comma_community_app/modules/main/profile/edit_profile_modal.dart';
 import 'package:comma_community_app/modules/main/profile/view/view_profile.dart';
+import 'package:comma_community_app/widgets/custom_post_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:comma_community_app/modules/main/settings/account_modal.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -108,7 +109,10 @@ void showAddNewChatModal(BuildContext context) {
   );
 }
 
-void showCommentSectionModal(BuildContext context) {
+void showCommentSectionModal(
+  BuildContext context,
+  Post post,
+) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -119,7 +123,7 @@ void showCommentSectionModal(BuildContext context) {
       ),
     ),
     builder: (context) {
-      return const PostModalScreen();
+      return PostModalScreen();
     },
   );
 }

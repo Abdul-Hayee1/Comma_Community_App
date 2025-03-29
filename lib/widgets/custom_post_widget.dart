@@ -1,4 +1,3 @@
-import 'package:comma_community_app/modules/main/feed/view/post_modal_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
@@ -89,7 +88,7 @@ class _PostWidgetState extends State<PostWidget> {
                         icon: const Icon(LucideIcons.messageCircle,
                             color: Colors.white),
                         onPressed: () {
-                          showCommentSectionModal(context);
+                          showCommentSectionModal(context, widget.post);
                         },
                       ),
                       Text(
