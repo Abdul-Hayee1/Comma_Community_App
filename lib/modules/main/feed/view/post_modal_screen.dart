@@ -1,4 +1,3 @@
-import 'package:comma_community_app/widgets/custom_post_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

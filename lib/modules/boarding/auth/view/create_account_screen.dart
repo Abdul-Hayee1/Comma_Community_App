@@ -1,9 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 import 'package:comma_community_app/modules/boarding/auth/view/auth_provider.dart';
 import 'package:comma_community_app/widgets/my_button.dart';
 import 'package:comma_community_app/widgets/my_textfield.dart';
 import 'package:comma_community_app/widgets/password_textfield.dart';
-import 'package:comma_community_app/widgets/socials_button.dart';
+import 'package:comma_community_app/widgets/social_logins.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -293,25 +295,7 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
                 ),
               ),
               const SizedBox(height: 12),
-              const SocialsButton(
-                hintText: 'Sign In with Google',
-                imagePath: 'assets/logos/google_logo.png',
-              ),
-              const SizedBox(height: 12),
-              const SocialsButton(
-                hintText: 'Sign In with Facebook',
-                imagePath: 'assets/logos/facebook_logo.png',
-              ),
-              const SizedBox(height: 12),
-              const SocialsButton(
-                hintText: 'Sign In with LinkedIn',
-                imagePath: 'assets/logos/linkedin_logo.png',
-              ),
-              const SizedBox(height: 12),
-              const SocialsButton(
-                hintText: 'Sign In with Apple',
-                imagePath: 'assets/logos/apple_logo.png',
-              ),
+              const SocialLogins(),
               const SizedBox(height: 15),
               if (Platform.isIOS) const Divider(color: Colors.grey),
               if (Platform.isIOS)

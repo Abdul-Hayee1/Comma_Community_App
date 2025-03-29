@@ -1,5 +1,6 @@
-// ignore_for_file: avoid_print
-
+// ignore_for_file: avoid_print, use_build_context_synchronously
+import 'package:comma_community_app/modules/boarding/auth/controller/auth_controller.dart';
+import 'package:comma_community_app/providers/auth_provider.dart';
 import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,7 +27,8 @@ List<String> _sortOptions = [
   "Distance",
 ];
 
-PreferredSizeWidget buildAppBar(int index, BuildContext context) {
+PreferredSizeWidget buildAppBar(int index, BuildContext context,
+    AuthController authController, AuthNotifier authNotifier) {
   switch (index) {
     case 0:
       return AppBar(
@@ -130,6 +132,29 @@ PreferredSizeWidget buildAppBar(int index, BuildContext context) {
         bottom: _buildDivider(),
         backgroundColor: const Color.fromARGB(255, 10, 39, 63),
         iconTheme: const IconThemeData(color: Colors.white),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.blue,
+                    ),
+                  );
+                },
+              );
+
+              await authNotifier.signOut();
+              Navigator.pushReplacementNamed(context, "/");
+            },
+            icon: const Icon(
+              Icons.exit_to_app,
+            ),
+          ),
+        ],
       );
     case 5:
       return AppBar(

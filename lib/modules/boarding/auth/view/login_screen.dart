@@ -1,18 +1,26 @@
+// ignore_for_file: use_build_context_synchronously, unused_local_variable, no_leading_underscores_for_local_identifiers, avoid_print
+
+import 'package:comma_community_app/modules/boarding/auth/controller/auth_controller.dart';
+import 'package:comma_community_app/providers/auth_provider.dart';
 import 'package:comma_community_app/widgets/my_button.dart';
 import 'package:comma_community_app/widgets/my_textfield.dart';
 import 'package:comma_community_app/widgets/password_textfield.dart';
-import 'package:comma_community_app/widgets/socials_button.dart';
+import 'package:comma_community_app/widgets/social_logins.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
-
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+class LoginScreen extends ConsumerWidget {
+  const LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    AuthController authController = ref.watch(authenticationNotifierProvider);
+    AuthNotifier authNotifier =
+        ref.read(authenticationNotifierProvider.notifier);
+    final _emailController = authController.signInEmailController;
+    final _passwordController = authController.signInPasswordController;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -54,7 +62,7 @@ class LoginScreen extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 MyTextfield(
                   controller: _emailController,
                   hintText: 'Email',
@@ -90,11 +98,32 @@ class LoginScreen extends StatelessWidget {
                 MyButton(
                   hintText: 'Sign In',
                   bgcolor: const Color.fromARGB(255, 70, 78, 185),
-                  onPressed: () {
+                  onPressed: () async {
                     FocusScope.of(context).unfocus();
-                    Future.delayed(const Duration(milliseconds: 500), () {
-                      Navigator.pushNamed(context, "/home");
-                    });
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.blue,
+                          ),
+                        );
+                      },
+                    );
+                    User? user = await authNotifier.signInWithEmailPassword(
+                        context,
+                        _emailController.text,
+                        _passwordController.text);
+                    authNotifier.clearSignInFields();
+
+                    if (user != null) {
+                      authNotifier.resetDrawerState(ref);
+                      Navigator.pushReplacementNamed(context, "/");
+                      print("Signed in with email password");
+                    } else {
+                      print("Sign in failed");
+                    }
                   },
                   isOutlined: false,
                 ),
@@ -137,25 +166,7 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 12.h),
-                const SocialsButton(
-                  hintText: 'Sign In with Google',
-                  imagePath: 'assets/logos/google_logo.png',
-                ),
-                SizedBox(height: 12.h),
-                const SocialsButton(
-                  hintText: 'Sign In with Facebook',
-                  imagePath: 'assets/logos/facebook_logo.png',
-                ),
-                SizedBox(height: 12.h),
-                const SocialsButton(
-                  hintText: 'Sign In with LinkedIn',
-                  imagePath: 'assets/logos/linkedin_logo.png',
-                ),
-                SizedBox(height: 12.h),
-                const SocialsButton(
-                  hintText: 'Sign In with Apple',
-                  imagePath: 'assets/logos/apple_logo.png',
-                ),
+                const SocialLogins(),
               ],
             ),
           ),

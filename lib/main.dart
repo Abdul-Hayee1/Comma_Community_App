@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:comma_community_app/firebase_options.dart';
 import 'package:comma_community_app/modules/boarding/account_details/view/add_photo_screen.dart';
 import 'package:comma_community_app/modules/boarding/account_details/view/pending_approval_screen.dart';
@@ -14,16 +16,32 @@ import 'package:comma_community_app/modules/main/events/events_calendar.dart';
 import 'package:comma_community_app/modules/main/networkDetails/network_details.dart';
 import 'package:comma_community_app/modules/main/view/main_screen.dart';
 import 'package:comma_community_app/modules/main/startHere/welcome_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+Future<String?> getHashKey() async {
+  const channel = MethodChannel('com.example.comma_community_app/hash');
+  try {
+    final String? hashKey = await channel.invokeMethod('getHashKey');
+    print("Hash Key: $hashKey");
+    return hashKey;
+  } on PlatformException catch (e) {
+    print("Failed to get hash key: ${e.message}");
+    return null;
+  }
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  final hashKey = await getHashKey();
+  print("Generated Hash Key: $hashKey");
   runApp(
     const ProviderScope(
       child: App(),
@@ -33,6 +51,12 @@ void main() async {
 
 class App extends ConsumerWidget {
   const App({super.key});
+
+  Widget _getInitialRoute() {
+    return FirebaseAuth.instance.currentUser == null
+        ? const LoginScreen()
+        : const HomeScreen();
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,9 +69,9 @@ class App extends ConsumerWidget {
           debugShowCheckedModeBanner: false,
           initialRoute: '/',
           routes: {
-            '/': (context) => LoginScreen(),
+            '/': (context) => _getInitialRoute(),
             '/signInLoading': (context) => const SigninLoadingScreen(),
-            '/signUp': (context) => CreateAccountScreen(),
+            '/signUp': (context) => const CreateAccountScreen(),
             '/home': (context) => const HomeScreen(),
             '/addPhoto': (context) => const AddPhotoScreen(),
             '/questions': (context) => const QuestionsScreen(),

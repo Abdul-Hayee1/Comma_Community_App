@@ -1,8 +1,12 @@
+// ignore_for_file: unused_local_variable
+
+import 'package:comma_community_app/modules/boarding/auth/controller/auth_controller.dart';
 import 'package:comma_community_app/modules/main/Discovery/discovery_screen.dart';
 import 'package:comma_community_app/modules/main/events/events_screen.dart';
 import 'package:comma_community_app/modules/main/members/members_screen.dart';
 import 'package:comma_community_app/modules/main/startHere/start_here.dart';
 import 'package:comma_community_app/modules/main/startHere/welcome_screen.dart';
+import 'package:comma_community_app/providers/auth_provider.dart';
 import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:comma_community_app/modules/main/chat/view/chat_screen.dart';
 import 'package:comma_community_app/core/utils/custom_appbars.dart';
@@ -29,13 +33,16 @@ class HomeScreen extends ConsumerWidget {
     final firstScreen = ref.watch(firstScreenProvider);
     bool drawerItemSelected = ref.watch(drawerItemSelectedProvider);
     int drawerIndex = ref.watch(drawerIndexProvider);
+    AuthController authController = ref.watch(authenticationNotifierProvider);
+    AuthNotifier authNotifier =
+        ref.read(authenticationNotifierProvider.notifier);
 
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 20, 24, 33),
         appBar: drawerItemSelected
-            ? buildAppBar(drawerIndex, context)
-            : buildAppBar(selectedIndex, context),
+            ? buildAppBar(drawerIndex, context, authController, authNotifier)
+            : buildAppBar(selectedIndex, context, authController, authNotifier),
         drawer: Drawer(
           backgroundColor: const Color.fromARGB(255, 20, 24, 33),
           child: ListView(
