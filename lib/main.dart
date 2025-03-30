@@ -22,6 +22,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 Future<String?> getHashKey() async {
   const channel = MethodChannel('com.example.comma_community_app/hash');
@@ -40,6 +41,12 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  OneSignal.shared.setAppId('3a90fe4c-b4a5-400d-819a-7e3edcbcb571');
+  OneSignal.shared.promptUserForPushNotificationPermission();
+  OneSignal.shared.sendTag("platform", "mobile");
+  OneSignal.shared.getDeviceState().then((deviceState) {
+    print("Device token: ${deviceState?.pushToken}");
+  });
   final hashKey = await getHashKey();
   print("Generated Hash Key: $hashKey");
   runApp(

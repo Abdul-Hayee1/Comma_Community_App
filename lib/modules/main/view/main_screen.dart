@@ -4,9 +4,11 @@ import 'package:comma_community_app/modules/boarding/auth/controller/auth_contro
 import 'package:comma_community_app/modules/main/Discovery/discovery_screen.dart';
 import 'package:comma_community_app/modules/main/events/events_screen.dart';
 import 'package:comma_community_app/modules/main/members/members_screen.dart';
+import 'package:comma_community_app/modules/main/profile/controller/profile_controller.dart';
 import 'package:comma_community_app/modules/main/startHere/start_here.dart';
 import 'package:comma_community_app/modules/main/startHere/welcome_screen.dart';
 import 'package:comma_community_app/providers/auth_provider.dart';
+import 'package:comma_community_app/providers/profile_provider.dart';
 import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:comma_community_app/modules/main/chat/view/chat_screen.dart';
 import 'package:comma_community_app/core/utils/custom_appbars.dart';
@@ -36,6 +38,9 @@ class HomeScreen extends ConsumerWidget {
     AuthController authController = ref.watch(authenticationNotifierProvider);
     AuthNotifier authNotifier =
         ref.read(authenticationNotifierProvider.notifier);
+    ProfileController profileController = ref.watch(profileNotifierProvider);
+    ProfileNotifier profileNotifier =
+        ref.read(profileNotifierProvider.notifier);
 
     return SafeArea(
       child: Scaffold(
@@ -230,8 +235,8 @@ class HomeScreen extends ConsumerWidget {
           unselectedItemColor: Colors.grey[500],
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          items: const [
-            BottomNavigationBarItem(
+          items: [
+            const BottomNavigationBarItem(
               icon: CircleAvatar(
                 radius: 18,
                 backgroundColor: Color.fromARGB(255, 5, 35, 60),
@@ -245,15 +250,15 @@ class HomeScreen extends ConsumerWidget {
               ),
               label: 'Feed',
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.chat),
               label: 'Chat',
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.search),
               label: 'Search',
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.notifications),
               label: 'Notifications',
             ),
@@ -261,7 +266,7 @@ class HomeScreen extends ConsumerWidget {
               icon: CircleAvatar(
                 radius: 18,
                 backgroundImage: NetworkImage(
-                  "https://randomuser.me/api/portraits/men/1.jpg",
+                  profileController.photoUrl,
                 ),
               ),
               label: 'Profile',

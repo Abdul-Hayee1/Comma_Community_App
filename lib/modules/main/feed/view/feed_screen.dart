@@ -1,5 +1,10 @@
+// ignore_for_file: unused_local_variable
+
+import 'package:comma_community_app/modules/main/profile/controller/profile_controller.dart';
+import 'package:comma_community_app/providers/profile_provider.dart';
 import 'package:comma_community_app/widgets/custom_post_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 List<Post> posts = [
   Post(
@@ -85,16 +90,41 @@ List<Post> posts = [
   ),
 ];
 
-class FeedScreen extends StatelessWidget {
+class FeedScreen extends ConsumerStatefulWidget {
   const FeedScreen({super.key});
+
+  @override
+  ConsumerState<FeedScreen> createState() => _FeedScreenState();
+}
+
+class _FeedScreenState extends ConsumerState<FeedScreen> {
+  late ProfileController profileController;
+  late ProfileNotifier profileNotifier;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      profileNotifier.getUserInfo();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     List<Post> latestPosts = posts.take(6).toList();
+    profileController = ref.watch(profileNotifierProvider);
+    profileNotifier = ref.read(profileNotifierProvider.notifier);
 
     return SingleChildScrollView(
       child: Column(
-        children: [...latestPosts.map((post) => PostWidget(post: post))],
+        children: [
+          ...latestPosts.map(
+            (post) => PostWidget(
+              post: post,
+            ),
+          ),
+        ],
       ),
     );
   }

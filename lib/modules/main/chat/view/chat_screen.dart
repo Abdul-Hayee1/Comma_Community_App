@@ -1,76 +1,87 @@
+// ignore_for_file: unused_local_variable, camel_case_types
+
+import 'package:comma_community_app/modules/main/profile/controller/profile_controller.dart';
+import 'package:comma_community_app/providers/profile_provider.dart';
 import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:comma_community_app/widgets/my_button.dart';
 import 'package:comma_community_app/modules/main/chat/view/conversation_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final List<Map<String, String>> users = [
-  {
-    'firstName': 'Firas',
-    'lastName': 'Asher',
-    'image': 'https://randomuser.me/api/portraits/men/1.jpg'
-  },
-  {
-    'firstName': 'Shadi',
-    'lastName': 'Fallahr',
-    'image': 'https://randomuser.me/api/portraits/women/2.jpg'
-  },
-  {
-    'firstName': 'Miriam',
-    'lastName': 'Adebibe',
-    'image': 'https://randomuser.me/api/portraits/women/3.jpg'
-  },
-  {
-    'firstName': 'Katarzyna',
-    'lastName': 'Stabiak',
-    'image': 'https://randomuser.me/api/portraits/women/4.jpg'
-  },
-  {
-    'firstName': 'Kara',
-    'lastName': 'Lekuse',
-    'image': 'https://randomuser.me/api/portraits/women/5.jpg'
-  },
-  {
-    'firstName': 'Jules',
-    'lastName': 'Beaven',
-    'image': 'https://randomuser.me/api/portraits/men/6.jpg'
-  },
-  {
-    'firstName': 'Lucas',
-    'lastName': 'Bennett',
-    'image': 'https://randomuser.me/api/portraits/men/7.jpg'
-  },
-  {
-    'firstName': 'Emma',
-    'lastName': 'Johansson',
-    'image': 'https://randomuser.me/api/portraits/women/8.jpg'
-  },
-  {
-    'firstName': 'Ethan',
-    'lastName': 'Roberts',
-    'image': 'https://randomuser.me/api/portraits/men/9.jpg'
-  },
-  {
-    'firstName': 'Sophia',
-    'lastName': 'Carter',
-    'image': 'https://randomuser.me/api/portraits/women/10.jpg'
-  },
-  {
-    'firstName': 'Daniel',
-    'lastName': 'Smith',
-    'image': 'https://randomuser.me/api/portraits/men/11.jpg'
-  },
-  {
-    'firstName': 'Olivia',
-    'lastName': 'Martin',
-    'image': 'https://randomuser.me/api/portraits/women/12.jpg'
-  },
-];
-
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends ConsumerWidget {
   const ChatScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ProfileController profileController = ref.watch(profileNotifierProvider);
+    ProfileNotifier profileNotifier =
+        ref.read(profileNotifierProvider.notifier);
+    final List<Map<String, String>> users = [
+      {
+        'firstName': profileController.firstName.isNotEmpty
+            ? profileController.firstName
+            : '',
+        'lastName': profileController.lastName.isNotEmpty
+            ? profileController.lastName
+            : '',
+        'image': profileController.photoUrl,
+      },
+      {
+        'firstName': 'Shadi',
+        'lastName': 'Fallahr',
+        'image': 'https://randomuser.me/api/portraits/women/2.jpg'
+      },
+      {
+        'firstName': 'Miriam',
+        'lastName': 'Adebibe',
+        'image': 'https://randomuser.me/api/portraits/women/3.jpg'
+      },
+      {
+        'firstName': 'Katarzyna',
+        'lastName': 'Stabiak',
+        'image': 'https://randomuser.me/api/portraits/women/4.jpg'
+      },
+      {
+        'firstName': 'Kara',
+        'lastName': 'Lekuse',
+        'image': 'https://randomuser.me/api/portraits/women/5.jpg'
+      },
+      {
+        'firstName': 'Jules',
+        'lastName': 'Beaven',
+        'image': 'https://randomuser.me/api/portraits/men/6.jpg'
+      },
+      {
+        'firstName': 'Lucas',
+        'lastName': 'Bennett',
+        'image': 'https://randomuser.me/api/portraits/men/7.jpg'
+      },
+      {
+        'firstName': 'Emma',
+        'lastName': 'Johansson',
+        'image': 'https://randomuser.me/api/portraits/women/8.jpg'
+      },
+      {
+        'firstName': 'Ethan',
+        'lastName': 'Roberts',
+        'image': 'https://randomuser.me/api/portraits/men/9.jpg'
+      },
+      {
+        'firstName': 'Sophia',
+        'lastName': 'Carter',
+        'image': 'https://randomuser.me/api/portraits/women/10.jpg'
+      },
+      {
+        'firstName': 'Daniel',
+        'lastName': 'Smith',
+        'image': 'https://randomuser.me/api/portraits/men/11.jpg'
+      },
+      {
+        'firstName': 'Olivia',
+        'lastName': 'Martin',
+        'image': 'https://randomuser.me/api/portraits/women/12.jpg'
+      },
+    ];
     return SingleChildScrollView(
       child: Center(
         child: Column(
@@ -168,19 +179,88 @@ class ChatScreen extends StatelessWidget {
   }
 }
 
-class ChatContact_ListModal extends StatefulWidget {
+class ChatContact_ListModal extends ConsumerStatefulWidget {
   const ChatContact_ListModal({super.key});
 
   @override
   ChatContact_ListModalState createState() => ChatContact_ListModalState();
 }
 
-class ChatContact_ListModalState extends State<ChatContact_ListModal> {
-  List<bool> selectedContacts = List.generate(users.length, (index) => false);
-  TextEditingController searchController = TextEditingController();
-
+class ChatContact_ListModalState extends ConsumerState<ChatContact_ListModal> {
   @override
   Widget build(BuildContext context) {
+    ProfileController profileController = ref.watch(profileNotifierProvider);
+    ProfileNotifier profileNotifier =
+        ref.read(profileNotifierProvider.notifier);
+
+    final List<Map<String, String>> users = [
+      {
+        'firstName': profileController.firstName.isNotEmpty
+            ? profileController.firstName
+            : '',
+        'lastName': profileController.lastName.isNotEmpty
+            ? profileController.lastName
+            : '',
+        'image': profileController.photoUrl,
+      },
+      {
+        'firstName': 'Shadi',
+        'lastName': 'Fallahr',
+        'image': 'https://randomuser.me/api/portraits/women/2.jpg'
+      },
+      {
+        'firstName': 'Miriam',
+        'lastName': 'Adebibe',
+        'image': 'https://randomuser.me/api/portraits/women/3.jpg'
+      },
+      {
+        'firstName': 'Katarzyna',
+        'lastName': 'Stabiak',
+        'image': 'https://randomuser.me/api/portraits/women/4.jpg'
+      },
+      {
+        'firstName': 'Kara',
+        'lastName': 'Lekuse',
+        'image': 'https://randomuser.me/api/portraits/women/5.jpg'
+      },
+      {
+        'firstName': 'Jules',
+        'lastName': 'Beaven',
+        'image': 'https://randomuser.me/api/portraits/men/6.jpg'
+      },
+      {
+        'firstName': 'Lucas',
+        'lastName': 'Bennett',
+        'image': 'https://randomuser.me/api/portraits/men/7.jpg'
+      },
+      {
+        'firstName': 'Emma',
+        'lastName': 'Johansson',
+        'image': 'https://randomuser.me/api/portraits/women/8.jpg'
+      },
+      {
+        'firstName': 'Ethan',
+        'lastName': 'Roberts',
+        'image': 'https://randomuser.me/api/portraits/men/9.jpg'
+      },
+      {
+        'firstName': 'Sophia',
+        'lastName': 'Carter',
+        'image': 'https://randomuser.me/api/portraits/women/10.jpg'
+      },
+      {
+        'firstName': 'Daniel',
+        'lastName': 'Smith',
+        'image': 'https://randomuser.me/api/portraits/men/11.jpg'
+      },
+      {
+        'firstName': 'Olivia',
+        'lastName': 'Martin',
+        'image': 'https://randomuser.me/api/portraits/women/12.jpg'
+      },
+    ];
+    List<bool> selectedContacts = List.generate(users.length, (index) => false);
+    TextEditingController searchController = TextEditingController();
     return FractionallySizedBox(
       heightFactor: 0.93,
       child: SafeArea(

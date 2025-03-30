@@ -29,6 +29,11 @@
     <key>UIMainStoryboardFile</key>
     <string>Main</string>
 
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Need photo library access to upload images</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Need camera access to take photos</string>
+
     <key>CFBundleURLTypes</key>
     <array>
         <!-- Google Sign-In -->

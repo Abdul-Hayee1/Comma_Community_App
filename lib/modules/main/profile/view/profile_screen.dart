@@ -1,12 +1,20 @@
+// ignore_for_file: unused_local_variable
+
+import 'package:comma_community_app/modules/main/profile/controller/profile_controller.dart';
+import 'package:comma_community_app/providers/profile_provider.dart';
 import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ProfileController profileController = ref.watch(profileNotifierProvider);
+    ProfileNotifier profileNotifier =
+        ref.read(profileNotifierProvider.notifier);
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -19,10 +27,10 @@ class ProfileScreen extends StatelessWidget {
               },
               child: Row(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 40,
                     backgroundImage: NetworkImage(
-                      "https://randomuser.me/api/portraits/men/1.jpg",
+                      profileController.photoUrl,
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -31,9 +39,9 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          const Text(
-                            'Firas Asher',
-                            style: TextStyle(
+                          Text(
+                            profileController.userName,
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 20,
                               fontWeight: FontWeight.bold,

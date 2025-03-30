@@ -159,7 +159,7 @@ class DiscoveryScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 50.h),
                     ClipRRect(
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(8.0),
                         bottomRight: Radius.circular(8.0),
                       ),
@@ -202,7 +202,7 @@ class DiscoveryScreen extends StatelessWidget {
                 child: Padding(
                     padding:
                         EdgeInsets.symmetric(horizontal: 14.w, vertical: 14.h),
-                    child: Column(
+                    child: const Column(
                       children: [Text('h')],
                     )),
               ),

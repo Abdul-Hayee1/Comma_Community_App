@@ -1,5 +1,9 @@
+// ignore_for_file: unused_local_variable
+
+import 'package:comma_community_app/modules/main/profile/controller/profile_controller.dart';
 import 'package:comma_community_app/modules/main/view/main_screen.dart';
 import 'package:comma_community_app/modules/main/startHere/welcome_screen.dart';
+import 'package:comma_community_app/providers/profile_provider.dart';
 import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,6 +14,9 @@ class ViewUserProfileModal extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ProfileController profileController = ref.watch(profileNotifierProvider);
+    ProfileNotifier profileNotifier =
+        ref.read(profileNotifierProvider.notifier);
     return FractionallySizedBox(
       heightFactor: 0.93,
       child: SafeArea(
@@ -82,10 +89,10 @@ class ViewUserProfileModal extends ConsumerWidget {
                                       ),
                                       shape: BoxShape.circle,
                                     ),
-                                    child: const CircleAvatar(
+                                    child: CircleAvatar(
                                       radius: 90,
                                       backgroundImage: NetworkImage(
-                                        'https://randomuser.me/api/portraits/men/1.jpg',
+                                        profileController.photoUrl,
                                       ),
                                     ),
                                   ),
@@ -106,9 +113,9 @@ class ViewUserProfileModal extends ConsumerWidget {
                                 ],
                               ),
                               const SizedBox(height: 16),
-                              const Text(
-                                'Firas Asher',
-                                style: TextStyle(
+                              Text(
+                                profileController.userName,
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,

@@ -1,3 +1,9 @@
+// ignore_for_file: unused_local_variable
+
+import 'dart:io';
+
+import 'package:comma_community_app/modules/main/profile/controller/profile_controller.dart';
+import 'package:comma_community_app/providers/profile_provider.dart';
 import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,8 +17,6 @@ class EditProfileModal extends ConsumerStatefulWidget {
 }
 
 class EditProfileModalState extends ConsumerState<EditProfileModal> {
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
   final TextEditingController miniBioController = TextEditingController();
   final TextEditingController aboutMeController = TextEditingController();
 
@@ -38,6 +42,9 @@ class EditProfileModalState extends ConsumerState<EditProfileModal> {
 
   @override
   Widget build(BuildContext context) {
+    ProfileController profileController = ref.watch(profileNotifierProvider);
+    ProfileNotifier profileNotifier =
+        ref.read(profileNotifierProvider.notifier);
     return FractionallySizedBox(
       heightFactor: 0.93,
       child: Column(
@@ -97,7 +104,7 @@ class EditProfileModalState extends ConsumerState<EditProfileModal> {
                     offset: const Offset(0, -50),
                     child: GestureDetector(
                       onTap: () {
-                        showSelectProfileModelSheet(context);
+                        showSelectProfileModelSheet(context, ref);
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -107,11 +114,15 @@ class EditProfileModalState extends ConsumerState<EditProfileModal> {
                             width: 3,
                           ),
                         ),
-                        child: const CircleAvatar(
+                        child: CircleAvatar(
                           radius: 90,
-                          backgroundImage: NetworkImage(
-                            'https://randomuser.me/api/portraits/men/1.jpg',
-                          ),
+                          backgroundImage: profileController
+                                      .userSelectedImage !=
+                                  null
+                              ? FileImage(File(
+                                  profileController.userSelectedImage!.path))
+                              : NetworkImage(profileController.photoUrl)
+                                  as ImageProvider,
                         ),
                       ),
                     ),
@@ -146,7 +157,8 @@ class EditProfileModalState extends ConsumerState<EditProfileModal> {
                             Expanded(
                               child: TextField(
                                 style: const TextStyle(color: Colors.white),
-                                controller: firstNameController,
+                                controller: profileController
+                                    .editProfileFirstNameController,
                                 decoration: InputDecoration(
                                   enabledBorder: const OutlineInputBorder(
                                     borderSide: BorderSide(
@@ -173,7 +185,8 @@ class EditProfileModalState extends ConsumerState<EditProfileModal> {
                             Expanded(
                               child: TextField(
                                 style: const TextStyle(color: Colors.white),
-                                controller: lastNameController,
+                                controller: profileController
+                                    .editProfileLastNameController,
                                 decoration: InputDecoration(
                                   enabledBorder: const OutlineInputBorder(
                                     borderSide: BorderSide(

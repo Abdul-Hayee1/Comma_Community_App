@@ -1,7 +1,10 @@
 // ignore_for_file: use_build_context_synchronously, unused_local_variable, no_leading_underscores_for_local_identifiers, avoid_print
 
 import 'package:comma_community_app/modules/boarding/auth/controller/auth_controller.dart';
+import 'package:comma_community_app/modules/main/profile/controller/profile_controller.dart';
+import 'package:comma_community_app/one_signal/one_signal_service.dart';
 import 'package:comma_community_app/providers/auth_provider.dart';
+import 'package:comma_community_app/providers/profile_provider.dart';
 import 'package:comma_community_app/widgets/my_button.dart';
 import 'package:comma_community_app/widgets/my_textfield.dart';
 import 'package:comma_community_app/widgets/password_textfield.dart';
@@ -10,6 +13,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
@@ -19,6 +23,9 @@ class LoginScreen extends ConsumerWidget {
     AuthController authController = ref.watch(authenticationNotifierProvider);
     AuthNotifier authNotifier =
         ref.read(authenticationNotifierProvider.notifier);
+    ProfileController profileController = ref.watch(profileNotifierProvider);
+    ProfileNotifier profileNotifier =
+        ref.read(profileNotifierProvider.notifier);
     final _emailController = authController.signInEmailController;
     final _passwordController = authController.signInPasswordController;
     return SafeArea(
@@ -120,6 +127,15 @@ class LoginScreen extends ConsumerWidget {
                     if (user != null) {
                       authNotifier.resetDrawerState(ref);
                       Navigator.pushReplacementNamed(context, "/");
+                      await OneSignal.shared
+                          .sendTag("user_id",
+                              FirebaseAuth.instance.currentUser?.uid ?? "0")
+                          .then((_) {
+                        sendNotification(
+                          "Welcome, ${profileController.userName}! We're happy to have you here. Enjoy your experience! ✨",
+                          userId: FirebaseAuth.instance.currentUser?.uid,
+                        );
+                      });
                       print("Signed in with email password");
                     } else {
                       print("Sign in failed");

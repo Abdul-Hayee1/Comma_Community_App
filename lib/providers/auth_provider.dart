@@ -3,6 +3,7 @@
 import 'package:comma_community_app/modules/boarding/auth/controller/auth_controller.dart';
 import 'package:comma_community_app/modules/main/feed/view/feed_screen.dart';
 import 'package:comma_community_app/modules/main/view/main_screen.dart';
+import 'package:comma_community_app/one_signal/one_signal_service.dart';
 import 'package:comma_community_app/widgets/show_exception_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -143,6 +144,10 @@ class AuthNotifier extends StateNotifier<AuthController> {
 
   Future<void> signOut() async {
     try {
+      await sendNotification(
+        "We’ll miss you! Hope to see you back soon. Take care! 👋",
+        userId: FirebaseAuth.instance.currentUser?.uid,
+      );
       final user = FirebaseAuth.instance.currentUser;
 
       if (user != null) {

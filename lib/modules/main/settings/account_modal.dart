@@ -1,12 +1,20 @@
+// ignore_for_file: unused_local_variable
+
+import 'package:comma_community_app/modules/main/profile/controller/profile_controller.dart';
+import 'package:comma_community_app/providers/profile_provider.dart';
 import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AccountSettingsModal extends StatelessWidget {
+class AccountSettingsModal extends ConsumerWidget {
   const AccountSettingsModal({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ProfileController profileController = ref.watch(profileNotifierProvider);
+    ProfileNotifier profileNotifier =
+        ref.read(profileNotifierProvider.notifier);
     return FractionallySizedBox(
       heightFactor: 0.93,
       child: Padding(
@@ -77,15 +85,21 @@ class AccountSettingsModal extends StatelessWidget {
                     textAlign: TextAlign.center),
               ),
             ),
-            SizedBox(height: 28.h),
-            const Text(
-              'Permanently Delete Account',
-              style: TextStyle(
-                  fontSize: 16,
+            SizedBox(height: 18.h),
+            TextButton(
+              onPressed: () {
+                profileNotifier.deleteUserAccount(context);
+              },
+              child: const Text(
+                'Permanently Delete Account',
+                style: TextStyle(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-            SizedBox(height: 22.h),
+            SizedBox(height: 18.h),
           ],
         ),
       ),

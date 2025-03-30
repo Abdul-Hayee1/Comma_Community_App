@@ -8,9 +8,11 @@ import 'package:comma_community_app/modules/main/notifications/notifications_set
 import 'package:comma_community_app/modules/main/settings/personal_settings_modal.dart';
 import 'package:comma_community_app/modules/main/profile/edit_profile_modal.dart';
 import 'package:comma_community_app/modules/main/profile/view/view_profile.dart';
+import 'package:comma_community_app/providers/profile_provider.dart';
 import 'package:comma_community_app/widgets/custom_post_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:comma_community_app/modules/main/settings/account_modal.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void showAccountModalSheet(BuildContext context) {
@@ -123,7 +125,7 @@ void showCommentSectionModal(
       ),
     ),
     builder: (context) {
-      return PostModalScreen();
+      return const PostModalScreen();
     },
   );
 }
@@ -273,7 +275,7 @@ void showSearchFiltersModelSheet(BuildContext context) {
   );
 }
 
-void showSelectProfileModelSheet(BuildContext context) {
+void showSelectProfileModelSheet(BuildContext context, WidgetRef ref) {
   showModalBottomSheet(
     context: context,
     backgroundColor: const Color.fromARGB(255, 20, 24, 33),
@@ -284,30 +286,46 @@ void showSelectProfileModelSheet(BuildContext context) {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Take Photo",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
+              InkWell(
+                onTap: () async {
+                  Navigator.pop(context);
+                  await ref
+                      .read(profileNotifierProvider.notifier)
+                      .pickAndUpdateImage(true);
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Take Photo",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               const SizedBox(height: 18),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Photo Library",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
+              InkWell(
+                onTap: () async {
+                  Navigator.pop(context);
+                  await ref
+                      .read(profileNotifierProvider.notifier)
+                      .pickAndUpdateImage(false);
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Photo Library",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               const SizedBox(height: 18),
               InkWell(
