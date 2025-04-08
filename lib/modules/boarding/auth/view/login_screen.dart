@@ -13,7 +13,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
+// import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
@@ -127,15 +127,15 @@ class LoginScreen extends ConsumerWidget {
                     if (user != null) {
                       authNotifier.resetDrawerState(ref);
                       Navigator.pushReplacementNamed(context, "/");
-                      await OneSignal.shared
-                          .sendTag("user_id",
-                              FirebaseAuth.instance.currentUser?.uid ?? "0")
-                          .then((_) {
-                        sendNotification(
-                          "Welcome, ${profileController.userName}! We're happy to have you here. Enjoy your experience! ✨",
-                          userId: FirebaseAuth.instance.currentUser?.uid,
-                        );
-                      });
+                      // await OneSignal.shared
+                      //     .sendTag("user_id",
+                      //         FirebaseAuth.instance.currentUser?.uid ?? "0")
+                      //     .then((_) {
+                      //   sendNotification(
+                      //     "Welcome, ${profileController.userName}! We're happy to have you here. Enjoy your experience! ✨",
+                      //     userId: FirebaseAuth.instance.currentUser?.uid,
+                      //   );
+                      // });
                       print("Signed in with email password");
                     } else {
                       print("Sign in failed");

@@ -19,36 +19,36 @@ import 'package:comma_community_app/modules/main/startHere/welcome_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
+// import 'package:onesignal_flutter/onesignal_flutter.dart';
 
-Future<String?> getHashKey() async {
-  const channel = MethodChannel('com.example.comma_community_app/hash');
-  try {
-    final String? hashKey = await channel.invokeMethod('getHashKey');
-    print("Hash Key: $hashKey");
-    return hashKey;
-  } on PlatformException catch (e) {
-    print("Failed to get hash key: ${e.message}");
-    return null;
-  }
-}
+// Future<String?> getHashKey() async {
+//   const channel = MethodChannel('com.example.comma_community_app/hash');
+//   try {
+//     final String? hashKey = await channel.invokeMethod('getHashKey');
+//     print("Hash Key: $hashKey");
+//     return hashKey;
+//   } on PlatformException catch (e) {
+//     print("Failed to get hash key: ${e.message}");
+//     return null;
+//   }
+// }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  OneSignal.shared.setAppId('3a90fe4c-b4a5-400d-819a-7e3edcbcb571');
-  OneSignal.shared.promptUserForPushNotificationPermission();
-  OneSignal.shared.sendTag("platform", "mobile");
-  OneSignal.shared.getDeviceState().then((deviceState) {
-    print("Device token: ${deviceState?.pushToken}");
-  });
-  final hashKey = await getHashKey();
-  print("Generated Hash Key: $hashKey");
+  // OneSignal.shared.setAppId('3a90fe4c-b4a5-400d-819a-7e3edcbcb571');
+  // OneSignal.shared.promptUserForPushNotificationPermission();
+  // OneSignal.shared.sendTag("platform", "mobile");
+  // OneSignal.shared.getDeviceState().then((deviceState) {
+  //   print("Device token: ${deviceState?.pushToken}");
+  // });
+  // final hashKey = await getHashKey();
+  // print("Generated Hash Key: $hashKey");
   runApp(
     const ProviderScope(
       child: App(),
