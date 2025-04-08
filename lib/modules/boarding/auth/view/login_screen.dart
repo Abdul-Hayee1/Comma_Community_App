@@ -128,13 +128,13 @@ class LoginScreen extends ConsumerWidget {
                       authNotifier.resetDrawerState(ref);
                       Navigator.pushReplacementNamed(context, "/");
                       await OneSignal.User.addTagWithKey("user_id",
-                              FirebaseAuth.instance.currentUser?.uid ?? "0")
-                          .then((_) {
-                        sendNotification(
-                          "Welcome, ${profileController.userName}! We're happy to have you here. Enjoy your experience! ✨",
-                          userId: FirebaseAuth.instance.currentUser?.uid,
-                        );
-                      });
+                          FirebaseAuth.instance.currentUser?.uid ?? "0");
+                      await Future.delayed(const Duration(seconds: 5));
+                      sendNotification(
+                        "Welcome, ${profileController.userName}! We're happy to have you here. Enjoy your experience! ✨",
+                        userId: FirebaseAuth.instance.currentUser?.uid,
+                      );
+
                       print("Signed in with email password");
                     } else {
                       print("Sign in failed");

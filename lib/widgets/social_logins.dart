@@ -36,13 +36,12 @@ class SocialLogins extends ConsumerWidget {
               authNotifier.resetDrawerState(ref);
               Navigator.pushReplacementNamed(context, "/");
               await OneSignal.User.addTagWithKey(
-                      "user_id", FirebaseAuth.instance.currentUser?.uid ?? "0")
-                  .then((_) {
-                sendNotification(
-                  "Welcome, ${profileController.userName}! We're happy to have you here. Enjoy your experience! ✨",
-                  userId: FirebaseAuth.instance.currentUser?.uid,
-                );
-              });
+                  "user_id", FirebaseAuth.instance.currentUser?.uid ?? "0");
+              await Future.delayed(const Duration(seconds: 5));
+              sendNotification(
+                "Welcome, ${profileController.userName}! We're happy to have you here. Enjoy your experience! ✨",
+                userId: FirebaseAuth.instance.currentUser?.uid,
+              );
               print("Signed in with google");
             } else {
               print("Sign in failed");
@@ -58,14 +57,13 @@ class SocialLogins extends ConsumerWidget {
               if (user != null) {
                 authNotifier.resetDrawerState(ref);
                 Navigator.pushReplacementNamed(context, "/");
-                await OneSignal.User.addTagWithKey("user_id",
-                        FirebaseAuth.instance.currentUser?.uid ?? "0")
-                    .then((_) {
-                  sendNotification(
-                    "Welcome, ${profileController.userName}! We're happy to have you here. Enjoy your experience! ✨",
-                    userId: FirebaseAuth.instance.currentUser?.uid,
-                  );
-                });
+                await OneSignal.User.addTagWithKey(
+                    "user_id", FirebaseAuth.instance.currentUser?.uid ?? "0");
+                await Future.delayed(const Duration(seconds: 5));
+                sendNotification(
+                  "Welcome, ${profileController.userName}! We're happy to have you here. Enjoy your experience! ✨",
+                  userId: FirebaseAuth.instance.currentUser?.uid,
+                );
                 print("Signed in with facebook");
               } else {
                 print("Sign in failed");
