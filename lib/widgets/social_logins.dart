@@ -10,7 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 class SocialLogins extends ConsumerWidget {
   const SocialLogins({super.key});
@@ -35,15 +35,14 @@ class SocialLogins extends ConsumerWidget {
             if (user != null) {
               authNotifier.resetDrawerState(ref);
               Navigator.pushReplacementNamed(context, "/");
-              // await OneSignal.shared
-              //     .sendTag(
-              //         "user_id", FirebaseAuth.instance.currentUser?.uid ?? "0")
-              //     .then((_) {
-              //   sendNotification(
-              //     "Welcome, ${profileController.userName}! We're happy to have you here. Enjoy your experience! ✨",
-              //     userId: FirebaseAuth.instance.currentUser?.uid,
-              //   );
-              // });
+              await OneSignal.User.addTagWithKey(
+                      "user_id", FirebaseAuth.instance.currentUser?.uid ?? "0")
+                  .then((_) {
+                sendNotification(
+                  "Welcome, ${profileController.userName}! We're happy to have you here. Enjoy your experience! ✨",
+                  userId: FirebaseAuth.instance.currentUser?.uid,
+                );
+              });
               print("Signed in with google");
             } else {
               print("Sign in failed");
@@ -59,15 +58,14 @@ class SocialLogins extends ConsumerWidget {
               if (user != null) {
                 authNotifier.resetDrawerState(ref);
                 Navigator.pushReplacementNamed(context, "/");
-                // await OneSignal.shared
-                //     .sendTag("user_id",
-                //         FirebaseAuth.instance.currentUser?.uid ?? "0")
-                //     .then((_) {
-                //   sendNotification(
-                //     "Welcome, ${profileController.userName}! We're happy to have you here. Enjoy your experience! ✨",
-                //     userId: FirebaseAuth.instance.currentUser?.uid,
-                //   );
-                // });
+                await OneSignal.User.addTagWithKey("user_id",
+                        FirebaseAuth.instance.currentUser?.uid ?? "0")
+                    .then((_) {
+                  sendNotification(
+                    "Welcome, ${profileController.userName}! We're happy to have you here. Enjoy your experience! ✨",
+                    userId: FirebaseAuth.instance.currentUser?.uid,
+                  );
+                });
                 print("Signed in with facebook");
               } else {
                 print("Sign in failed");

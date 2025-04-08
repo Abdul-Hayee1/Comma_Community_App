@@ -4,7 +4,7 @@ import 'package:comma_community_app/providers/auth_provider.dart';
 import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 String _selectedSortOption = "Last Activity";
 List<String> _selectedFilters = [];
@@ -149,7 +149,7 @@ PreferredSizeWidget buildAppBar(int index, BuildContext context,
               );
 
               await authNotifier.signOut();
-              // OneSignal.shared.deleteTag("user_id");
+              OneSignal.User.removeTag("user_id");
               Navigator.pushReplacementNamed(context, "/");
             },
             icon: const Icon(
