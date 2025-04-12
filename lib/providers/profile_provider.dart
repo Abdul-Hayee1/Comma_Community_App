@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously, depend_on_referenced_packages
 
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:comma_community_app/modules/main/profile/controller/profile_controller.dart';
 import 'package:comma_community_app/widgets/show_exception_dialog.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -16,6 +17,64 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileNotifier extends StateNotifier<ProfileController> {
   ProfileNotifier() : super(ProfileController());
+
+  Future<void> startListeningToUserDetails() async {
+    state.userDetails?.cancel();
+
+    state.userDetails = FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .snapshots()
+        .listen(
+      (snapshot) {
+        if (snapshot.exists) {
+          final data = snapshot.data() as Map<String, dynamic>;
+          updateControllersWithData(data);
+        } else {
+          print("Document does not exist");
+        }
+      },
+      onError: (error) {
+        print(
+            "Error occurred while listening to the User Details stream: $error");
+      },
+    );
+  }
+
+  Future<void> fetchUserDetails() async {
+    try {
+      final userId = FirebaseAuth.instance.currentUser?.uid;
+      if (userId == null) {
+        debugPrint("No user logged in");
+        return;
+      }
+
+      final DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get();
+
+      if (snapshot.exists) {
+        final data = snapshot.data() as Map<String, dynamic>;
+        updateControllersWithData(data);
+      } else {
+        debugPrint("User document doesn't exist");
+        updateControllersWithData({});
+      }
+    } catch (e) {
+      debugPrint("Error fetching user details: $e");
+      rethrow;
+    }
+  }
+
+  void updateControllersWithData(Map<String, dynamic> data) {
+    state = state.copy()
+      ..editProfileFirstNameController.text =
+          data['firstName']?.toString() ?? ''
+      ..editProfileLastNameController.text = data['lastName']?.toString() ?? ''
+      ..miniBioController.text = data['miniBio']?.toString() ?? ''
+      ..aboutMeController.text = data['aboutMe']?.toString() ?? '';
+  }
 
   Future<void> getUserInfo() async {
     User? user = FirebaseAuth.instance.currentUser;
@@ -161,6 +220,30 @@ class ProfileNotifier extends StateNotifier<ProfileController> {
       } else {
         return await Permission.storage.request();
       }
+    }
+  }
+
+  Future<void> saveProfileData() async {
+    try {
+      state.isProfileUploading = true;
+      updateState();
+      final userDoc = FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser?.uid);
+
+      final dataToUpdate = {
+        'firstName': state.editProfileFirstNameController.text.trim(),
+        'lastName': state.editProfileLastNameController.text.trim(),
+        'miniBio': state.miniBioController.text.trim(),
+        'aboutMe': state.aboutMeController.text.trim(),
+      };
+
+      await userDoc.set(dataToUpdate, SetOptions(merge: true));
+    } catch (e) {
+      debugPrint('Error saving profile data: $e');
+    } finally {
+      state.isProfileUploading = false;
+      updateState();
     }
   }
 

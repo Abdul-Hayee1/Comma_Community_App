@@ -25,6 +25,7 @@ class _FeedScreenState extends ConsumerState<FeedScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       profileNotifier.getUserInfo();
+      profileNotifier.startListeningToUserDetails();
     });
   }
 

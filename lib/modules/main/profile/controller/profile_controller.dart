@@ -13,6 +13,9 @@ class ProfileController {
   File? userSelectedImage;
   String profileImagePath = "";
   bool isProfileUploading = false;
+  TextEditingController miniBioController = TextEditingController();
+  TextEditingController aboutMeController = TextEditingController();
+  var userDetails;
 
   ProfileController copy() {
     return ProfileController()
@@ -25,6 +28,9 @@ class ProfileController {
       ..editProfileLastNameController = editProfileLastNameController
       ..userSelectedImage = userSelectedImage
       ..isProfileUploading = isProfileUploading
-      ..profileImagePath = profileImagePath;
+      ..profileImagePath = profileImagePath
+      ..miniBioController = miniBioController
+      ..aboutMeController = aboutMeController
+      ..userDetails = userDetails;
   }
 }
