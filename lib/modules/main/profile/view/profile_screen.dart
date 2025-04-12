@@ -1,5 +1,7 @@
 // ignore_for_file: unused_local_variable
 
+import 'dart:io';
+
 import 'package:comma_community_app/modules/main/profile/controller/profile_controller.dart';
 import 'package:comma_community_app/providers/profile_provider.dart';
 import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
@@ -27,12 +29,28 @@ class ProfileScreen extends ConsumerWidget {
               },
               child: Row(
                 children: [
-                  CircleAvatar(
-                    radius: 40,
-                    backgroundImage: NetworkImage(
-                      profileController.photoUrl,
-                    ),
-                  ),
+                  profileController.profileImagePath.isNotEmpty
+                      ? CircleAvatar(
+                          backgroundImage: FileImage(
+                              File(profileController.profileImagePath)),
+                          radius: 40,
+                        )
+                      : FutureBuilder<File?>(
+                          future: profileNotifier.getProfileImage(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData && snapshot.data != null) {
+                              return CircleAvatar(
+                                backgroundImage: FileImage(snapshot.data!),
+                                radius: 40,
+                              );
+                            }
+                            return CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage(profileController.photoUrl),
+                              radius: 40,
+                            );
+                          },
+                        ),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

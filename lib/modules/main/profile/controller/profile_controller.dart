@@ -1,5 +1,5 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ProfileController {
   String userName = "...";
@@ -10,7 +10,9 @@ class ProfileController {
   TextEditingController editProfileFirstNameController =
       TextEditingController();
   TextEditingController editProfileLastNameController = TextEditingController();
-  XFile? userSelectedImage;
+  File? userSelectedImage;
+  String profileImagePath = "";
+  bool isProfileUploading = false;
 
   ProfileController copy() {
     return ProfileController()
@@ -21,6 +23,8 @@ class ProfileController {
       ..lastName = lastName
       ..editProfileFirstNameController = editProfileFirstNameController
       ..editProfileLastNameController = editProfileLastNameController
-      ..userSelectedImage = userSelectedImage;
+      ..userSelectedImage = userSelectedImage
+      ..isProfileUploading = isProfileUploading
+      ..profileImagePath = profileImagePath;
   }
 }

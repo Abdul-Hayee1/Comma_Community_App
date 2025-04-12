@@ -1,5 +1,7 @@
 // ignore_for_file: unused_local_variable
 
+import 'dart:io';
+
 import 'package:comma_community_app/modules/boarding/auth/controller/auth_controller.dart';
 import 'package:comma_community_app/modules/main/Discovery/discovery_screen.dart';
 import 'package:comma_community_app/modules/main/events/events_screen.dart';
@@ -263,12 +265,28 @@ class HomeScreen extends ConsumerWidget {
               label: 'Notifications',
             ),
             BottomNavigationBarItem(
-              icon: CircleAvatar(
-                radius: 18,
-                backgroundImage: NetworkImage(
-                  profileController.photoUrl,
-                ),
-              ),
+              icon: profileController.profileImagePath.isNotEmpty
+                  ? CircleAvatar(
+                      backgroundImage:
+                          FileImage(File(profileController.profileImagePath)),
+                      radius: 18,
+                    )
+                  : FutureBuilder<File?>(
+                      future: profileNotifier.getProfileImage(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData && snapshot.data != null) {
+                          return CircleAvatar(
+                            backgroundImage: FileImage(snapshot.data!),
+                            radius: 18,
+                          );
+                        }
+                        return CircleAvatar(
+                          backgroundImage:
+                              NetworkImage(profileController.photoUrl),
+                          radius: 18,
+                        );
+                      },
+                    ),
               label: 'Profile',
             ),
           ],

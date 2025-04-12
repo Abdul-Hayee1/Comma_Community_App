@@ -16,6 +16,7 @@ import 'package:comma_community_app/modules/main/events/events_calendar.dart';
 import 'package:comma_community_app/modules/main/networkDetails/network_details.dart';
 import 'package:comma_community_app/modules/main/view/main_screen.dart';
 import 'package:comma_community_app/modules/main/startHere/welcome_screen.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseAppCheck.instance.activate(
+    androidProvider: AndroidProvider.debug,
+    appleProvider: AppleProvider.debug,
   );
 
   OneSignal.initialize('3a90fe4c-b4a5-400d-819a-7e3edcbcb571');

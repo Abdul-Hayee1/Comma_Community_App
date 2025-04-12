@@ -291,7 +291,7 @@ void showSelectProfileModelSheet(BuildContext context, WidgetRef ref) {
                   Navigator.pop(context);
                   await ref
                       .read(profileNotifierProvider.notifier)
-                      .pickAndUpdateImage(true);
+                      .pickAndSaveImage(true);
                 },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -312,7 +312,7 @@ void showSelectProfileModelSheet(BuildContext context, WidgetRef ref) {
                   Navigator.pop(context);
                   await ref
                       .read(profileNotifierProvider.notifier)
-                      .pickAndUpdateImage(false);
+                      .pickAndSaveImage(false);
                 },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,

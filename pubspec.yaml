@@ -30,6 +30,10 @@ dependencies:
   onesignal_flutter: ^5.3.0
   dio: ^5.8.0+1
   cloud_firestore: ^5.6.6
+  firebase_storage: ^12.4.5
+  firebase_app_check: ^0.3.2+5
+  shared_preferences: ^2.5.3
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:

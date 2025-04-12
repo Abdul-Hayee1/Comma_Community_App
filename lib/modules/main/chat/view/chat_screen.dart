@@ -1,5 +1,7 @@
 // ignore_for_file: unused_local_variable, camel_case_types
 
+import 'dart:io';
+
 import 'package:comma_community_app/modules/main/profile/controller/profile_controller.dart';
 import 'package:comma_community_app/providers/profile_provider.dart';
 import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
@@ -25,61 +27,73 @@ class ChatScreen extends ConsumerWidget {
             ? profileController.lastName
             : '',
         'image': profileController.photoUrl,
+        'isUserImage': "true",
       },
       {
         'firstName': 'Shadi',
         'lastName': 'Fallahr',
-        'image': 'https://randomuser.me/api/portraits/women/2.jpg'
+        'image': 'https://randomuser.me/api/portraits/women/2.jpg',
+        'isUserImage': "false",
       },
       {
         'firstName': 'Miriam',
         'lastName': 'Adebibe',
-        'image': 'https://randomuser.me/api/portraits/women/3.jpg'
+        'image': 'https://randomuser.me/api/portraits/women/3.jpg',
+        'isUserImage': "false",
       },
       {
         'firstName': 'Katarzyna',
         'lastName': 'Stabiak',
-        'image': 'https://randomuser.me/api/portraits/women/4.jpg'
+        'image': 'https://randomuser.me/api/portraits/women/4.jpg',
+        'isUserImage': "false",
       },
       {
         'firstName': 'Kara',
         'lastName': 'Lekuse',
-        'image': 'https://randomuser.me/api/portraits/women/5.jpg'
+        'image': 'https://randomuser.me/api/portraits/women/5.jpg',
+        'isUserImage': "false",
       },
       {
         'firstName': 'Jules',
         'lastName': 'Beaven',
-        'image': 'https://randomuser.me/api/portraits/men/6.jpg'
+        'image': 'https://randomuser.me/api/portraits/men/6.jpg',
+        'isUserImage': "false",
       },
       {
         'firstName': 'Lucas',
         'lastName': 'Bennett',
-        'image': 'https://randomuser.me/api/portraits/men/7.jpg'
+        'image': 'https://randomuser.me/api/portraits/men/7.jpg',
+        'isUserImage': "false",
       },
       {
         'firstName': 'Emma',
         'lastName': 'Johansson',
-        'image': 'https://randomuser.me/api/portraits/women/8.jpg'
+        'image': 'https://randomuser.me/api/portraits/women/8.jpg',
+        'isUserImage': "false",
       },
       {
         'firstName': 'Ethan',
         'lastName': 'Roberts',
-        'image': 'https://randomuser.me/api/portraits/men/9.jpg'
+        'image': 'https://randomuser.me/api/portraits/men/9.jpg',
+        'isUserImage': "false",
       },
       {
         'firstName': 'Sophia',
         'lastName': 'Carter',
-        'image': 'https://randomuser.me/api/portraits/women/10.jpg'
+        'image': 'https://randomuser.me/api/portraits/women/10.jpg',
+        'isUserImage': "false",
       },
       {
         'firstName': 'Daniel',
         'lastName': 'Smith',
-        'image': 'https://randomuser.me/api/portraits/men/11.jpg'
+        'image': 'https://randomuser.me/api/portraits/men/11.jpg',
+        'isUserImage': "false",
       },
       {
         'firstName': 'Olivia',
         'lastName': 'Martin',
-        'image': 'https://randomuser.me/api/portraits/women/12.jpg'
+        'image': 'https://randomuser.me/api/portraits/women/12.jpg',
+        'isUserImage': "false",
       },
     ];
     return SingleChildScrollView(
@@ -99,11 +113,34 @@ class ChatScreen extends ConsumerWidget {
                       children: [
                         Stack(
                           children: [
-                            CircleAvatar(
-                              radius: 30,
-                              backgroundImage:
-                                  NetworkImage(users[index]['image']!),
-                            ),
+                            users[index]['isUserImage'] == "true" &&
+                                    profileController
+                                        .profileImagePath.isNotEmpty
+                                ? CircleAvatar(
+                                    backgroundImage: FileImage(File(
+                                        profileController.profileImagePath)),
+                                    radius: 30,
+                                  )
+                                : FutureBuilder<File?>(
+                                    future: profileNotifier.getProfileImage(),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData &&
+                                          snapshot.data != null &&
+                                          users[index]['isUserImage'] ==
+                                              "true") {
+                                        return CircleAvatar(
+                                          backgroundImage:
+                                              FileImage(snapshot.data!),
+                                          radius: 30,
+                                        );
+                                      }
+                                      return CircleAvatar(
+                                        backgroundImage: NetworkImage(
+                                            users[index]['image'] ?? ''),
+                                        radius: 30,
+                                      );
+                                    },
+                                  ),
                             Positioned(
                               bottom: 2,
                               right: 2,
@@ -202,61 +239,73 @@ class ChatContact_ListModalState extends ConsumerState<ChatContact_ListModal> {
             ? profileController.lastName
             : '',
         'image': profileController.photoUrl,
+        'isUserImage': "true",
       },
       {
         'firstName': 'Shadi',
         'lastName': 'Fallahr',
-        'image': 'https://randomuser.me/api/portraits/women/2.jpg'
+        'image': 'https://randomuser.me/api/portraits/women/2.jpg',
+        'isUserImage': "false",
       },
       {
         'firstName': 'Miriam',
         'lastName': 'Adebibe',
-        'image': 'https://randomuser.me/api/portraits/women/3.jpg'
+        'image': 'https://randomuser.me/api/portraits/women/3.jpg',
+        'isUserImage': "false",
       },
       {
         'firstName': 'Katarzyna',
         'lastName': 'Stabiak',
-        'image': 'https://randomuser.me/api/portraits/women/4.jpg'
+        'image': 'https://randomuser.me/api/portraits/women/4.jpg',
+        'isUserImage': "false",
       },
       {
         'firstName': 'Kara',
         'lastName': 'Lekuse',
-        'image': 'https://randomuser.me/api/portraits/women/5.jpg'
+        'image': 'https://randomuser.me/api/portraits/women/5.jpg',
+        'isUserImage': "false",
       },
       {
         'firstName': 'Jules',
         'lastName': 'Beaven',
-        'image': 'https://randomuser.me/api/portraits/men/6.jpg'
+        'image': 'https://randomuser.me/api/portraits/men/6.jpg',
+        'isUserImage': "false",
       },
       {
         'firstName': 'Lucas',
         'lastName': 'Bennett',
-        'image': 'https://randomuser.me/api/portraits/men/7.jpg'
+        'image': 'https://randomuser.me/api/portraits/men/7.jpg',
+        'isUserImage': "false",
       },
       {
         'firstName': 'Emma',
         'lastName': 'Johansson',
-        'image': 'https://randomuser.me/api/portraits/women/8.jpg'
+        'image': 'https://randomuser.me/api/portraits/women/8.jpg',
+        'isUserImage': "false",
       },
       {
         'firstName': 'Ethan',
         'lastName': 'Roberts',
-        'image': 'https://randomuser.me/api/portraits/men/9.jpg'
+        'image': 'https://randomuser.me/api/portraits/men/9.jpg',
+        'isUserImage': "false",
       },
       {
         'firstName': 'Sophia',
         'lastName': 'Carter',
-        'image': 'https://randomuser.me/api/portraits/women/10.jpg'
+        'image': 'https://randomuser.me/api/portraits/women/10.jpg',
+        'isUserImage': "false",
       },
       {
         'firstName': 'Daniel',
         'lastName': 'Smith',
-        'image': 'https://randomuser.me/api/portraits/men/11.jpg'
+        'image': 'https://randomuser.me/api/portraits/men/11.jpg',
+        'isUserImage': "false",
       },
       {
         'firstName': 'Olivia',
         'lastName': 'Martin',
-        'image': 'https://randomuser.me/api/portraits/women/12.jpg'
+        'image': 'https://randomuser.me/api/portraits/women/12.jpg',
+        'isUserImage': "false",
       },
     ];
     List<bool> selectedContacts = List.generate(users.length, (index) => false);
@@ -348,11 +397,36 @@ class ChatContact_ListModalState extends ConsumerState<ChatContact_ListModal> {
                           children: [
                             Row(
                               children: [
-                                CircleAvatar(
-                                  backgroundImage:
-                                      NetworkImage(users[index]['image']!),
-                                  radius: 16,
-                                ),
+                                users[index]['isUserImage'] == "true" &&
+                                        profileController
+                                            .profileImagePath.isNotEmpty
+                                    ? CircleAvatar(
+                                        backgroundImage: FileImage(File(
+                                            profileController
+                                                .profileImagePath)),
+                                        radius: 16,
+                                      )
+                                    : FutureBuilder<File?>(
+                                        future:
+                                            profileNotifier.getProfileImage(),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.hasData &&
+                                              snapshot.data != null &&
+                                              users[index]['isUserImage'] ==
+                                                  "true") {
+                                            return CircleAvatar(
+                                              backgroundImage:
+                                                  FileImage(snapshot.data!),
+                                              radius: 16,
+                                            );
+                                          }
+                                          return CircleAvatar(
+                                            backgroundImage: NetworkImage(
+                                                users[index]['image'] ?? ''),
+                                            radius: 16,
+                                          );
+                                        },
+                                      ),
                                 const SizedBox(width: 10),
                                 Text(
                                   "${users[index]['firstName']} ${users[index]['lastName']}",

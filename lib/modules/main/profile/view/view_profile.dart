@@ -1,5 +1,7 @@
 // ignore_for_file: unused_local_variable
 
+import 'dart:io';
+
 import 'package:comma_community_app/modules/main/profile/controller/profile_controller.dart';
 import 'package:comma_community_app/modules/main/view/main_screen.dart';
 import 'package:comma_community_app/modules/main/startHere/welcome_screen.dart';
@@ -89,12 +91,33 @@ class ViewUserProfileModal extends ConsumerWidget {
                                       ),
                                       shape: BoxShape.circle,
                                     ),
-                                    child: CircleAvatar(
-                                      radius: 90,
-                                      backgroundImage: NetworkImage(
-                                        profileController.photoUrl,
-                                      ),
-                                    ),
+                                    child: profileController
+                                            .profileImagePath.isNotEmpty
+                                        ? CircleAvatar(
+                                            backgroundImage: FileImage(File(
+                                                profileController
+                                                    .profileImagePath)),
+                                            radius: 90,
+                                          )
+                                        : FutureBuilder<File?>(
+                                            future: profileNotifier
+                                                .getProfileImage(),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.hasData &&
+                                                  snapshot.data != null) {
+                                                return CircleAvatar(
+                                                  backgroundImage:
+                                                      FileImage(snapshot.data!),
+                                                  radius: 90,
+                                                );
+                                              }
+                                              return CircleAvatar(
+                                                backgroundImage: NetworkImage(
+                                                    profileController.photoUrl),
+                                                radius: 90,
+                                              );
+                                            },
+                                          ),
                                   ),
                                   Positioned(
                                     bottom: 18,
