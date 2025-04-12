@@ -37,6 +37,8 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
       await ref
           .read(authNotifierProvider.notifier)
           .createUserWithEmailAndPassword(
+            firstName: _firstNameController.text,
+            lastName: _lastNameController.text,
             email: _emailController.text,
             password: _passwordController.text,
           );
@@ -46,7 +48,10 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
       if (authState.value != null && ScaffoldMessenger.of(context).mounted) {
         Future.delayed(const Duration(milliseconds: 500), () {
           if (ScaffoldMessenger.of(context).mounted) {
-            Navigator.pushNamed(context, "/addPhoto");
+            Navigator.pushNamed(
+              context,
+              "/addPhoto",
+            );
           }
         });
       }

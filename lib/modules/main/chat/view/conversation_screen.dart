@@ -1,155 +1,204 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:comma_community_app/modules/main/chat/view/chat_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void showConversationBottomModal(BuildContext context) {
+void showConversationBottomModal(
+  BuildContext context, {
+  required String currentUserId,
+  required String otherUserId,
+  required String otherUserName,
+  required String otherUserImageUrl,
+}) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
     backgroundColor: const Color.fromARGB(255, 36, 38, 63),
     shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        top: Radius.circular(20),
-      ),
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
     ),
     builder: (context) {
-      return const _ConversationModalSheet();
+      return _ConversationModalSheet(
+        currentUserId: currentUserId,
+        otherUserId: otherUserId,
+        otherUserName: otherUserName,
+        otherUserImageUrl: otherUserImageUrl,
+      );
     },
   );
 }
 
 class _ConversationModalSheet extends StatefulWidget {
-  const _ConversationModalSheet();
+  final String currentUserId;
+  final String otherUserId;
+  final String otherUserName;
+  final String otherUserImageUrl;
+
+  const _ConversationModalSheet({
+    required this.currentUserId,
+    required this.otherUserId,
+    required this.otherUserName,
+    required this.otherUserImageUrl,
+  });
 
   @override
-  _ConversationModalSheetState createState() => _ConversationModalSheetState();
+  State<_ConversationModalSheet> createState() =>
+      _ConversationModalSheetState();
 }
 
 class _ConversationModalSheetState extends State<_ConversationModalSheet> {
-  List<bool> selectedContacts = List.generate(1, (index) => false);
-  TextEditingController searchController = TextEditingController();
+  final TextEditingController _messageController = TextEditingController();
+  final ChatService _chatService = ChatService();
+
+  late String _chatId;
+
+  @override
+  void initState() {
+    super.initState();
+    _chatId =
+        _chatService.generateChatId(widget.currentUserId, widget.otherUserId);
+  }
+
+  void _sendMessage() async {
+    if (_messageController.text.trim().isEmpty) return;
+
+    await _chatService.sendMessage(
+      chatId: _chatId,
+      senderId: widget.currentUserId,
+      receiverId: widget.otherUserId,
+      messageText: _messageController.text.trim(),
+    );
+
+    _messageController.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
       heightFactor: 0.93,
       child: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
+        child: Padding(
+          padding: MediaQuery.of(context).viewInsets,
+          child: Column(
+            children: [
+              // Header
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 5.0, left: 10, right: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                            onTap: () => Navigator.pop(context),
-                            child: const Icon(Icons.close, color: Colors.white),
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: const Icon(Icons.close, color: Colors.white),
+                    ),
+                    const Icon(Icons.more_vert, color: Colors.white),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              CircleAvatar(
+                radius: 40,
+                backgroundColor: Colors.grey,
+                backgroundImage: NetworkImage(widget.otherUserImageUrl),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                widget.otherUserName,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // Chat Messages
+              Expanded(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: _chatService.getMessages(_chatId),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    final messages = snapshot.data?.docs ?? [];
+
+                    return ListView.builder(
+                      reverse: true,
+                      itemCount: messages.length,
+                      itemBuilder: (context, index) {
+                        final msg = messages[index];
+                        final isMe = msg['senderId'] == widget.currentUserId;
+
+                        return Align(
+                          alignment: isMe
+                              ? Alignment.centerRight
+                              : Alignment.centerLeft,
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 4, horizontal: 8),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 12),
+                            decoration: BoxDecoration(
+                              color: isMe ? Colors.blue[600] : Colors.grey[700],
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              msg['text'],
+                              style: const TextStyle(color: Colors.white),
+                            ),
                           ),
-                          const Icon(Icons.more_vert, color: Colors.white),
-                        ],
-                      ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+
+              // Input
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                decoration: const BoxDecoration(
+                  border:
+                      Border(top: BorderSide(color: Colors.grey, width: 0.5)),
+                ),
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon:
+                          const Icon(Icons.add, color: Colors.white, size: 30),
+                      onPressed: () {}, // attachment support later
                     ),
-                    const SizedBox(height: 20),
-                    const CircleAvatar(
-                      radius: 40,
-                      backgroundColor: Colors.grey,
-                      backgroundImage: NetworkImage(
-                        'https://i.pravatar.cc/150?img=10',
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    const Text(
-                      'John Doe',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 40),
-                    const Icon(Icons.message, color: Colors.white),
-                    const SizedBox(height: 10),
-                    RichText(
-                      text: const TextSpan(
-                        text: 'Say hello to ',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey[800],
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        children: [
-                          TextSpan(
-                            text: 'John',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
+                        child: TextField(
+                          controller: _messageController,
+                          onSubmitted: (_) => _sendMessage(),
+                          decoration: InputDecoration(
+                            hintText: "Message ${widget.otherUserName}",
+                            hintStyle: TextStyle(
+                                color: Colors.grey[400], fontSize: 16.sp),
+                            border: InputBorder.none,
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
                           ),
-                          TextSpan(
-                            text: ' and share a little',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 2),
-                    const Text(
-                      'something about yourself!',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    IconButton(
+                      icon: const Icon(Icons.send, color: Colors.white),
+                      onPressed: _sendMessage,
                     ),
                   ],
                 ),
               ),
-            ),
-            Container(
-              height: 0.05.sh,
-              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-              decoration: const BoxDecoration(
-                color: Colors.transparent,
-                border: Border(top: BorderSide(color: Colors.grey, width: 0.5)),
-              ),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.add, color: Colors.white, size: 32),
-                    onPressed: () {},
-                  ),
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey[800],
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: TextField(
-                        textAlign: TextAlign.start,
-                        decoration: InputDecoration(
-                          hintText: "Message John",
-                          hintStyle: TextStyle(
-                              color: Colors.grey[400], fontSize: 16.sp),
-                          border: InputBorder.none,
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 8,
-                            horizontal: 8,
-                          ),
-                        ),
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

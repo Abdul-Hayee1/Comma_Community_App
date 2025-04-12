@@ -7,8 +7,8 @@ class Post {
   final String role;
   final String content;
   final String postedTime;
-  final int comments;
-  final int likes;
+  final int commentCount;
+  final int likeCount;
   final String? profileImage;
 
   Post({
@@ -16,10 +16,22 @@ class Post {
     required this.role,
     required this.content,
     required this.postedTime,
-    required this.comments,
-    required this.likes,
+    required this.commentCount,
+    required this.likeCount,
     this.profileImage,
   });
+
+  factory Post.fromFirestore(Map<String, dynamic> data) {
+    return Post(
+      author: data['author'],
+      role: data['role'],
+      content: data['content'],
+      postedTime: data['postedTime'],
+      commentCount: data['commentCount'],
+      likeCount: data['likeCount'],
+      profileImage: data['profileImage'],
+    );
+  }
 }
 
 class PostWidget extends StatefulWidget {
@@ -92,7 +104,7 @@ class _PostWidgetState extends State<PostWidget> {
                         },
                       ),
                       Text(
-                        widget.post.comments.toString(),
+                        widget.post.commentCount.toString(),
                         style: const TextStyle(color: Colors.white),
                       ),
                     ],
@@ -105,7 +117,7 @@ class _PostWidgetState extends State<PostWidget> {
                         onPressed: () {},
                       ),
                       Text(
-                        widget.post.likes.toString(),
+                        widget.post.likeCount.toString(),
                         style: const TextStyle(color: Colors.white),
                       ),
                     ],

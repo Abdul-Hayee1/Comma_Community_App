@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously, unused_local_variable, no_leading_underscores_for_local_identifiers, avoid_print
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:comma_community_app/modules/boarding/auth/controller/auth_controller.dart';
 import 'package:comma_community_app/modules/main/profile/controller/profile_controller.dart';
 import 'package:comma_community_app/one_signal/one_signal_service.dart';
@@ -119,24 +120,61 @@ class LoginScreen extends ConsumerWidget {
                       },
                     );
                     User? user = await authNotifier.signInWithEmailPassword(
-                        context,
-                        _emailController.text,
-                        _passwordController.text);
-                    authNotifier.clearSignInFields();
+                      context,
+                      _emailController.text.trim(),
+                      _passwordController.text.trim(),
+                    );
 
                     if (user != null) {
-                      authNotifier.resetDrawerState(ref);
-                      Navigator.pushReplacementNamed(context, "/");
-                      await OneSignal.User.addTagWithKey("user_id",
-                          FirebaseAuth.instance.currentUser?.uid ?? "0");
-                      await Future.delayed(const Duration(seconds: 5));
-                      sendNotification(
-                        "Welcome, ${profileController.userName}! We're happy to have you here. Enjoy your experience! ✨",
-                        userId: FirebaseAuth.instance.currentUser?.uid,
-                      );
+                      final userDoc = await FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(user.uid)
+                          .get();
 
-                      print("Signed in with email password");
+                      final status = userDoc.data()?['status'] ?? 'pending';
+
+                      if (status == 'approved') {
+                        Navigator.pop(context);
+                        authNotifier.clearSignInFields();
+                        authNotifier.resetDrawerState(ref);
+                        Navigator.pushReplacementNamed(context, "/");
+
+                        await OneSignal.User.addTagWithKey("user_id",
+                            FirebaseAuth.instance.currentUser?.uid ?? "0");
+
+                        await Future.delayed(const Duration(seconds: 5));
+
+                        sendNotification(
+                          "Welcome, ${profileController.userName}! We're happy to have you here. Enjoy your experience! ✨",
+                          userId: FirebaseAuth.instance.currentUser?.uid,
+                        );
+
+                        print("Signed in with email/password");
+                      } else {
+                        Navigator.pop(context);
+
+                        String message = status == 'pending'
+                            ? "Your account is still pending approval. Please wait for admin approval."
+                            : "Your account has been rejected. Please contact support.";
+
+                        await showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text("Access Denied"),
+                            content: Text(message),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: const Text("OK"),
+                              ),
+                            ],
+                          ),
+                        );
+
+                        await FirebaseAuth.instance.signOut();
+                      }
                     } else {
+                      Navigator.pop(context);
                       print("Sign in failed");
                     }
                   },

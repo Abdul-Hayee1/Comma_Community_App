@@ -1,18 +1,26 @@
 import 'dart:io';
 
+import 'package:comma_community_app/modules/boarding/auth/view/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:dashed_circle/dashed_circle.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AddPhotoScreen extends StatefulWidget {
+class AddPhotoScreen extends ConsumerStatefulWidget {
   const AddPhotoScreen({super.key});
 
   @override
-  State<AddPhotoScreen> createState() => _AddPhotoState();
+  ConsumerState<AddPhotoScreen> createState() => _AddPhotoState();
 }
 
-class _AddPhotoState extends State<AddPhotoScreen> {
+class _AddPhotoState extends ConsumerState<AddPhotoScreen> {
   @override
   Widget build(BuildContext context) {
+    final user = ref.watch(authNotifierProvider).value;
+    final uid = user?.uid;
+
+    if (uid == null) {
+      return const Center(child: Text("User not signed in"));
+    }
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xFF141821),

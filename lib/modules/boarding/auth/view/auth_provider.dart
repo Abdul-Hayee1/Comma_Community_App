@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,10 +13,11 @@ class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
   Future<void> createUserWithEmailAndPassword({
     required String email,
     required String password,
+    required String firstName,
+    required String lastName,
   }) async {
     state = const AsyncValue.loading();
     try {
-      // Validate fields first
       if (password.length < 6) {
         throw FirebaseAuthException(
           code: 'weak-password',
@@ -34,6 +36,21 @@ class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
         email: email.trim(),
         password: password.trim(),
       );
+
+      User? user = userCredential.user;
+
+      // Save user data to Firestore
+      await FirebaseFirestore.instance.collection('users').doc(user!.uid).set({
+        'firstName': firstName,
+        'lastName': lastName,
+        'email': email,
+        'createdAt': FieldValue.serverTimestamp(),
+        'status': 'pending',
+      });
+
+      // Optionally update displayName in Firebase Auth profile
+      await user.updateDisplayName('$firstName $lastName');
+
       state = AsyncValue.data(userCredential.user);
     } catch (e, st) {
       state = AsyncValue.error(e, st);

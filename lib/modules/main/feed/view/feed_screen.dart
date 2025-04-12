@@ -1,94 +1,11 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:comma_community_app/modules/main/profile/controller/profile_controller.dart';
 import 'package:comma_community_app/providers/profile_provider.dart';
 import 'package:comma_community_app/widgets/custom_post_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-List<Post> posts = [
-  Post(
-    author: "Dr. John Carter",
-    role: "Cardiologist",
-    content: "Heart health is the key to a longer life! ❤️",
-    postedTime: "2h ago",
-    comments: 18,
-    likes: 67,
-    profileImage: "https://randomuser.me/api/portraits/men/32.jpg",
-  ),
-  Post(
-    author: "Dr. Sarah Thompson",
-    role: "Pediatrician",
-    content: "Children's health should always be a priority. 👶",
-    postedTime: "5h ago",
-    comments: 10,
-    likes: 54,
-    profileImage: "https://randomuser.me/api/portraits/women/45.jpg",
-  ),
-  Post(
-    author: "Dr. Alex Roberts",
-    role: "Neurosurgeon",
-    content: "The brain is the most fascinating organ! 🧠",
-    postedTime: "1d ago",
-    comments: 25,
-    likes: 98,
-    profileImage: "https://randomuser.me/api/portraits/men/58.jpg",
-  ),
-  Post(
-    author: "Nurse Emily White",
-    role: "Registered Nurse",
-    content: "Nurses are the backbone of healthcare. 🏥",
-    postedTime: "3d ago",
-    comments: 22,
-    likes: 80,
-    profileImage: "https://randomuser.me/api/portraits/women/33.jpg",
-  ),
-  Post(
-    author: "Dr. Daniel Lee",
-    role: "Orthopedic Surgeon",
-    content: "Strong bones, strong body! 🦴",
-    postedTime: "4d ago",
-    comments: 12,
-    likes: 72,
-    profileImage: "https://randomuser.me/api/portraits/men/40.jpg",
-  ),
-  Post(
-    author: "Dr. Olivia Adams",
-    role: "Dermatologist",
-    content: "Healthy skin, happy life! 🌿",
-    postedTime: "1w ago",
-    comments: 15,
-    likes: 85,
-    profileImage: "https://randomuser.me/api/portraits/women/60.jpg",
-  ),
-  Post(
-    author: "Dr. William Brown",
-    role: "General Physician",
-    content: "Preventive care is the best medicine! 💊",
-    postedTime: "2w ago",
-    comments: 30,
-    likes: 120,
-    profileImage: "https://randomuser.me/api/portraits/men/50.jpg",
-  ),
-  Post(
-    author: "Dr. Sophia Green",
-    role: "Psychiatrist",
-    content: "Mental health matters just as much as physical health. 💙",
-    postedTime: "3w ago",
-    comments: 18,
-    likes: 90,
-    profileImage: "https://randomuser.me/api/portraits/women/20.jpg",
-  ),
-  Post(
-    author: "Dr. Michael Johnson",
-    role: "Endocrinologist",
-    content: "Balancing hormones is key to overall well-being. 🧬",
-    postedTime: "1mo ago",
-    comments: 12,
-    likes: 65,
-    profileImage: "https://randomuser.me/api/portraits/men/35.jpg",
-  ),
-];
 
 class FeedScreen extends ConsumerStatefulWidget {
   const FeedScreen({super.key});
@@ -100,6 +17,7 @@ class FeedScreen extends ConsumerStatefulWidget {
 class _FeedScreenState extends ConsumerState<FeedScreen> {
   late ProfileController profileController;
   late ProfileNotifier profileNotifier;
+  final _postController = TextEditingController();
 
   @override
   void initState() {
@@ -110,20 +28,59 @@ class _FeedScreenState extends ConsumerState<FeedScreen> {
     });
   }
 
+  void createPost() {
+    if (_postController.text.isNotEmpty) {
+      FirebaseFirestore.instance.collection('User Posts').add({
+        'author': profileController.userName,
+        // 'role': profileController.role,
+        'content': _postController.text,
+        'timestamp': FieldValue.serverTimestamp(),
+        'commentCount': 0,
+        'likeCount': 0,
+        // 'profileImage': profileController.profileImage,
+      }).then((value) {
+        _postController.clear();
+      }).catchError((error) {
+        print("Failed to add post: $error");
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<Post> latestPosts = posts.take(6).toList();
     profileController = ref.watch(profileNotifierProvider);
     profileNotifier = ref.read(profileNotifierProvider.notifier);
 
     return SingleChildScrollView(
       child: Column(
         children: [
-          ...latestPosts.map(
-            (post) => PostWidget(
-              post: post,
-            ),
+          StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance
+                .collection('User Posts')
+                // .orderBy('timestamp', descending: true)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              }
+
+              if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                return const Text("No posts found.",
+                    style: TextStyle(color: Colors.white));
+              }
+
+              final docs = snapshot.data!.docs;
+
+              return Column(
+                children: docs.map((doc) {
+                  final data = doc.data() as Map<String, dynamic>;
+                  final post = Post.fromFirestore(data);
+                  return PostWidget(post: post);
+                }).toList(),
+              );
+            },
           ),
+          const SizedBox(height: 30),
         ],
       ),
     );

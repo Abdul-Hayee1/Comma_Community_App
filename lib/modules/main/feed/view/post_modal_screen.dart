@@ -24,10 +24,15 @@ class _PostModalScreenState extends State<PostModalScreen> {
                     EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.0.h),
                 child: Column(
                   children: [
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(Icons.close, color: Colors.white),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Icon(Icons.close, color: Colors.white),
+                        ),
                         Icon(Icons.more_vert, color: Colors.white)
                       ],
                     ),

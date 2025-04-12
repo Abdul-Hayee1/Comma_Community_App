@@ -286,7 +286,12 @@ class ChatContact_ListModalState extends ConsumerState<ChatContact_ListModal> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      showConversationBottomModal(context);
+                      showConversationBottomModal(context,
+                          currentUserId: 'uid1',
+                          otherUserId: 'uid2',
+                          otherUserName: 'john Doe',
+                          otherUserImageUrl:
+                              'https://randomuser.me/api/portraits/women/2.jpg');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueAccent,
