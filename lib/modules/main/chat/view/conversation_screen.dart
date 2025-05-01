@@ -9,6 +9,8 @@ void showConversationBottomModal(
   required String otherUserId,
   required String otherUserName,
   required String otherUserImageUrl,
+  required String currentUserName,
+  required currentUserImageUrl,
 }) {
   showModalBottomSheet(
     context: context,
@@ -124,7 +126,7 @@ class _ConversationModalSheetState extends State<_ConversationModalSheet> {
                     final messages = snapshot.data?.docs ?? [];
 
                     return ListView.builder(
-                      reverse: true,
+                      reverse: false,
                       itemCount: messages.length,
                       itemBuilder: (context, index) {
                         final msg = messages[index];
@@ -144,7 +146,7 @@ class _ConversationModalSheetState extends State<_ConversationModalSheet> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Text(
-                              msg['text'],
+                              msg['message'],
                               style: const TextStyle(color: Colors.white),
                             ),
                           ),
@@ -167,7 +169,7 @@ class _ConversationModalSheetState extends State<_ConversationModalSheet> {
                     IconButton(
                       icon:
                           const Icon(Icons.add, color: Colors.white, size: 30),
-                      onPressed: () {}, // attachment support later
+                      onPressed: () {},
                     ),
                     Expanded(
                       child: Container(

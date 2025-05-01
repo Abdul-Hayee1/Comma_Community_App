@@ -13,6 +13,7 @@ import 'package:comma_community_app/modules/main/appearance/appearance.dart';
 import 'package:comma_community_app/modules/main/bookmarks/bookmarks.dart';
 import 'package:comma_community_app/modules/main/chat/view/search_chat.dart';
 import 'package:comma_community_app/modules/main/events/events_calendar.dart';
+import 'package:comma_community_app/modules/main/feed/view/create_post_screen.dart';
 import 'package:comma_community_app/modules/main/networkDetails/network_details.dart';
 import 'package:comma_community_app/modules/main/view/main_screen.dart';
 import 'package:comma_community_app/modules/main/startHere/welcome_screen.dart';
@@ -80,6 +81,7 @@ class App extends ConsumerWidget {
             "/appearance": (context) => const AppearanceScreen(),
             "/searchChat": (context) => const SearchChat(),
             "/calendar": (context) => const CalendarScreen(),
+            "/createPost": (context) => const CreatePostScreen(),
           },
         );
       },

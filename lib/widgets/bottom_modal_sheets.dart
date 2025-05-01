@@ -106,7 +106,7 @@ void showAddNewChatModal(BuildContext context) {
       ),
     ),
     builder: (context) {
-      return const ChatContact_ListModal();
+      return ChatContactListModal();
     },
   );
 }

@@ -3,7 +3,8 @@ import 'package:lucide_icons/lucide_icons.dart';
 import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 
 class Post {
-  final String author;
+  final String firstName;
+  final String lastName;
   final String role;
   final String content;
   final String postedTime;
@@ -12,7 +13,8 @@ class Post {
   final String? profileImage;
 
   Post({
-    required this.author,
+    required this.firstName,
+    required this.lastName,
     required this.role,
     required this.content,
     required this.postedTime,
@@ -23,15 +25,18 @@ class Post {
 
   factory Post.fromFirestore(Map<String, dynamic> data) {
     return Post(
-      author: data['author'],
-      role: data['role'],
-      content: data['content'],
-      postedTime: data['postedTime'],
-      commentCount: data['commentCount'],
-      likeCount: data['likeCount'],
-      profileImage: data['profileImage'],
+      firstName: (data['firstName'] ?? '') as String,
+      lastName: (data['lastName'] ?? '') as String,
+      role: (data['role'] ?? '') as String,
+      content: (data['content'] ?? '') as String,
+      postedTime: (data['postedTime'] ?? '') as String,
+      commentCount: (data['commentCount'] ?? 0) as int,
+      likeCount: (data['likeCount'] ?? 0) as int,
+      profileImage: data['profileImage'] as String?,
     );
   }
+
+  String get fullName => '$firstName $lastName';
 }
 
 class PostWidget extends StatefulWidget {
@@ -68,19 +73,26 @@ class _PostWidgetState extends State<PostWidget> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(widget.post.author,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white)),
-                      Text(widget.post.role,
-                          style: const TextStyle(color: Colors.grey)),
+                      Text(
+                        widget.post.fullName,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        widget.post.role,
+                        style: const TextStyle(color: Colors.grey),
+                      ),
                     ],
                   ),
                 ],
               ),
               const SizedBox(height: 10),
-              Text(widget.post.content,
-                  style: const TextStyle(color: Colors.white)),
+              Text(
+                widget.post.content,
+                style: const TextStyle(color: Colors.white),
+              ),
               const SizedBox(height: 10),
               Text(
                 "Posted ${widget.post.postedTime}",
@@ -91,8 +103,9 @@ class _PostWidgetState extends State<PostWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                      onTap: () {},
-                      child: const Icon(Icons.more_vert, color: Colors.white)),
+                    onTap: () {},
+                    child: const Icon(Icons.more_vert, color: Colors.white),
+                  ),
                   const Spacer(),
                   Row(
                     children: [

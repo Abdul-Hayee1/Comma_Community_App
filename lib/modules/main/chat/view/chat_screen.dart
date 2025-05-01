@@ -1,12 +1,8 @@
-// ignore_for_file: unused_local_variable, camel_case_types
-
-import 'dart:io';
-
-import 'package:comma_community_app/modules/main/profile/controller/profile_controller.dart';
-import 'package:comma_community_app/providers/profile_provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:comma_community_app/modules/main/chat/view/conversation_screen.dart';
 import 'package:comma_community_app/widgets/bottom_modal_sheets.dart';
 import 'package:comma_community_app/widgets/my_button.dart';
-import 'package:comma_community_app/modules/main/chat/view/conversation_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,301 +11,145 @@ class ChatScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ProfileController profileController = ref.watch(profileNotifierProvider);
-    ProfileNotifier profileNotifier =
-        ref.read(profileNotifierProvider.notifier);
-    final List<Map<String, String>> users = [
-      {
-        'firstName': profileController.firstName.isNotEmpty
-            ? profileController.firstName
-            : '',
-        'lastName': profileController.lastName.isNotEmpty
-            ? profileController.lastName
-            : '',
-        'image': profileController.photoUrl,
-        'isUserImage': "true",
-      },
-      {
-        'firstName': 'Shadi',
-        'lastName': 'Fallahr',
-        'image': 'https://randomuser.me/api/portraits/women/2.jpg',
-        'isUserImage': "false",
-      },
-      {
-        'firstName': 'Miriam',
-        'lastName': 'Adebibe',
-        'image': 'https://randomuser.me/api/portraits/women/3.jpg',
-        'isUserImage': "false",
-      },
-      {
-        'firstName': 'Katarzyna',
-        'lastName': 'Stabiak',
-        'image': 'https://randomuser.me/api/portraits/women/4.jpg',
-        'isUserImage': "false",
-      },
-      {
-        'firstName': 'Kara',
-        'lastName': 'Lekuse',
-        'image': 'https://randomuser.me/api/portraits/women/5.jpg',
-        'isUserImage': "false",
-      },
-      {
-        'firstName': 'Jules',
-        'lastName': 'Beaven',
-        'image': 'https://randomuser.me/api/portraits/men/6.jpg',
-        'isUserImage': "false",
-      },
-      {
-        'firstName': 'Lucas',
-        'lastName': 'Bennett',
-        'image': 'https://randomuser.me/api/portraits/men/7.jpg',
-        'isUserImage': "false",
-      },
-      {
-        'firstName': 'Emma',
-        'lastName': 'Johansson',
-        'image': 'https://randomuser.me/api/portraits/women/8.jpg',
-        'isUserImage': "false",
-      },
-      {
-        'firstName': 'Ethan',
-        'lastName': 'Roberts',
-        'image': 'https://randomuser.me/api/portraits/men/9.jpg',
-        'isUserImage': "false",
-      },
-      {
-        'firstName': 'Sophia',
-        'lastName': 'Carter',
-        'image': 'https://randomuser.me/api/portraits/women/10.jpg',
-        'isUserImage': "false",
-      },
-      {
-        'firstName': 'Daniel',
-        'lastName': 'Smith',
-        'image': 'https://randomuser.me/api/portraits/men/11.jpg',
-        'isUserImage': "false",
-      },
-      {
-        'firstName': 'Olivia',
-        'lastName': 'Martin',
-        'image': 'https://randomuser.me/api/portraits/women/12.jpg',
-        'isUserImage': "false",
-      },
-    ];
-    return SingleChildScrollView(
-      child: Center(
-        child: Column(
-          children: [
-            const SizedBox(height: 10),
-            SizedBox(
-              height: 105,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: users.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Column(
-                      children: [
-                        Stack(
+    final currentUserId = FirebaseAuth.instance.currentUser?.uid ?? '';
+
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('users').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          return const Center(
+            child: Text(
+              'No users found.',
+              style: TextStyle(color: Colors.white),
+            ),
+          );
+        }
+
+        final allUsers = snapshot.data!.docs
+            .where((doc) => doc.id != currentUserId)
+            .toList();
+
+        return SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: [
+                const SizedBox(height: 10),
+                SizedBox(
+                  height: 105,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: allUsers.length,
+                    itemBuilder: (context, index) {
+                      final userData = allUsers[index];
+                      final firstName = userData['firstName'] ?? '';
+                      final lastName = userData['lastName'] ?? '';
+                      final imageUrl = userData['profilePhoto'] ?? '';
+
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Column(
                           children: [
-                            users[index]['isUserImage'] == "true" &&
-                                    profileController
-                                        .profileImagePath.isNotEmpty
-                                ? CircleAvatar(
-                                    backgroundImage: FileImage(File(
-                                        profileController.profileImagePath)),
-                                    radius: 30,
-                                  )
-                                : FutureBuilder<File?>(
-                                    future: profileNotifier.getProfileImage(),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasData &&
-                                          snapshot.data != null &&
-                                          users[index]['isUserImage'] ==
-                                              "true") {
-                                        return CircleAvatar(
-                                          backgroundImage:
-                                              FileImage(snapshot.data!),
-                                          radius: 30,
-                                        );
-                                      }
-                                      return CircleAvatar(
-                                        backgroundImage: NetworkImage(
-                                            users[index]['image'] ?? ''),
-                                        radius: 30,
-                                      );
-                                    },
-                                  ),
-                            Positioned(
-                              bottom: 2,
-                              right: 2,
-                              child: Container(
-                                width: 14,
-                                height: 14,
-                                decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  shape: BoxShape.circle,
-                                  border:
-                                      Border.all(color: Colors.black, width: 2),
+                            Stack(
+                              children: [
+                                CircleAvatar(
+                                  backgroundImage: NetworkImage(imageUrl),
+                                  radius: 30,
                                 ),
+                                Positioned(
+                                  bottom: 2,
+                                  right: 2,
+                                  child: Container(
+                                    width: 14,
+                                    height: 14,
+                                    decoration: BoxDecoration(
+                                      color: Colors.green,
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                          color: Colors.black, width: 2),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 4),
+                            SizedBox(
+                              width: 60,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    firstName,
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                  ),
+                                  Text(
+                                    lastName,
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 4),
-                        SizedBox(
-                          width: 60,
-                          child: Column(
-                            children: [
-                              Text(
-                                users[index]['firstName']!,
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 14),
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              ),
-                              Text(
-                                users[index]['lastName']!,
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 14),
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+                      );
+                    },
+                  ),
+                ),
+                Divider(
+                  color: Colors.grey[800],
+                  thickness: 1,
+                ),
+                const SizedBox(height: 70),
+                const Icon(Icons.chat, size: 30, color: Colors.white),
+                const SizedBox(height: 15),
+                const Text(
+                  'There are no active chats.',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+                const SizedBox(height: 15),
+                MyButton(
+                  hintText: 'Add a Chat',
+                  onPressed: () {
+                    showAddNewChatModal(context);
+                  },
+                  bgcolor: Colors.blue,
+                  isOutlined: false,
+                ),
+              ],
             ),
-            Divider(
-              color: Colors.grey[800],
-              thickness: 1,
-            ),
-            const SizedBox(height: 70),
-            const Icon(Icons.chat, size: 30, color: Colors.white),
-            const SizedBox(height: 15),
-            const Text(
-              'There are no active chats.',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-              ),
-            ),
-            const SizedBox(height: 15),
-            MyButton(
-                hintText: 'Add a Chat',
-                onPressed: () {
-                  showAddNewChatModal(context);
-                },
-                bgcolor: Colors.blue,
-                isOutlined: false)
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
 
-class ChatContact_ListModal extends ConsumerStatefulWidget {
-  const ChatContact_ListModal({super.key});
+class ChatContactListModal extends ConsumerStatefulWidget {
+  const ChatContactListModal({super.key});
 
   @override
-  ChatContact_ListModalState createState() => ChatContact_ListModalState();
+  ChatContactListModalState createState() => ChatContactListModalState();
 }
 
-class ChatContact_ListModalState extends ConsumerState<ChatContact_ListModal> {
+class ChatContactListModalState extends ConsumerState<ChatContactListModal> {
+  TextEditingController searchController = TextEditingController();
+  List<bool> selectedContacts = [];
+
   @override
   Widget build(BuildContext context) {
-    ProfileController profileController = ref.watch(profileNotifierProvider);
-    ProfileNotifier profileNotifier =
-        ref.read(profileNotifierProvider.notifier);
-
-    final List<Map<String, String>> users = [
-      {
-        'firstName': profileController.firstName.isNotEmpty
-            ? profileController.firstName
-            : '',
-        'lastName': profileController.lastName.isNotEmpty
-            ? profileController.lastName
-            : '',
-        'image': profileController.photoUrl,
-        'isUserImage': "true",
-      },
-      {
-        'firstName': 'Shadi',
-        'lastName': 'Fallahr',
-        'image': 'https://randomuser.me/api/portraits/women/2.jpg',
-        'isUserImage': "false",
-      },
-      {
-        'firstName': 'Miriam',
-        'lastName': 'Adebibe',
-        'image': 'https://randomuser.me/api/portraits/women/3.jpg',
-        'isUserImage': "false",
-      },
-      {
-        'firstName': 'Katarzyna',
-        'lastName': 'Stabiak',
-        'image': 'https://randomuser.me/api/portraits/women/4.jpg',
-        'isUserImage': "false",
-      },
-      {
-        'firstName': 'Kara',
-        'lastName': 'Lekuse',
-        'image': 'https://randomuser.me/api/portraits/women/5.jpg',
-        'isUserImage': "false",
-      },
-      {
-        'firstName': 'Jules',
-        'lastName': 'Beaven',
-        'image': 'https://randomuser.me/api/portraits/men/6.jpg',
-        'isUserImage': "false",
-      },
-      {
-        'firstName': 'Lucas',
-        'lastName': 'Bennett',
-        'image': 'https://randomuser.me/api/portraits/men/7.jpg',
-        'isUserImage': "false",
-      },
-      {
-        'firstName': 'Emma',
-        'lastName': 'Johansson',
-        'image': 'https://randomuser.me/api/portraits/women/8.jpg',
-        'isUserImage': "false",
-      },
-      {
-        'firstName': 'Ethan',
-        'lastName': 'Roberts',
-        'image': 'https://randomuser.me/api/portraits/men/9.jpg',
-        'isUserImage': "false",
-      },
-      {
-        'firstName': 'Sophia',
-        'lastName': 'Carter',
-        'image': 'https://randomuser.me/api/portraits/women/10.jpg',
-        'isUserImage': "false",
-      },
-      {
-        'firstName': 'Daniel',
-        'lastName': 'Smith',
-        'image': 'https://randomuser.me/api/portraits/men/11.jpg',
-        'isUserImage': "false",
-      },
-      {
-        'firstName': 'Olivia',
-        'lastName': 'Martin',
-        'image': 'https://randomuser.me/api/portraits/women/12.jpg',
-        'isUserImage': "false",
-      },
-    ];
-    List<bool> selectedContacts = List.generate(users.length, (index) => false);
-    TextEditingController searchController = TextEditingController();
     return FractionallySizedBox(
       heightFactor: 0.93,
       child: SafeArea(
@@ -323,8 +163,9 @@ class ChatContact_ListModalState extends ConsumerState<ChatContact_ListModal> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: const Icon(Icons.close, color: Colors.white)),
+                    onTap: () => Navigator.pop(context),
+                    child: const Icon(Icons.close, color: Colors.white),
+                  ),
                   const Text(
                     "Start a Chat",
                     style: TextStyle(
@@ -334,13 +175,50 @@ class ChatContact_ListModalState extends ConsumerState<ChatContact_ListModal> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      showConversationBottomModal(context,
-                          currentUserId: 'uid1',
-                          otherUserId: 'uid2',
-                          otherUserName: 'john Doe',
-                          otherUserImageUrl:
-                              'https://randomuser.me/api/portraits/women/2.jpg');
+                    onPressed: () async {
+                      final snapshot = await FirebaseFirestore.instance
+                          .collection('users')
+                          .get();
+                      final users = snapshot.docs;
+
+                      final selectedIndex = selectedContacts
+                          .indexWhere((isSelected) => isSelected);
+                      if (selectedIndex == -1) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Please select a user")),
+                        );
+                        return;
+                      }
+
+                      final selectedUserData = users[selectedIndex].data();
+                      final currentUserId =
+                          FirebaseAuth.instance.currentUser?.uid;
+
+                      if (currentUserId == null) return;
+
+                      final currentUserSnapshot = await FirebaseFirestore
+                          .instance
+                          .collection('users')
+                          .doc(currentUserId)
+                          .get();
+
+                      final currentUserData = currentUserSnapshot.data();
+
+                      if (currentUserData == null) return;
+
+                      showConversationBottomModal(
+                        context,
+                        currentUserId: currentUserId,
+                        otherUserId: users[selectedIndex].id,
+                        otherUserName:
+                            "${selectedUserData['firstName']} ${selectedUserData['lastName']}",
+                        otherUserImageUrl:
+                            selectedUserData['profilePhoto'] ?? "",
+                        currentUserName:
+                            "${currentUserData['firstName']} ${currentUserData['lastName']}",
+                        currentUserImageUrl:
+                            currentUserData['profilePhoto'] ?? "",
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueAccent,
@@ -354,9 +232,10 @@ class ChatContact_ListModalState extends ConsumerState<ChatContact_ListModal> {
                     child: Text(
                       "Next",
                       style: TextStyle(
-                          color: Colors.grey[400],
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold),
+                        color: Colors.grey[400],
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],
@@ -386,72 +265,87 @@ class ChatContact_ListModalState extends ConsumerState<ChatContact_ListModal> {
                       side: BorderSide(color: Colors.grey, width: 2),
                     ),
                   ),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: users.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
+                  child: FutureBuilder<QuerySnapshot>(
+                    future:
+                        FirebaseFirestore.instance.collection('users').get(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+                      if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      }
+
+                      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                        return const Center(child: Text('No users found.'));
+                      }
+
+                      final users = snapshot.data!.docs;
+
+                      // Initialize selectedContacts if not already initialized
+                      if (selectedContacts.length != users.length) {
+                        selectedContacts =
+                            List.generate(users.length, (index) => false);
+                      }
+
+                      return ListView.builder(
+                        itemCount: users.length,
+                        itemBuilder: (context, index) {
+                          final user =
+                              users[index].data() as Map<String, dynamic>;
+
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                users[index]['isUserImage'] == "true" &&
-                                        profileController
-                                            .profileImagePath.isNotEmpty
-                                    ? CircleAvatar(
-                                        backgroundImage: FileImage(File(
-                                            profileController
-                                                .profileImagePath)),
-                                        radius: 16,
-                                      )
-                                    : FutureBuilder<File?>(
-                                        future:
-                                            profileNotifier.getProfileImage(),
-                                        builder: (context, snapshot) {
-                                          if (snapshot.hasData &&
-                                              snapshot.data != null &&
-                                              users[index]['isUserImage'] ==
-                                                  "true") {
-                                            return CircleAvatar(
-                                              backgroundImage:
-                                                  FileImage(snapshot.data!),
-                                              radius: 16,
-                                            );
-                                          }
-                                          return CircleAvatar(
+                                Row(
+                                  children: [
+                                    user['profilePhoto'] != null &&
+                                            user['profilePhoto']
+                                                .toString()
+                                                .isNotEmpty
+                                        ? CircleAvatar(
                                             backgroundImage: NetworkImage(
-                                                users[index]['image'] ?? ''),
+                                              user['profilePhoto'],
+                                            ),
                                             radius: 16,
-                                          );
-                                        },
-                                      ),
-                                const SizedBox(width: 10),
-                                Text(
-                                  "${users[index]['firstName']} ${users[index]['lastName']}",
-                                  style: const TextStyle(color: Colors.white),
+                                          )
+                                        : const CircleAvatar(
+                                            backgroundColor: Colors.grey,
+                                            radius: 16,
+                                            child: Icon(Icons.person,
+                                                color: Colors.white),
+                                          ),
+                                    const SizedBox(width: 10),
+                                    Text(
+                                      "${user['firstName']} ${user['lastName']}",
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                                Checkbox(
+                                  value: selectedContacts[index],
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      selectedContacts[index] = value!;
+                                    });
+                                  },
+                                  checkColor: Colors.blueAccent,
+                                  activeColor: Colors.transparent,
+                                  side: BorderSide(
+                                    color: selectedContacts[index]
+                                        ? Colors.blueAccent
+                                        : Colors.grey,
+                                    width: 2,
+                                  ),
                                 ),
                               ],
                             ),
-                            Checkbox(
-                              value: selectedContacts[index],
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  selectedContacts[index] = value!;
-                                });
-                              },
-                              checkColor: Colors.blueAccent,
-                              activeColor: Colors.transparent,
-                              side: BorderSide(
-                                color: selectedContacts[index]
-                                    ? Colors.blueAccent
-                                    : Colors.grey,
-                                width: 2,
-                              ),
-                            ),
-                          ],
-                        ),
+                          );
+                        },
                       );
                     },
                   ),

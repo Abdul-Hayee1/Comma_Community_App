@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class ChatService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  /// Consistent chat ID generator
   String generateChatId(String uid1, String uid2) {
     return uid1.compareTo(uid2) < 0 ? '${uid1}_$uid2' : '${uid2}_$uid1';
   }
@@ -18,7 +17,6 @@ class ChatService {
     final chatRef = _firestore.collection('chats').doc(chatId);
     final timestamp = FieldValue.serverTimestamp();
 
-    // Update or create chat doc
     await chatRef.set({
       'users': [senderId, receiverId],
       'lastMessage': messageText,
